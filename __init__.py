@@ -12,4 +12,16 @@ def create_app():
     def hello():
         return 'Hello, World!'
 
+    from apps import AuthBP
+    app.register_blueprint(AuthBP)
+
+    from apps import GameBP
+    app.register_blueprint(GameBP)
+
+    from apps import HomeBP
+    app.register_blueprint(HomeBP)
+
+    from apps import MainPageBP
+    app.register_blueprint(MainPageBP)
+
     return app
