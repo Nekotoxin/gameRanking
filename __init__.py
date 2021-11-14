@@ -11,10 +11,11 @@ def create_app():
     @app.route('/')
     def hello():
         return 'Hello, World!'
-    #AuthBP:用户注册 登录界面
+    #注册蓝图
+    #AuthBP:用户注册 登录界面蓝图
     from apps import AuthBP
     app.register_blueprint(AuthBP)
-    #GameBP:单个游戏的页面，会有用户的评论，感想和游戏的详细信息
+    #GameBP:单个游戏的页面蓝图
     from apps import GameBP
     app.register_blueprint(GameBP)
 
