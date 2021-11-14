@@ -1,7 +1,7 @@
 #文件名：auth.py
 #功能：用户认证
-#功能包括：用户登录，用户注册，用户退出
-#访问路径：http://127.0.0.1:5000/auth/login 后的响应写在这里
+#访问：http://127.0.0.1:5000/auth/login，http://127.0.0.1:5000/auth/register 等与账户登录挂钩的网址 后的响应写在这里
+#功能包括：用户登录，用户注册，用户退出，用户登录状态管理
 import functools
 import pymysql
 from flask import (
