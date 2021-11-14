@@ -1,3 +1,4 @@
+网站主页参考：https://bangumi.tv/game/browser?sort=rank
 分工：
 周：网站框架，前端
 张：登录模块，用户主页后端
