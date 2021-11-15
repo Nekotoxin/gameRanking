@@ -18,7 +18,6 @@ def create_app():
     #GameBP:单个游戏的页面蓝图
     from apps import GameBP
     app.register_blueprint(GameBP)
-
     #HomeBP:用户自己主页(功能有修改密码，用户名，放置用户发的感想等)的蓝图
     from apps import HomeBP
     app.register_blueprint(HomeBP)
