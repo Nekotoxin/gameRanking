@@ -15,7 +15,7 @@ DATABASENAME='gamerank'
 db=pymysql.connect(host=HOSTNAME,user=USERNAME,password=PASSWORD,db=DATABASENAME,charset='utf8')
 
 def init_app(app):
-    app.teardown_appcontext(close_db)
+    #app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
 
 def init_db():
@@ -27,8 +27,8 @@ def register_user(username,password):
 def login_user(username,password):
     return 0
 
-def close_db():
-    return 0
+# def close_db():
+#     return 0
 
 @click.command('init-db')
 @with_appcontext
