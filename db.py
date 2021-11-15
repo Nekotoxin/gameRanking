@@ -15,7 +15,8 @@ DATABASENAME='gamerank'
 db=pymysql.connect(host=HOSTNAME,user=USERNAME,password=PASSWORD,db=DATABASENAME,charset='utf8')
 
 def init_app(app):
-    return 0
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
 
 def init_db():
     return 0
