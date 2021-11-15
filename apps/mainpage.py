@@ -8,7 +8,6 @@ from flask import (
 )
 import hashlib
 from ..apps import MainPageBP
-
 ###############################################################################
 #   主页
 #   route: /
