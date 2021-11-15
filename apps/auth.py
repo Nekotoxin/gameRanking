@@ -20,6 +20,11 @@ from ..apps import AuthBP
 ###############################################################################
 @AuthBP.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        #获取用户名和密码
+        user_name = request.form['user_name']
+        password = request.form['password']
+        #..............................................
     return 0
 
 ###############################################################################

@@ -1,3 +1,5 @@
+#文件名：__init__.py
+#作用：初始化app，初始化蓝图，初始化数据库
 import os
 from flask import Flask
 
@@ -19,6 +21,7 @@ def create_app():
     #例如   __init__.py:@app.route('/game/<game_id>') (❌) 
     #      /apps/game.py:@GameBP.route('/<game_id>') (✔)   (/game前缀已经添加在了蓝图里)
     from . import db
+    #db.init_app(app)
     #注册蓝图
     #AuthBP:用户注册 登录界面蓝图
     from .apps import auth
