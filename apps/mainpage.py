@@ -7,9 +7,13 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 import hashlib
-from apps import MainPageBP
+from ..apps import MainPageBP
 
 ###############################################################################
 #   主页
 #   route: /
 ###############################################################################
+@MainPageBP.route('/')
+def mainpage():
+    #创建字典变量，存储游戏信息
+    return 'hello world'

@@ -15,13 +15,17 @@
 
 开发顺序:游戏排行榜(11.20前)->游戏详情(11.25前)->账户管理(11.30前)->发表评论(12.05前)
 
-目前任务：游戏排行榜(即网站主页，链接:http://127.0.0.1:5000/)
+目前任务：网站主页(链接:http://127.0.0.1:5000/)
+工作文件:
+@朱 mainpage.py,db.py 
+@Nekotoxin mainpage.html,base.html
+
 数据库创建表:game
     前端需求：传过来一个字典，名为games    
     形式：@return render_template('/mainpage.html', games=games)
     1.游戏表成员：游戏名称，游戏id，游戏评分，游戏类型，游戏简介，游戏图片路径，游戏更新时间，游戏收藏数，游戏评论数
     2.按id遍历游戏表，评分为从高到低
-    
+
     前端使用games字典的方法，示例：
         {% for game in games %}
         索引详细项方法：game['name']

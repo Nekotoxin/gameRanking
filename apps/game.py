@@ -7,5 +7,9 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 import hashlib
-from apps import GameBP
+from ..apps import GameBP
+
+@GameBP.route('/<game_id>')
+def game(game_id):
+    return 'hello game_id:'+game_id
 

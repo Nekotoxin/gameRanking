@@ -7,4 +7,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 import hashlib
-from apps import HomeBP
+from ..apps import UserBP
+
+@UserBP.route('/<user_name>', methods=['GET', 'POST'])
+def user(user_name):
+    return 'hello user_name:'+user_name
