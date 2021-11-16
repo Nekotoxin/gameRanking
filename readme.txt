@@ -17,7 +17,7 @@
 
 目前任务：网站主页(链接:http://127.0.0.1:5000/)
 工作文件:
-@朱 mainpage.py,db.py 
+@hughdazz mainpage.py,db.py 
 @Nekotoxin mainpage.html,base.html
 
 数据库设计@hughdazz:
