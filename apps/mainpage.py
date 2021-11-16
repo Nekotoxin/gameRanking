@@ -15,4 +15,4 @@ from ..apps import MainPageBP
 @MainPageBP.route('/')
 def mainpage():
     #创建字典变量，存储游戏信息
-    return 'hello world'
+    return render_template('/mainpage/mainpage.html')
