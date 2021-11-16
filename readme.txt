@@ -2,7 +2,7 @@
 分工：
 @Nekotoxin：网站框架，前端
 @royzhz：登录模块，用户主页后端
-朱：网站主页后端，数据库部分
+@hughdazz：网站主页后端，数据库部分
 
 数据库：
 数据库名字:gamerank
@@ -20,17 +20,19 @@
 @朱 mainpage.py,db.py 
 @Nekotoxin mainpage.html,base.html
 
-数据库创建表:game
-    前端需求：传过来一个字典，名为games    
-    形式：@return render_template('/mainpage.html', games=games)
-    1.游戏表成员：游戏名称，游戏id，游戏评分，游戏类型，游戏简介，游戏图片路径，游戏更新时间，游戏收藏数，游戏评论数
-    2.按id遍历游戏表，评分为从高到低
+数据库设计@hughdazz:
+gamerank
+	gameinfo
+		game_id,game_title,game_score,game_type,
+		game_intro,game_graph_path,
+		game_update_time,game_collect_num,
+		game_comments_num,{comments_table_id}
+	comments
+		{user_id},comment_time,conment_contents,
+	userinfo
+		user_id,user_name,user_regis_time,user_self_intro,
+		{collect_game_table,comment_table_id}
 
-    前端使用games字典的方法，示例：
-        {% for game in games %}
-        索引详细项方法：game['name']
-                game['points']等
-        {% endfor %}
     
     
 
