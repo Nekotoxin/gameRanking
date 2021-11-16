@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<title>gameRank</title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
-<nav>
-  <h1>gameRank</h1>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
+
+<head>
+    <title>gameRank</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static',filename='/css/style.css')}}">
+</head>
+
+<body>
+    <div class="navigator">
+        <div class="headbox">
+            <a href="{{url_for('mainpage.mainpage')}}">
+                <img class="logo" src="{{url_for('static',filename='/websiteMaterialStock/biglogo.png')}}" alt="logo">
+            </a>
+            <h1 class="header">gameRank</h1>
+        </div>
+        <!-- 登录 注册 -->
+        <div class="authBtn">
+            <a class="loginBtn" href="*">登录</a>
+            <a class="regBtn" href="*">注册</a>
+        </div>
+    </div>
+
+    <section class="gameRankList">
+        {% block gammeRankList %}{% endblock %}
+    </section>
+        
+        
+
+</body>

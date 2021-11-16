@@ -1,32 +1,55 @@
-nav {
-    background: rgb(255, 255, 255); 
-    display: flex; 
-    align-items: center; 
-    padding: 0 0.5rem;
+body{
+    background-color: #f2fac4;
+    margin:10px 100px 50px;
 }
-nav h1{
+
+.navigator{
+    border: 1px solid rgb(57, 199, 255);
+    height:150px;
+}
+.headbox{
+    width:30%;
+    height:150px;
+    float:left;
+    border: 1px solid rgb(0, 0, 0);
+    position:relative;
+    margin:auto;
+}
+
+.logo{
+    width:20%;
+    position:absolute;
+    left:0px;
+    box-sizing: border-box;
+    border: 1px solid rgb(0, 0, 0);
+    margin:auto;
     
-    font-size: 1.5em;
+}
+
+.header{
+    width:80%;
+    position:absolute;
+    right:0px;
+    border: 1px solid rgb(0, 0, 0);
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin:auto;
+}
+.authBtn{
     font-family: 'Courier New', Courier, monospace;
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
+    position:relative;
+    float:right;
+    border: 1px solid rgb(0, 0, 0);
 }
 
-nav li{
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-nav li a{
-    display: flex;
-    padding: 5px;
+.loginBtn{
+    color: rgb(0, 116, 248);
     text-decoration: none;
-    color: #000;
-    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 57, 57);
 }
 
-nav li a:hover{
-    background-color: #999;
+.regBtn{
+    color: rgb(0, 116, 248);
+    text-decoration: none;
+    border: 1px solid rgb(255, 57, 57);
 }
