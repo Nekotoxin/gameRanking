@@ -15,4 +15,6 @@ from ..apps import MainPageBP
 @MainPageBP.route('/')
 def mainpage():
     #创建字典变量，存储游戏信息
-    return render_template('/mainpage/mainpage.html')
+    #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
+    @hughdazz    
+    return render_template('/mainpage/mainpage.html',games=game_list_order_by_score)
