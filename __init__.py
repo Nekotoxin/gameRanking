@@ -19,8 +19,6 @@ def create_app():
     #注:路由响应不要写在这里 写在对应的蓝图文件里
     #例如   __init__.py:@app.route('/game/<game_id>') (❌) 
     #      /apps/game.py:@GameBP.route('/<game_id>') (✔)   (/game前缀已经添加在了蓝图里)
-    from . import db
-    db.init_app(app)
     #注册蓝图
     #AuthBP:用户注册 登录界面蓝图
     from .apps import auth

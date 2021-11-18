@@ -6,3 +6,4 @@ env
 .history
 *.png
 *.jpg
+*.db

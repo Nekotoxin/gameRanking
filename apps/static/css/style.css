@@ -1,16 +1,47 @@
-body{
-    background-color: #fcffec;
-    margin:10px 100px 50px;
-    background-image: url('../websiteMaterialStock/background.png');
+
+
+body,.navigator,.gameRankList::before{
+    background-image: url('../websiteMaterialStock/background.png') ;
     /* background-size:cover; */
 }
+/* 
+body, main::before { background: url("tiger.jpg") 0 / cover fixed; } 
+main { position: relative; background: hsla(0,0%,100%,.3); overflow: hidden; } 
+main::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; filter: blur(20px); margin: -30px; } */
+
+.navigator::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    filter:blur(20px);
+    margin:-30px;
+}
+
+.gameRankList::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    filter: blur(20px); 
+    margin: -30px;
+}
+
 
 .navigator{
     border: 1px solid rgb(57, 199, 255);
     height:150px;
     width:80%;
     margin:auto;
+    position: relative; 
+    background: hsla(0,0%,100%,.3); 
+    overflow: hidden;
 }
+
+
 .headbox{
     width:30%;
     height:150px;
@@ -81,6 +112,19 @@ body{
     font-size: x-small;
 }
 
+.logOutBtn{
+    width:35%;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    position: absolute;
+    border: 1px solid rgb(111, 0, 255);
+    padding: 0px 30px 0px;
+    font-size:x-small;
+    border-radius: 10px;
+    
+
+}
+
 .loginBtn:hover{
     background-color: rgb(255, 255, 255);
     text-decoration: none;
@@ -97,10 +141,20 @@ body{
     right:0px;
 }
 
-.ranklist{
-    margin:auto;
+.logOutBtn:hover{
+    background-color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.gameRankList{
+    
     width:80%;
     height:2000px;
+    position: relative; 
+    background: hsla(0,0%,100%,.3); 
+    overflow: hidden;
+    border:1px solid rgb(0, 0, 0);
+    margin: 50px auto 0px;
     /* background-color: rgb(249, 255, 217); */
 }
 
