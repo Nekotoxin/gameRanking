@@ -40,20 +40,24 @@ def login():
         #获取用户名和密码
         user_name = request.form['user_name']
         password = request.form['password']
+
         if not user_name or not password:
             flash('Invalid input')
             return redirect(url_for(login))
-        user=db.user_info.query.first()
-        if(user_name==user.user_name and check_password(user,password)):
+
+        user=db.user_info.query.query.filter_by(user_name=user_name).first()#获取用户信息
+
+        if(user is None):
+            flash('Invalid username')
+            return redirect(url_for('login'))
+        elif(user_name==user.user_name and check_password(user,password)):
             login_user(user);
             flash('login success')
             return redirect(url_for('index'))
         else:
-            if(user_name!=user.user_name):
-                flash('Invalid username')
-            else:
-                flash('password incorrect!')
-            return redirect(url_for('index'))
+            flash('password incorrect!')
+            return redirect(url_for('login'))
+
     return render_template('login.html')
 
 ###############################################################################
@@ -66,7 +70,24 @@ def login():
 ###############################################################################
 @AuthBP.route('/register', methods=['GET', 'POST'])
 def register():
-    return 0
+    if request.method=='POST':
+        user_name = request.form['user_name']
+        password = request.form['password']
+
+        user = db.user_info.query.query.filter_by(user_name=user_name).first()  # 获取用户信息
+
+        if(user is None):#名字可用
+            user.user_name=user_name
+            user.password=password
+            db.db.session.add(user)
+            db.db.session.commit()
+            flash('register success!')
+            redirect(url_for('index'))
+        else:#名字不可用
+            flash('the name has been registered!')
+            redirect(url_for('auth_page',name='register.html'))
+
+    return redirect(url_for('auth_page',name='register.html'))
 
 ###############################################################################
 #   退出
