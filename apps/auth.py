@@ -80,10 +80,3 @@ def logout():
     flash('logout success!')
     return redirect(url_for('index'))
 #其余功能.................................................................
-
-
-
-
-
-
-

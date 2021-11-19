@@ -3,7 +3,6 @@
 #功能函数包括：初始化数据库，插入数据，查询数据，更新数据，删除数据，关闭数据库,按照评分排序
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask_login import UserMixin
 
 db=SQLAlchemy()
 
@@ -48,7 +47,7 @@ class comment(db.Model):
     def __repr__(self):
         return '<comments: %>' %self.conment_contents
 
-class user_info(db.Model, UserMixin):
+class user_info(db.Model):
     user_id=db.Column(db.Integer, primary_key=True)
     user_name=db.Column(db.String(80), unique=True, nullable=False)
     user_regis_time=db.Column(db.DateTime)
@@ -56,8 +55,5 @@ class user_info(db.Model, UserMixin):
 
     def __repr__(self):
         return '<user: %>' %self.user_name
-
-
-    password_hash = db.Column(db.String(128))  # 储存密码
-
+    
 
