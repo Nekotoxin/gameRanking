@@ -21,15 +21,26 @@
         </div>
         <!-- 登录 注册 -->
         <div class="authBtn">
+            {% if g.user %}
+
             <a class="loginBtn" href="http://www.google.com" target="blank">登录</a>
             <a class="regBtn" href="http://www.google.com" target="blank">注册</a>
+
+            {% else %}
+            <a class="logOutBtn" href="http://www.google.com" target="blank">退出</a>
+            
+            {% endif %}
         </div>
     </div>
 
-    <section class="gameRankList">
-        {% block gammeRankList %}{% endblock %}
-    </section>
-        
-        
+    <div class="gameRankList" >
+        <p>qeqweqewqeqwe</p>
+        <section>
+            {% block gameRankList %}{% endblock %}
+        </section>
+    </div>
+    
+
+
 
 </body>
