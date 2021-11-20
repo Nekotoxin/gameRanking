@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import (LoginManager,login_user)
 
 from ..apps import AuthBP
-from .. import db
+from .. import db_control
 
 def set_password(user, password):  # 设置密码
     user.password_hash = generate_password_hash(password)
