@@ -2,20 +2,19 @@
 #功能：数据库操作
 #功能函数包括：初始化数据库，插入数据，查询数据，更新数据，删除数据，关闭数据库,按照评分排序
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, render_template
+from flask import Flask, render_template,Blueprint
 from datetime import datetime
 from datetime import datetime
 import click
 #对game_info,game_type,user_info,comment实现了add,delete,query,update接口
 #生成测试数据库:cmd下 flask initdb --drop,flask forge
 
+cmd = Blueprint('db', __name__) #created a Blueprint for this module
 
 db=SQLAlchemy()
-dbapp = Flask()
+
 def init_app(app):
     global db
-    global dbapp
-    dbapp=app
     db = SQLAlchemy(app)
     
 class game_info(db.Model):
@@ -161,16 +160,13 @@ def delete_user(comment_id):
 def update_all():
     db.session.commit()
 
-@dbapp.cli.command()  
-@click.option('--drop', is_flag=True, help='Create after drop.')  
-def initdb(drop):
-    """Initialize the database."""
-    if drop:  
-        db.drop_all()
+@cmd.cli.command('init-db')
+def initdb():
+    db.drop_all()
     db.create_all()
-    click.echo('Initialized database.') 
+    print('***** Datebase created ****')
 
-@dbapp.cli.command()
+@cmd.cli.command('forge')
 def forge():
     """Generate fake data."""
     db.create_all()
@@ -225,7 +221,7 @@ def forge():
     db.session.add(u3)
     db.session.commit()
 
-    click.echo('Done.')
+    print('Done')
     
     
 
