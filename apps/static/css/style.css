@@ -153,6 +153,7 @@ main::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; lef
     position: relative; 
     background: hsla(0,0%,100%,.3); 
     overflow: hidden;
+    color:black;
     border:1px solid rgb(0, 0, 0);
     margin: 50px auto 0px;
     /* background-color: rgb(249, 255, 217); */

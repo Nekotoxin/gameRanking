@@ -30,8 +30,7 @@ def create_app():
     #     return 'Hello, World!'
 
     from . import db
-    db.init_app(app)
-    
+    db.init_app(app)    
 
 
     #注:路由响应不要写在这里 写在对应的蓝图文件里

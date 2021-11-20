@@ -34,8 +34,10 @@
     </div>
 
     <div class="gameRankList" >
-        <p>qeqweqewqeqwe</p>
         <section>
+            {% for game in games %}
+            <p>{{game['game_title']}}</p>
+            {% endfor %}
             {% block gameRankList %}{% endblock %}
         </section>
     </div>

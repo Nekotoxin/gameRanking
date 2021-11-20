@@ -25,12 +25,15 @@ def add_game(type_id,title='',score=0.0,intro='',):
     gt.games.append(g)
     db.session.commit()
 
+def getalltest():
+    return game_info.query.all()
+
 #查找一个game_info
 #parm:title
 #ret:game_info-list
 def query_game(title):
-    g=game_info.query.filter_by(game_title=title).all()
-    return g
+    _g=game_info.query.filter_by(game_title=title).all()
+    return _g
 
 #删除一个game_info
 #parm:game_id
@@ -119,7 +122,6 @@ def initdb():
 @cmd.cli.command('forge')
 def forge():
     """Generate fake data."""
-    db.create_all()
     games=[{'game_title':'ride horse','game_scores':'5.0'},
     {'game_title':'hello shit','game_scores':'5.0'},
     {'game_title':'fry cry','game_scores':'4.3'},
