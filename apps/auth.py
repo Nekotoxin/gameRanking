@@ -12,11 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from ..apps import AuthBP
 from .. import db_control
 
-login_manager=LoginManager(AuthBP)#建立管理器
 
-@login_manager.user_loader#初始化管理器
-def load_user(user_id):#根据user_id返回user对象
-    return db_control.find_user(user_id)
 
 
 ###############################################################################
@@ -44,16 +40,16 @@ def login():
 
         if(user == 'cantfind'):
             flash('Invalid username')
-            return redirect(url_for('login'))
+            return render_template('/auth/login.html')
         elif(user=='passwordincorrect'):
             flash('password incorrect!')
-            return redirect(url_for('login'))
+            return render_template('/auth/login.html')#需要修改到主页函数
         else:
             login_user(user)
             flash('login success')
-            return redirect(url_for('index'))
+            return render_template('/auth/login.html')
 
-    return render_template('login.html')
+    return render_template('/auth/login.html')
 
 ###############################################################################
 #   注册
@@ -75,12 +71,12 @@ def register():
         if(user == 'cantfind'):#名字可用
             db_control.add_new_user(user_name,password)
             flash('register success!')
-            redirect(url_for('index'))
+            return render_template('/auth/register.html')
         else:#名字不可用
             flash('the name has been registered!')
-            redirect(url_for('auth_page',name='register.html'))
+            return render_template('/auth/register.html')
 
-    return redirect(url_for('auth_page',name='register.html'))
+    return render_template('/auth/register.html')
 
 ###############################################################################
 #   退出
@@ -93,5 +89,5 @@ def register():
 def logout():
     logout_user()
     flash('logout success!')
-    return redirect(url_for('index'))
+    return render_template('/auth/register.html')
 #其余功能.................................................................

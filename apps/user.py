@@ -17,6 +17,7 @@ def user(user_name):
     return 'hello user_name:'+user_name
 
 
+
 @login_required
 def reset_name():
     if request.method == 'POST':
@@ -24,15 +25,15 @@ def reset_name():
 
         if not name or len(name) > 20:
             flash('Invalid input.')
-            return redirect(url_for('settings'))
+            return render_template('user/settings.html')
 
         message=db_control.change_userid(current_user, name)
         if(message=='success'):
             flash('userid has changed')
         else:
             flash('failed')
-        return redirect(url_for('index'))
-    return render_template('settings.html')
+        return redirect(url_for('mainpage'))#调用主页函数，需要修改
+    return render_template('user/settings.html')
 
 
 #传入老密码，正确后进入下一步
@@ -42,17 +43,21 @@ def reset_password():
         old_password = request.form['old_password']
         if (check_password_hash(current_user.password,old_password)==0):
             flash('password incorrect!')
-            redirect(url_for('index'))
+            render_template('user/settings.html')
+
+
         new_password = request.form['new_password']
         new_password=generate_password_hash(new_password)
 
         message=db_control.change_userpassword(current_user, new_password)
         if(message=='success'):
             flash('password has changed')
+            return render_template('/auth/login.html')
         else:
             flash('failed')
-        return redirect(url_for('index'))
-    return render_template('settings.html')
+            return render_template('user/settings.html')
+
+    return render_template('user/settings.html')
 
 #注销账户
 @login_required
@@ -62,5 +67,5 @@ def cancel_user():
         flash('cancel success!')
     else:
         flash('failed')
-    return redirect(url_for('/'))
+    return redirect(url_for('mainpage'))
 

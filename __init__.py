@@ -6,6 +6,7 @@ import click
 from flask.cli import FlaskGroup
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import (LoginManager,login_user,logout_user,login_required)
 WIN = sys.platform.startswith('win')
 if WIN: # 如果是 Windows 系统，使用三个斜线
     prefix = 'sqlite:///'
@@ -14,12 +15,25 @@ else: # 否则使用四个斜线
 
 
 db=SQLAlchemy()
+login_manager = LoginManager()  # 建立管理器
+
 def create_app():
 
     app = Flask(__name__,static_folder='apps/static')
     app.config.from_mapping(
         SECRET_KEY='dev',
     )
+
+
+    login_manager.init_app(app)
+    @login_manager.user_loader
+    def load_user(user_id):
+        user = User.query.get(int(user_id))
+        return user
+
+    @login_manager.user_loader  # 初始化管理器
+    def load_user(user_id):  # 根据user_id返回user对象
+        return db_control.find_user(user_id)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
