@@ -28,7 +28,7 @@ def login():
 
     if request.method == 'POST':
         #获取用户名和密码
-        user_name = request.form['user_name']
+        user_name = request.form['username']
         password = request.form['password']
 
         if not user_name or not password:
@@ -62,7 +62,7 @@ def login():
 @AuthBP.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method=='POST':
-        user_name = request.form['user_name']
+        user_name = request.form['name']
         password = request.form['password']
 
         password = generate_password_hash(password)
