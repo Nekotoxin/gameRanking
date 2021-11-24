@@ -7,23 +7,16 @@ import pymysql
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
+from flask_login import (LoginManager,login_user,logout_user,login_required)
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import (LoginManager,login_user)
-
 from ..apps import AuthBP
 from .. import db_control
-
-def set_password(user, password):  # 设置密码
-    user.password_hash = generate_password_hash(password)
-def check_password(user, password):  # 检查密码返回bool
-    return check_password_hash(user.password_hash, password)
 
 login_manager=LoginManager(AuthBP)#建立管理器
 
 @login_manager.user_loader#初始化管理器
 def load_user(user_id):#根据user_id返回user对象
-    user=db.user_info.query.get(int(user_id))
-    return user
+    return db_control.find_user(user_id)
 
 
 ###############################################################################
@@ -36,6 +29,7 @@ def load_user(user_id):#根据user_id返回user对象
 ###############################################################################
 @AuthBP.route('/login', methods=['GET', 'POST'])
 def login():
+
     if request.method == 'POST':
         #获取用户名和密码
         user_name = request.form['user_name']
@@ -43,20 +37,21 @@ def login():
 
         if not user_name or not password:
             flash('Invalid input')
-            return redirect(url_for(login))
+            return redirect(url_for('login'))
 
-        user=db.user_info.query.query.filter_by(user_name=user_name).first()#获取用户信息
+        password=generate_password_hash(password)
+        user=db_control.check_username_password(user_name,password)
 
-        if(user is None):
+        if(user == 'cantfind'):
             flash('Invalid username')
             return redirect(url_for('login'))
-        elif(user_name==user.user_name and check_password(user,password)):
-            login_user(user);
-            flash('login success')
-            return redirect(url_for('index'))
-        else:
+        elif(user=='passwordincorrect'):
             flash('password incorrect!')
             return redirect(url_for('login'))
+        else:
+            login_user(user)
+            flash('login success')
+            return redirect(url_for('index'))
 
     return render_template('login.html')
 
@@ -74,13 +69,11 @@ def register():
         user_name = request.form['user_name']
         password = request.form['password']
 
-        user = db.user_info.query.query.filter_by(user_name=user_name).first()  # 获取用户信息
+        password = generate_password_hash(password)
+        user = db_control.check_username_password(user_name,password) # 获取用户信息
 
-        if(user is None):#名字可用
-            user.user_name=user_name
-            user.password=password
-            db.db.session.add(user)
-            db.db.session.commit()
+        if(user == 'cantfind'):#名字可用
+            db_control.add_new_user(user_name,password)
             flash('register success!')
             redirect(url_for('index'))
         else:#名字不可用
@@ -96,8 +89,9 @@ def register():
 #   退出成功：返回主页 (/)
 ###############################################################################
 @AuthBP.route('/logout')
+@login_required
 def logout():
-    login_user()
+    logout_user()
     flash('logout success!')
     return redirect(url_for('index'))
 #其余功能.................................................................

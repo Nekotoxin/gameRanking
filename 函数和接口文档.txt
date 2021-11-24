@@ -8,3 +8,13 @@
 @123:写明对函数功能的要求，向函数提供什么参数，返回值（说清楚类型）
 @456写完后：在这里写明函数的位置，函数的名称，出现异常时的返回值及其含义
 
+11/24
+@hughdazz
+user_info类需要继承UserMixin类
+find_user(user_id)   #根据user_id返回user对象,直接返回user_info.get(user_id)
+check_username_password(user_name,password)     传入user_name和password(字符串已经加密)
+若正确返回对应user实例，若不存在用户返回cantfind字符串，若密码不正确返回passwordincorrect字符串
+add_new_user(user_name,password)  加入新用户，无需返回值
+change_userid(user,new_name)传入user实例，将user的名字修改为new_name成功返回success反之返回fail
+change_userpassword(current_user, new_password)传入user实例，将user的密码修改为new_password成功返回success反之返回fail
+delete_user(user)传入user实例，删除账户，成功返回success反之返回fail
