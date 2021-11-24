@@ -33,6 +33,7 @@ main::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; lef
 
 .navigator{
     border: 1px solid rgb(57, 199, 255);
+    border-radius: 10px;
     height:150px;
     width:80%;
     margin:auto;
@@ -155,6 +156,7 @@ main::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; lef
     overflow: hidden;
     color:black;
     border:1px solid rgb(0, 0, 0);
+    border-radius: 20px;
     margin: 50px auto 0px;
     /* background-color: rgb(249, 255, 217); */
 }
