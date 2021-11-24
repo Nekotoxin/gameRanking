@@ -1,25 +1,44 @@
 #文件名：__init__.py
 #作用：初始化app，初始化蓝图，初始化数据库
 import os
+import sys
+import click
+from flask.cli import FlaskGroup
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+WIN = sys.platform.startswith('win')
+if WIN: # 如果是 Windows 系统，使用三个斜线
+    prefix = 'sqlite:///'
+else: # 否则使用四个斜线
+    prefix = 'sqlite:////'
 
+
+db=SQLAlchemy()
 def create_app():
+
     app = Flask(__name__,static_folder='apps/static')
     app.config.from_mapping(
         SECRET_KEY='dev',
     )
 
+    app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+    db=SQLAlchemy(app)
     # a simple page that says hello
     # @app.route('/')
     # def hello():
     #     return 'Hello, World!'
 
+    from . import db
+    db.init_app(app)    
 
 
     #注:路由响应不要写在这里 写在对应的蓝图文件里
     #例如   __init__.py:@app.route('/game/<game_id>') (❌) 
     #      /apps/game.py:@GameBP.route('/<game_id>') (✔)   (/game前缀已经添加在了蓝图里)
     #注册蓝图
+    from . import db_control
+    app.register_blueprint(db_control.cmd)
     #AuthBP:用户注册 登录界面蓝图
     from .apps import auth
     app.register_blueprint(apps.AuthBP)
@@ -34,3 +53,4 @@ def create_app():
     app.register_blueprint(apps.MainPageBP)
     
     return app
+

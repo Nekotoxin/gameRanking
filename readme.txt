@@ -23,6 +23,7 @@
 工作文件:
 @hughdazz mainpage.py,db.py
 @Nekotoxin mainpage.html,base.html
+@royzhz:auth.py,user.py
 
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
