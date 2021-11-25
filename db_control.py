@@ -113,7 +113,7 @@ def update_all():
 def find_user(user_id):
     u=user_info.query.get(user_id)
     if(u is None):
-        return False
+        return 'fail'
     return u
 
 #删除一个user_info
@@ -121,10 +121,10 @@ def find_user(user_id):
 def delete_user(user_id):
     u=user_info.query.get(user_id)
     if(u is None):
-        return False
+        return 'fail'
     db.session.delete(u)
     db.session.commit()
-    return True
+    return 'success'
 
 def check_username_password(name,passw):
     u=user_info.query.filter_by(user_name=name).first()
@@ -141,9 +141,9 @@ def change_username(user_id,new_name):
     un=user_info.query.filter_by(user_name=new_name).first()
     if(un is None):
         u.user_name=new_name
-        return True
+        return 'success'
     else:
-        return False
+        return 'fail'
 
 def add_new_user(name,passw):
     i=user_info.query.filter_by(user_name=name).first()
@@ -182,9 +182,9 @@ def forge():
     g4=game_info(game_title=games[3]['game_title'],game_score=games[3]['game_scores'])
     g5=game_info(game_title=games[4]['game_title'],game_score=games[4]['game_scores'])
 
-    u1=user_info(user_name='Jack')
-    u2=user_info(user_name='Hugh')
-    u3=user_info(user_name='Jane')
+    u1=user_info(user_name='Jack',user_password='%&&^@*(@*)')
+    u2=user_info(user_name='Hugh',user_password='@*&@)@)(@*')
+    u3=user_info(user_name='Jane',user_password='__)!+@)_@++')
 
     c1=comment(comment_contents='very good')
     c2=comment(comment_contents='very bad')
