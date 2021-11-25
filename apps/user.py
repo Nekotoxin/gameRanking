@@ -27,7 +27,7 @@ def reset_name():
             flash('Invalid input.')
             return render_template('user/settings.html')
 
-        message=db_control.change_userid(current_user, name)
+        message=db_control.change_username(current_user.id, name)
         if(message=='success'):
             flash('userid has changed')
         else:
@@ -49,7 +49,7 @@ def reset_password():
         new_password = request.form['new_password']
         new_password=generate_password_hash(new_password)
 
-        message=db_control.change_userpassword(current_user, new_password)
+        message=db_control.change_user_password(current_user.user_id,new_password)
         if(message=='success'):
             flash('password has changed')
             return render_template('/auth/login.html')
@@ -62,10 +62,11 @@ def reset_password():
 #注销账户
 @login_required
 def cancel_user():
-    message=db_control.delete_user(current_user)
+    message=db_control.delete_user(current_user.user_id)
     if (message == 'success'):
         flash('cancel success!')
     else:
         flash('failed')
     return redirect(url_for('mainpage'))
+
 

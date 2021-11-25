@@ -58,3 +58,6 @@ def change_username(user_id,new_name)
 user添加user_email字段，user_password字段
 user_name,user_email添加unique属性，该属性要求唯一值，声明unique后该字段变为与user_id等价的用户唯一标志值
 
+11/25 to @hughdazz   所有返回值无特殊说明都返回字符串，请务必严格按照要求返回字符串
+更新需求:
+change_user_password(user_id, new_password)         将user_id对应的user修改为new_name,成功返回'success',没找到返回‘user unexited’其他返回'fail'
