@@ -9,7 +9,7 @@
 @456写完后：在这里写明函数的位置，函数的名称，出现异常时的返回值及其含义
 
 11/24
-@hughdazz
+to @hughdazz
 user_info类需要继承UserMixin类
 find_user(user_id)   #根据user_id返回user对象,直接返回user_info.get(user_id)
 check_username_password(user_name,password)     传入user_name和password(字符串已经加密)
@@ -18,7 +18,6 @@ add_new_user(user_name,password)  加入新用户，无需返回值
 change_userid(user,new_name)传入user实例，将user的名字修改为new_name成功返回success反之返回fail
 change_userpassword(current_user, new_password)传入user实例，将user的密码修改为new_password成功返回success反之返回fail
 delete_user(user)传入user实例，删除账户，成功返回success反之返回fail
-
 
 11/25 说明 to @royzhz
 @Nekotoxin 
@@ -36,3 +35,26 @@ name="game_screenshot3" type="file"
 name="game_screenshot4" type="file" 
 name="game_screenshot5" type="file" 
 （file均为图片类型）
+
+11/25 to @royzhz
+@hughdazz
+数据库：
+新增接口如下:
+
+**查询到返回对象，否则返回False(bool型)
+def find_user(user_id)
+**删除成功返回True,否则返回False
+def delete_user(user_id)
+**name和password正确则返回对象，否则失败先后返回'name not found!','password incorrect'
+def check_username_password(name,passw)
+**添加成功则返回对象,失败返回'name has existed'
+def add_new_user(name,passw)
+**更改用户不存在返回'user not found!',更改成功返回True,失败返回False(名字已被占用)
+def change_username(user_id,new_name)
+
+对于change_userpassword不增加接口，直接在查询/保存对象上更改即可
+
+数据库模型更改:
+user添加user_email字段，user_password字段
+user_name,user_email添加unique属性，该属性要求唯一值，声明unique后该字段变为与user_id等价的用户唯一标志值
+

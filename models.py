@@ -1,5 +1,6 @@
 from . import db
 from datetime import datetime
+from flask_login import UserMixin
 class game_info(db.Model):
     game_id=db.Column(db.Integer, primary_key=True)
     game_title=db.Column(db.String(80), unique=True, nullable=False)
@@ -39,9 +40,11 @@ class comment(db.Model):
     def __repr__(self):
         return '<comment: %r>' %self.comment_contents
 
-class user_info(db.Model):
+class user_info(UserMixin,db.Model):
     user_id=db.Column(db.Integer, primary_key=True)
-    user_name=db.Column(db.String(80),nullable=False)
+    user_name=db.Column(db.String(80),unique=True,nullable=False)
+    user_email=db.Column(db.String(80),unique=True)
+    user_password=db.Column(db.String(80),nullable=False)
     user_regis_time=db.Column(db.DateTime,default=datetime.utcnow)
     user_self_intro=db.Column(db.String(400))
 

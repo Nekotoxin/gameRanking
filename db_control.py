@@ -57,7 +57,7 @@ def query_type(name):
 
 #删除一个game_type
 #parm:type_id
-def delete_game(type_id):
+def delete_type(type_id):
     gt=game_type.query.get(type_id)
     db.session.delete(gt)
     db.session.commit()
@@ -72,16 +72,11 @@ def add_user(name='',intro=''):
 #查找一个user_info
 #parm:name
 #ret:user_info-list
-def query_user(name):
+def query_user(name=''):
     u=user_info.query.filter_by(user_name=name).all()
     return u
 
-#删除一个user_info
-#parm:user_id
-def delete_user(user_id):
-    u=user_info.query.get(user_id)
-    db.session.delete(u)
-    db.session.commit()
+
 
 #插入一个comment
 #parm:game_id,user_id,contents
@@ -112,6 +107,54 @@ def delete_user(comment_id):
 #再对查询到的数据更改后(add和delete操作不包括在内)，运行此函数保存更改
 def update_all():
     db.session.commit()
+#***************************************************************************************************
+#*******************************新        需          求*********************************************
+#***************************************************************************************************
+def find_user(user_id):
+    u=user_info.query.get(user_id)
+    if(u is None):
+        return False
+    return u
+
+#删除一个user_info
+#parm:user_id
+def delete_user(user_id):
+    u=user_info.query.get(user_id)
+    if(u is None):
+        return False
+    db.session.delete(u)
+    db.session.commit()
+    return True
+
+def check_username_password(name,passw):
+    u=user_info.query.filter_by(user_name=name).first()
+    if(u is None):
+        return "name not found!"
+    if(passw != u.user_password):
+        return "password incorrect!"
+    return u
+    
+def change_username(user_id,new_name):
+    u=user_info.query.get(user_id)
+    if(u is None):
+        return "user no found!"
+    un=user_info.query.filter_by(user_name=new_name).first()
+    if(un is None):
+        u.user_name=new_name
+        return True
+    else:
+        return False
+
+def add_new_user(name,passw):
+    i=user_info.query.filter_by(user_name=name).first()
+    if(i is None):
+        u=user_info(user_name=name,user_password=passw)
+        db.session.add(u)
+        db.session.commit()
+        return u
+    return 'name has existed'
+
+#***************************************************************************************************
 
 @cmd.cli.command('init-db')
 def initdb():
