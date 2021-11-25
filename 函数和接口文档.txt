@@ -58,3 +58,15 @@ def change_username(user_id,new_name)
 user添加user_email字段，user_password字段
 user_name,user_email添加unique属性，该属性要求唯一值，声明unique后该字段变为与user_id等价的用户唯一标志值
 
+11/25 to @royzhz
+@hughdazz
+数据库：
+函数返回值更改：
+凡原来返回对象的改为返回对象id
+
+新增接口如下：
+**传入id,表名，字段名，新值来更改数据库数据，不检查正误
+def update_item_value(id,table_name,table_word,new_value)
+**传入id,表名，字段名 返回数据库数据，不检查正误
+def get_item_value(id,table_name,table_word)
+

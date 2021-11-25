@@ -6,7 +6,7 @@ from flask import Flask, render_template,Blueprint
 from datetime import datetime
 from datetime import datetime
 import click
-from . import db
+from __init__ import db
 #对game_info,game_type,user_info,comment实现了add,delete,query,update接口
 #生成测试数据库:cmd下 flask initdb --drop,flask forge
 
@@ -33,7 +33,7 @@ def getalltest():
 #ret:game_info-list
 def query_game(title):
     _g=game_info.query.filter_by(game_title=title).all()
-    return _g
+    return _g.game_id
 
 #删除一个game_info
 #parm:game_id
@@ -53,7 +53,7 @@ def add_type(name=''):
 #ret:game_type-list
 def query_type(name):
     gt=game_type.query.filter_by(type_name=name).all()
-    return gt
+    return gt.game_type_id
 
 #删除一个game_type
 #parm:type_id
@@ -74,7 +74,7 @@ def add_user(name='',intro=''):
 #ret:user_info-list
 def query_user(name=''):
     u=user_info.query.filter_by(user_name=name).all()
-    return u
+    return u.user_id
 
 
 
@@ -95,7 +95,7 @@ def query_comment(game_id,user_id):
     c=comment.query.filter_by(comment_game_id=game_id,comment_user_id=user_id).first()
     if(c is None):
         return -1
-    return c
+    return c.comment_id
 
 #删除一个comment
 #parm:comment_id
@@ -110,6 +110,101 @@ def update_all():
 #***************************************************************************************************
 #*******************************新        需          求*********************************************
 #***************************************************************************************************
+def update_item_value(id,table_name,table_word,new_value):
+    if(table_name=='game_info'):
+        g=game_info.query.get(id)
+        if(g is None):
+            return 'fail'
+        if(table_word=='game_title'):
+            g.game_title=new_value
+        if(table_word=='game_score'):
+            g.game_score=new_value
+        if(table_word=='game_intro'):
+            g.game_intro=new_value
+        if(table_word=='game_collect_num'):
+            g.game_collect_num=new_value
+        if(table_word=='game_comments_num'):
+            g.game_comments_num=new_value
+    
+    if(table_name=='user_info'):
+        u=user_info.query.get(id)
+        if(u is None):
+            return 'fail'
+        if(table_word=='user_name'):
+            u.user_name=new_value
+        if(table_word=='user_email'):
+            u.user_email=new_value
+        if(table_word=='user_password'):
+            u.user_password=new_value
+        if(table_word=='user_self_intro'):
+            u.user_self_intro=new_value
+    
+    if(table_name=='game_type'):
+        gt=game_type.query.get(id)
+        if(gt is None):
+            return 'fail'
+        if(table_word=='type_name'):
+            gt.type_name=new_value
+    
+    if(table_name=='comment'):
+        c=comment.query.get(id)
+        if(c is None):
+            return 'fail'
+        if(table_word=='comment_contents'):
+            c.comment_contents=new_value  
+    
+    db.session.commit()
+    return 'success or no match'
+
+def get_item_value(id,table_name,table_word):
+    if(table_name=='game_info'):
+        g=game_info.query.get(id)
+        if(g is None):
+            return 'fail'
+        if(table_word=='game_title'):
+            return g.game_title
+        if(table_word=='game_score'):
+            return g.game_score
+        if(table_word=='game_intro'):
+            return g.game_intro
+        if(table_word=='game_collect_num'):
+            return g.game_collect_num
+        if(table_word=='game_comments_num'):
+            return g.game_comments_num
+        if(table_word=='game_update_time'):
+            return g.game_update_time
+    
+    if(table_name=='user_info'):
+        u=user_info.query.get(id)
+        if(u is None):
+            return 'fail'
+        if(table_word=='user_name'):
+            return u.user_name
+        if(table_word=='user_email'):
+            return u.user_email
+        if(table_word=='user_password'):
+            return u.user_password
+        if(table_word=='user_regis_time'):
+            return u.user_regis_time
+        if(table_word=='user_self_intro'):
+            return u.user_self_intro
+    
+    if(table_name=='game_type'):
+        gt=game_type.query.get(id)
+        if(gt is None):
+            return 'fail'
+        if(table_word=='type_name'):
+            return gt.type_name
+    
+    if(table_name=='comment'):
+        c=comment.query.get(id)
+        if(c is None):
+            return 'fail'
+        if(table_word=='comment_contents'):
+            return c.comment_contents  
+    
+    return 'no match'
+
 def find_user(user_id):
     u=user_info.query.get(user_id)
     if(u is None):
@@ -132,7 +227,7 @@ def check_username_password(name,passw):
         return "name not found!"
     if(passw != u.user_password):
         return "password incorrect!"
-    return u
+    return u.user_id
     
 def change_username(user_id,new_name):
     u=user_info.query.get(user_id)
@@ -151,7 +246,7 @@ def add_new_user(name,passw):
         u=user_info(user_name=name,user_password=passw)
         db.session.add(u)
         db.session.commit()
-        return u
+        return u.user_id
     return 'name has existed'
 
 #***************************************************************************************************

@@ -1,4 +1,4 @@
-from . import db
+from __init__ import db
 from datetime import datetime
 from flask_login import UserMixin
 class game_info(db.Model):
@@ -24,7 +24,6 @@ class game_type(db.Model):
     type_name=db.Column(db.String(30))
     #通过games字段查询属于当前type的所有game,game可通过type字段查询game_type
     games=db.relationship('game_info',backref=db.backref('type', lazy=True))
-
     def __repr__(self):
         return '<type: %r>' % self.type_name
 
