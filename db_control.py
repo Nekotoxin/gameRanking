@@ -224,9 +224,9 @@ def delete_user(user_id):
 def check_username_password(name,passw):
     u=user_info.query.filter_by(user_name=name).first()
     if(u is None):
-        return "name not found!"
+        return "cantfind"
     if(passw != u.user_password):
-        return "password incorrect!"
+        return "passwordincorrect"
     return u.user_id
     
 def change_username(user_id,new_name):
