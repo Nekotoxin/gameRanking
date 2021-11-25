@@ -14,6 +14,10 @@ else: # 否则使用四个斜线
     prefix = 'sqlite:////'
 
 
+
+#向sys添加__init__文件路径
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 db=SQLAlchemy()
 login_manager = LoginManager()  # 建立管理器
 
