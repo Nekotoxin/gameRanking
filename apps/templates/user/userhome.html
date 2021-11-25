@@ -12,20 +12,20 @@
     <h1>upload game</h1>
     <form method="post" action="{{ url_for('upload_game') }}" enctype="multipart/form-data">
         <label for="game_title">game title</label>
-        <input name="game_title" id="game_title" required>
+        <input name="game_title" type="text" id="game_title" required>
         <br>
         <!-- select the release date,show the date lable -->
         <label for="release_date">release date</label>
         <input type="date" name="release_date" id="release_date" required>
         <br>
         <label for="game_description">game description</label>
-        <input name="game_description" id="game_description" required>
+        <input name="game_description" type="text" id="game_description" required>
         <br>
         <label for="game_type">game type</label>
-        <input name="game_type" id="game_type" required>
+        <input name="game_type" type="text" id="game_type" required>
         <br>
         <label for="game_company">game company</label>
-        <input name="game_company" id="game_company" required>
+        <input name="game_company" type="text" id="game_company" required>
         <br>
         <label for="game_cover">game cover</label>
         <input type="file" name="game_cover" id="game_cover" required>

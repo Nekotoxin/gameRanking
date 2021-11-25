@@ -18,3 +18,21 @@ add_new_user(user_name,password)  加入新用户，无需返回值
 change_userid(user,new_name)传入user实例，将user的名字修改为new_name成功返回success反之返回fail
 change_userpassword(current_user, new_password)传入user实例，将user的密码修改为new_password成功返回success反之返回fail
 delete_user(user)传入user实例，删除账户，成功返回success反之返回fail
+
+
+11/25 说明 to @royzhz
+@Nekotoxin 
+userhome.html网页提交内容：
+name="game_title" type="text"
+name="release_date" type="date"
+name="game_description" type="text"
+name="game_type" type="text"
+name="game_company" type="text
+
+name="game_cover" type="file" 
+name="game_screenshot1" type="file" 
+name="game_screenshot2" type="file" 
+name="game_screenshot3" type="file" 
+name="game_screenshot4" type="file" 
+name="game_screenshot5" type="file" 
+（file均为图片类型）
