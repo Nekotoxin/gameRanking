@@ -43,7 +43,7 @@ class user_info(UserMixin,db.Model):
     user_id=db.Column(db.Integer, primary_key=True)
     user_name=db.Column(db.String(80),unique=True,nullable=False)
     user_email=db.Column(db.String(80),unique=True)
-    user_password=db.Column(db.String(80),nullable=False)
+    user_password=db.Column(db.String(256),nullable=False)
     user_regis_time=db.Column(db.DateTime,default=datetime.utcnow)
     user_self_intro=db.Column(db.String(400))
 

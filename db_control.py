@@ -15,7 +15,7 @@ cmd = Blueprint('db', __name__) #created a Blueprint for this module
 
 
     
-from .models import game_info,game_type,user_info,comment
+from models import game_info,game_type,user_info,comment
 
 #插入一个game_info
 #parm:type_id,title,score,intro
