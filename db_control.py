@@ -7,6 +7,7 @@ from datetime import datetime
 from datetime import datetime
 import click
 from __init__ import db
+from werkzeug.security import check_password_hash
 #对game_info,game_type,user_info,comment实现了add,delete,query,update接口
 #生成测试数据库:cmd下 flask initdb --drop,flask forge
 
@@ -225,8 +226,9 @@ def check_username_password(name,passw):
     u=user_info.query.filter_by(user_name=name).first()
     if(u is None):
         return "cantfind"
-    if(passw != u.user_password):
+    if(check_password_hash(u.user_password,passw)==False):
         return "passwordincorrect"
+    print('yes')
     return u.user_id
     
 def change_username(user_id,new_name):

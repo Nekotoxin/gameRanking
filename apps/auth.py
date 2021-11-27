@@ -4,11 +4,10 @@
 #功能包括：用户登录，用户注册，用户退出，用户登录状态管理
 
 import functools
-import pymysql
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
+import pymysql
 from flask_login import (LoginManager,login_user,logout_user,login_required)
 from werkzeug.security import generate_password_hash, check_password_hash
 from ..apps import AuthBP
@@ -35,9 +34,8 @@ def login():
 
         if not user_name or not password:
             flash('Invalid input')
-            return redirect(url_for('login'))
+            return render_template('/auth/login.html')
 
-        password=generate_password_hash(password)
         user=db_control.check_username_password(user_name,password)
 
         if(user == 'cantfind'):
@@ -45,11 +43,11 @@ def login():
             return render_template('/auth/login.html')
         elif(user=='passwordincorrect'):
             flash('password incorrect!')
-            return render_template('/auth/login.html')#需要修改到主页函数
-        else:
-            login_user(user)
-            flash('login success')
             return render_template('/auth/login.html')
+        else:
+            login_user(db_control.find_user(user))
+            flash('login success')
+            return render_template('/auth/login.html')#需要修改到主页函数
 
     return render_template('/auth/login.html')
 
@@ -67,13 +65,13 @@ def register():
         user_name = request.form['name']
         password = request.form['password']
 
-        password = generate_password_hash(password)
         user = db_control.check_username_password(user_name,password) # 获取用户信息
-
+        password=generate_password_hash(password)
+        print(password)
         if(user == 'cantfind'):#名字可用
             db_control.add_new_user(user_name,password)
             flash('register success!')
-            return render_template('/auth/register.html')
+            return render_template('/auth/login.html')
         else:#名字不可用
             flash('the name has been registered!')
             return render_template('/auth/register.html')

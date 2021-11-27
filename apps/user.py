@@ -2,7 +2,6 @@
 #访问网址：http://127.0.0.1:5000/user/<user_name> 后的响应路由写在这里
 #该网址显示用户信息，包括修改密码，修改用户名，更换头像，注销用户等
 import functools
-import pymysql
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -10,7 +9,7 @@ from flask_login import (login_required,current_user)
 from werkzeug.security import generate_password_hash, check_password_hash
 from ..apps import UserBP
 from .. import db_control
-
+import pymysql
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 @login_required
 def user(user_name):
@@ -49,7 +48,7 @@ def reset_password():
         new_password = request.form['new_password']
         new_password=generate_password_hash(new_password)
 
-        message=db_control.change_user_password(current_user.user_id,new_password)
+        message=db_control.change_user_password(current_user.id,new_password)
         if(message=='success'):
             flash('password has changed')
             return render_template('/auth/login.html')
@@ -62,7 +61,7 @@ def reset_password():
 #注销账户
 @login_required
 def cancel_user():
-    message=db_control.delete_user(current_user.user_id)
+    message=db_control.delete_user(current_user.id)
     if (message == 'success'):
         flash('cancel success!')
     else:
