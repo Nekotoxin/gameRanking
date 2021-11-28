@@ -75,25 +75,25 @@ def add_user(name='',intro=''):
 #ret:user_info-list
 def query_user(name=''):
     u=user_info.query.filter_by(user_name=name).all()
-    return u.user_id
+    return u.id
 
 
 
 #插入一个comment
-#parm:game_id,user_id,contents
-def add_comment(game_id,user_id,contents=''):
+#parm:game_id,id,contents
+def add_comment(game_id,id,contents=''):
     c=comment(comment_contents=contents)
     g=game_info.query.get(game_id)
-    u=user_info.query.get(user_id)
+    u=user_info.query.get(id)
     g.comments.append(c)
     u.comments.append(c)
     db.session.commit()
 
 #查找一个comment
-#parm:game_id,user_id
+#parm:game_id,id
 #ret:comment(none:-1)
-def query_comment(game_id,user_id):
-    c=comment.query.filter_by(comment_game_id=game_id,comment_user_id=user_id).first()
+def query_comment(game_id,id):
+    c=comment.query.filter_by(comment_game_id=game_id,comment_user_id=id).first()
     if(c is None):
         return -1
     return c.comment_id
@@ -206,16 +206,16 @@ def get_item_value(id,table_name,table_word):
     
     return 'no match'
 
-def find_user(user_id):
-    u=user_info.query.get(user_id)
+def find_user(id):
+    u=user_info.query.get(id)
     if(u is None):
         return 'fail'
     return u
 
 #删除一个user_info
-#parm:user_id
-def delete_user(user_id):
-    u=user_info.query.get(user_id)
+#parm:id
+def delete_user(id):
+    u=user_info.query.get(id)
     if(u is None):
         return 'fail'
     db.session.delete(u)
@@ -229,10 +229,10 @@ def check_username_password(name,passw):
     if(check_password_hash(u.user_password,passw)==False):
         return "passwordincorrect"
     print('yes')
-    return u.user_id
+    return u.id
     
-def change_username(user_id,new_name):
-    u=user_info.query.get(user_id)
+def change_username(id,new_name):
+    u=user_info.query.get(id)
     if(u is None):
         return "user no found!"
     un=user_info.query.filter_by(user_name=new_name).first()
@@ -248,7 +248,7 @@ def add_new_user(name,passw):
         u=user_info(user_name=name,user_password=passw)
         db.session.add(u)
         db.session.commit()
-        return u.user_id
+        return u.id
     return 'name has existed'
 
 #***************************************************************************************************

@@ -34,13 +34,13 @@ class comment(db.Model):
     comment_contents=db.Column(db.String(400))
     #一个评论和用户和游戏都有对应关系
     comment_game_id = db.Column(db.Integer, db.ForeignKey('game_info.game_id'))
-    comment_user_id = db.Column(db.Integer, db.ForeignKey('user_info.user_id'))
+    comment_user_id = db.Column(db.Integer, db.ForeignKey('user_info.id'))
 
     def __repr__(self):
         return '<comment: %r>' %self.comment_contents
 
 class user_info(UserMixin,db.Model):
-    user_id=db.Column(db.Integer, primary_key=True)
+    id=db.Column(db.Integer, primary_key=True)
     user_name=db.Column(db.String(80),unique=True,nullable=False)
     user_email=db.Column(db.String(80),unique=True)
     user_password=db.Column(db.String(256),nullable=False)

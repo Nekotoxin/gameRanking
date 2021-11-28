@@ -62,7 +62,7 @@ def login():
 @AuthBP.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method=='POST':
-        user_name = request.form['name']
+        user_name = request.form['username']
         password = request.form['password']
 
         user = db_control.check_username_password(user_name,password) # 获取用户信息

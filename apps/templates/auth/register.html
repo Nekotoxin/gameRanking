@@ -15,100 +15,107 @@
     if (name.length > 90) {
       span.innerHTML = "name length less than 90";
     }
+    else if (name.length == 0) {
+      span.innerHTML = "name shouldnt be empty";
+    }
     else {
       span.innerHTML = "";
     }
   }
-  //password length more than 12
-  //include at least one number, one lowercase letter, one uppercase letter, one special character
+  //password length more than 6
   function check_password() {
     //check the length and the format
     var password = document.getElementById("password").value;
     var span = document.getElementById("password_span");
-    var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{12,}$/;
-    if (!reg.test(password) || password.length < 12) {
-      span.innerHTML = "password length more than 12,include at least one number, one lowercase letter, one uppercase letter, one special character";
+    if (password.length < 6) {
+      span.innerHTML = "password length more than 6";
+    }
+    else if (password.length == 0) {
+      // password shouldnt be empty
+      span.innerHTML = "password shouldn't be empty";
     }
     else {
       span.innerHTML = "";
     }
-  }
-  //password and confirm password must be the same
-  function check_confirm_password() {
-    var password = document.getElementById("password").value;
-    var confirm_password = document.getElementById("confirm_password").value;
-    var span = document.getElementById("confirm_password_span");
-    if (password != confirm_password) {
-      span.innerHTML = "password and confirm password must be the same";
-    }
-    else {
-      span.innerHTML = "";
-    }
-  }
-  //email format,if not,output in the span
-  function check_email() {
-    var email = document.getElementById("email").value;
-    var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-    var span = document.getElementById("email_span");
-    if (!reg.test(email)) {
-      span.innerHTML = "email format error";
-    }
-    else {
-      span.innerHTML = "";
-    }
-  }
-  //check all,if all is ok,submit,else show error
-  function check_all() {
-    var name = document.getElementById("name").value;
-    var password = document.getElementById("password").value;
-    var confirm_password = document.getElementById("confirm_password").value;
-    var email = document.getElementById("email").value;
-    var span = document.getElementById("name_span");
-    var span1 = document.getElementById("password_span");
-    var span2 = document.getElementById("confirm_password_span");
-    var span3 = document.getElementById("email_span");
-    if (name.length > 90) {
-      span.innerHTML = "name length less than 90";
-      return false;
-    }
-    else {
-      span.innerHTML = "";
-    }
-    if (password.length < 12) {
-      span1.innerHTML = "password length more than 12";
-      return false;
-    }
-    else {
-      //include at least one number, one lowercase letter, one uppercase letter, one special character
-      var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{12,}$/;
-      if (reg.test(password)) {
-        span1.innerHTML = "";
+    //password and confirm password must be the same
+    function check_confirm_password() {
+      var password = document.getElementById("password").value;
+      var confirm_password = document.getElementById("confirm_password").value;
+      var span = document.getElementById("confirm_password_span");
+      if (password != confirm_password) {
+        span.innerHTML = "password and confirm password must be the same";
       }
       else {
-        span1.innerHTML = "include at least one number, one lowercase letter, one uppercase letter, one special character";
-        return false;
+        span.innerHTML = "";
       }
     }
-    if (password != confirm_password) {
-      span2.innerHTML = "password and confirm password must be the same";
-      return false;
+    //email format,if not,output in the span
+    function check_email() {
+      var email = document.getElementById("email").value;
+      var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      var span = document.getElementById("email_span");
+      if (!reg.test(email)) {
+        span.innerHTML = "email format error";
+      }
+      else {
+        span.innerHTML = "";
+      }
     }
-    else {
-      span2.innerHTML = "";
+    //check all,if all is ok,submit,else show error
+    function check_all() {
+      var name = document.getElementById("name").value;
+      var password = document.getElementById("password").value;
+      var confirm_password = document.getElementById("confirm_password").value;
+      var email = document.getElementById("email").value;
+      var span = document.getElementById("name_span");
+      var span1 = document.getElementById("password_span");
+      var span2 = document.getElementById("confirm_password_span");
+      var span3 = document.getElementById("email_span");
+      if (name.length > 90) {
+        span.innerHTML = "name length less than 90";
+        return false;
+      }
+      else if (name.length == 0) {
+        // name shouldnt be empty
+        span.innerHTML = "name shouldnt be empty";
+        return false;
+      }
+      else {
+        span.innerHTML = "";
+      }
+      if (password.length < 6) {
+        span1.innerHTML = "password length more than 6";
+        return false;
+      }
+      else if (password.length == 0) {
+        // password shouldnt be empty
+        span1.innerHTML = "password shouldnt be empty";
+        return false;
+      }
+      else {
+        span1.innerHTML = "";
+      }
+      if (password != confirm_password) {
+        span2.innerHTML = "password and confirm password must be the same";
+        return false;
+      }
+      else {
+        span2.innerHTML = "";
+      }
+      if (!check_email()) {
+        span3.innerHTML = "email format error";
+        return false;
+      }
+      else {
+        span3.innerHTML = "";
+      }
+      return true;
     }
-    if (!check_email()) {
-      span3.innerHTML = "email format error";
-      return false;
-    }
-    else {
-      span3.innerHTML = "";
-    }
-    return true;
-  }
+}
 
 </script>
 <div class="register">
-  <form class="registerForm" method="post" onsubmit="return checkAll()">
+  <form class="registerForm" method="post">
     <label for="name">Name</label>
     <input name="name" id="name" onblur="check_name()" required>
     <span id="name_span"></span>
@@ -125,8 +132,10 @@
     <input type="email" name="email" id="email" onblur="check_email()" required>
     <span id="email_span"></span>
     <br>
-    <input class="btn" type="submit" value="Register">
+    <!-- 全部验证通过后提交 -->
+    <input class="btn" type="submit" value="Submit" onclick="return check_all()">
   </form>
 </div>
+
 
 {% endblock %}
