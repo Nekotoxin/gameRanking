@@ -4,8 +4,8 @@
 ------------------------------------------------------------------------------------------
 接下来的任务:
 @hughdazz 完成增加新用户和用户的身份验证函数(models.py,db_control.py)---------已完成
-->@royzhz 处理用户提交的新游戏(user.py)
-->@hughdazz 完成用于向数据库添加游戏的函数(models.py,db_control.py)
+->@royzhz 处理用户提交的新游戏(user.py)------------------------------------完成
+->@hughdazz 完成用于向数据库添加游戏的函数(models.py,db_control.py)----------不需要
 ->@Nekotoxin 基本完成主页(mainpage.html,style.css)
 ->@Nekotoxin 开发单个游戏主页(gamepage.html,style.css)
 ->@royzhz 写游戏主页响应(user.py)

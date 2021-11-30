@@ -19,10 +19,10 @@ cmd = Blueprint('db', __name__) #created a Blueprint for this module
 from models import game_info,game_type,user_info,comment
 
 #插入一个game_info
-#parm:type_id,title,score,intro
-def add_game(type_id,title='',score=0.0,intro='',):
+#parm:type_id,,game_title,game_description
+def add_game(type_id,game_title,game_description):
     gt=game_type.query.get(type_id)
-    g=game_info(game_title=title,game_score=score,game_intro=intro,game_collect_num=0,game_comments_num=0)
+    g=game_info(game_title=game_title,game_intro=game_description)
     gt.games.append(g)
     db.session.commit()
 
@@ -48,6 +48,7 @@ def add_type(name=''):
     gt=game_type(type_name=name)
     db.session.add(gt)
     db.session.commit()
+    return gt.type_id
 
 #查找一个game_type
 #parm:name
