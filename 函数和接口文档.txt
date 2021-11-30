@@ -76,14 +76,14 @@ def get_item_value(id,table_name,table_word)
 to @royzhz
 新增响应：
 用户主页界面:展示用户收藏过的游戏,用户发表的感想和增加游戏的入口(一个按钮)
-http://127.0.0.1:5000/<user_name>/userhome(响应在user.py中)
+http://127.0.0.1:5000/user/<user_name>(响应在user.py中)
 传入：current_user对象
      collectGames列表(类型:game_info):用户收藏的游戏
      comments列表(类型:comment):用户发表的评论
      commentGames(类型:game_info):用户发表评论所对应的游戏(例如comments[1]对应commentGames[1])
 
 提交新游戏界面:
-http://127.0.0.1:5000/submitNewGame(响应在user.py中)
+http://127.0.0.1:5000/user/submitNewGame(响应在user.py中)
 传入:current_user对象
 POST方式：
 用户上传
@@ -102,7 +102,7 @@ name="game_screenshot5" type="file"
 
 设置界面:修改头像,姓名,密码和邮箱
 头像为文件,新的密码 自我介绍及姓名通过form['***']获取
-http://127.0.0.1:5000/<user_name>/settings(响应在user.py中)
+http://127.0.0.1:5000/user/<user_name>/settings(响应在user.py中)
 传入:current_user对象
 POST方式：
 用户上传:
