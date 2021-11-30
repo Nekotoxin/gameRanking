@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% block title %}<h1>Upload New Game</h1>{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<!--如果用户是管理员,可以上传一个游戏，包括封面，名字，描述，游戏类型，制作会社，插图， -->
+{% if current_user.is_authenticated %}
+<div class="upload_game">
+    <h1>upload game</h1>
+    <form method="post" action="{{ url_for('user.submit_new_game',user_name=current_user.user_name) }}" enctype="multipart/form-data">
+        <label for="game_title">game title</label>
+        <input name="game_title" type="text" id="game_title" required>
+        <br>
+        <!-- select the release date,show the date lable -->
+        <label for="release_date">release date</label>
+        <input type="date" name="release_date" id="release_date" required>
+        <br>
+        <label for="game_description">game description</label>
+        <input name="game_description" type="text" id="game_description" required>
+        <br>
+        <label for="game_type">game type</label>
+        <input name="game_type" type="text" id="game_type" required>
+        <br>
+        <label for="game_company">game company</label>
+        <input name="game_company" type="text" id="game_company" required>
+        <br>
+        <label for="game_cover">game cover</label>
+        <input type="file" name="game_cover" id="game_cover" required>
+        <br>
+        <!-- upload game screenshots(up to 5): -->
+        <label for="game_screenshot1">game screenshot1</label>
+        <input type="file" name="game_screenshot1" id="game_screenshot1" required>
+        <br>
+        <label for="game_screenshot2">game screenshot2</label>
+        <input type="file" name="game_screenshot2" id="game_screenshot2" required>
+        <br>
+        <label for="game_screenshot3">game screenshot3</label>
+        <input type="file" name="game_screenshot3" id="game_screenshot3" required>
+        <br>
+        <label for="game_screenshot4">game screenshot4</label>
+        <input type="file" name="game_screenshot4" id="game_screenshot4" required>
+        <br>
+        <label for="game_screenshot5">game screenshot5</label>
+        <input type="file" name="game_screenshot5" id="game_screenshot5" required>
+        <br>
+        <input type="submit" value="upload">
+    </form>
+</div>
+{% endif %}
+
+{% endblock%}

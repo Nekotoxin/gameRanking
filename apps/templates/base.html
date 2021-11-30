@@ -23,8 +23,10 @@
         </div>
         <!-- 登录 注册 -->
         <div class="authBtn">
-            {% if g.user %}
-            <a class="logOutBtn" href="http://www.google.com" target="blank">退出</a>
+            {% if current_user.is_authenticated %}
+            <!-- 显示用户姓名，点击后重定向到用户主页 -->
+            <a href="{{url_for('user.submit_new_game',user_name=current_user.user_name)}}">{{current_user.user_name}}</a>
+            <a class="logOutBtn" href="{{ url_for('auth.logout') }}" target="blank">退出</a>
             {% else %}
             <a class="loginBtn" href="{{ url_for('auth.login') }}" target="blank">登录</a>
             <a class="regBtn" href="{{ url_for('auth.register') }}" target="blank">注册</a>

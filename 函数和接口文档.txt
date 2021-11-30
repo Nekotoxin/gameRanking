@@ -62,7 +62,7 @@ user_name,user_email添加unique属性，该属性要求唯一值，声明unique
 @hughdazz
 数据库：
 函数返回值更改：
-凡原来返回对象的改为返回对象id
+凡原来返回对象的改为返回对象id：
 
 新增接口如下：
 **传入id,表名，字段名，新值来更改数据库数据，不检查正误
@@ -71,3 +71,54 @@ def update_item_value(id,table_name,table_word,new_value)
 def get_item_value(id,table_name,table_word)
 
 @hughdazz user_info.user_id修改为user_info.id
+
+11/26 @Nekotoxin
+to @royzhz
+新增响应：
+用户主页界面:展示用户收藏过的游戏,用户发表的感想和增加游戏的入口(一个按钮)
+http://127.0.0.1:5000/<user_name>/userhome(响应在user.py中)
+传入：current_user对象
+     collectGames列表(类型:game_info):用户收藏的游戏
+     comments列表(类型:comment):用户发表的评论
+     commentGames(类型:game_info):用户发表评论所对应的游戏(例如comments[1]对应commentGames[1])
+
+提交新游戏界面:
+http://127.0.0.1:5000/submitNewGame(响应在user.py中)
+传入:current_user对象
+POST方式：
+用户上传
+name="game_title" type="text"
+name="release_date" type="date"
+name="game_description" type="text"
+name="game_type" type="text"
+name="game_company" type="text
+
+name="game_cover" type="file" 
+name="game_screenshot1" type="file" 
+name="game_screenshot2" type="file" 
+name="game_screenshot3" type="file" 
+name="game_screenshot4" type="file" 
+name="game_screenshot5" type="file" 
+
+设置界面:修改头像,姓名,密码和邮箱
+头像为文件,新的密码 自我介绍及姓名通过form['***']获取
+http://127.0.0.1:5000/<user_name>/settings(响应在user.py中)
+传入:current_user对象
+POST方式：
+用户上传:
+头像(图片文件):newAvatar
+(注册时给用户增加一个默认头像 用户上传的头像存在userMaterialStock/id.x中 id为用户的id x为图片后缀)
+新的名字:newUsername
+新的密码:newPassword(不管旧密码,只要新密码不为空,就修改密码)
+新的自我介绍:newDescription
+
+
+
+
+
+
+
+
+
+
+

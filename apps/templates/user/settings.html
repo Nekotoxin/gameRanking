@@ -1,0 +1,28 @@
+<!-- 用户修改名称，头像，自我介绍等 -->
+{% extends 'base.html' %}
+
+{% block header %}
+{% block title %}<h1>我的个人设置</h1>{% endblock %}
+{% endblock %}
+
+{% block content %}
+<!-- 一个表单 表单的项间有分隔线 -->
+<form action="{{ url_for('user.settings') }}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">用户名</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
+    </div>
+    <div class="form-group">
+        <label for="avatar">头像</label>
+        <input type="file" class="form-control" id="avatar" name="avatar">
+    </div>
+    <div class="form-group">
+        <label for="intro">自我介绍</label>
+        <textarea class="form-control" id="intro" name="intro" rows="3">{{ user.intro }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">保存</button>
+</form>
+
+
+
+{% endblock %}

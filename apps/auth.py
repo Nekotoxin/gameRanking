@@ -47,7 +47,8 @@ def login():
         else:
             login_user(db_control.find_user(user))
             flash('login success')
-            return redirect(url_for('auth.user_mainpage',user_name=user_name))
+            games=db_control.getalltest()
+            return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
 
     return render_template('/auth/login.html')
 

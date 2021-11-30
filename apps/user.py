@@ -11,10 +11,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from ..apps import UserBP
 from .. import db_control
 import pymysql
-@UserBP.route('/<user_name>', methods=['GET', 'POST'])
-@login_required
-def user(user_name):
-    return 'hello user_name:'+user_name
 
 
 
@@ -72,7 +68,7 @@ def cancel_user():
 
 @UserBP.route('/<user_name>/userhome', methods=['GET', 'POST'])
 @login_required
-def submit_new_game():
+def submit_new_game(user_name):
     if request.method == 'POST':
         game_title = request.form['game_title']
         game_description = request.form['game_description']
@@ -104,5 +100,5 @@ def submit_new_game():
         game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot4'))
         game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot5'))
         flash('update success!')
-        return render_template('user/userhome.hyml')
-    return render_template('user/userhome.hyml')
+        return render_template('/user/userhome.html')
+    return render_template('/user/userhome.html')
