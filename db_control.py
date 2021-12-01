@@ -25,6 +25,7 @@ def add_game(type_id,game_title,game_description):
     g=game_info(game_title=game_title,game_intro=game_description)
     gt.games.append(g)
     db.session.commit()
+    return g.game_id
 
 def getalltest():
     return game_info.query.all()

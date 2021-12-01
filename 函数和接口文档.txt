@@ -113,10 +113,11 @@ POST方式：
 新的自我介绍:newDescription
 
 
-
-
-
-
+12/1 to@hughdazz
+get_collect_games(id)       传入id返回用户收藏的游戏（列表）
+get_comments(id)            传入id用户发表的评论和游戏（传回一个列表，包含两个列表，第一个用户是发表的评论，第二个是用户发表评论所对应的游戏(例如comments[1]对应commentGames[1]）
+add_new_user                函数需要在userMaterialStock下建立用户id文件夹）
+add_game                    函数需要在gameMaterialStock下建立游戏id文件夹
 
 
 

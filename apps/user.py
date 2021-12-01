@@ -12,48 +12,32 @@ from ..apps import UserBP
 from .. import db_control
 import pymysql
 
-
-
-@login_required
-def reset_name():
+@UserBP.route('/<user_name>/settings', methods=['GET', 'POST'])
+def settings():
     if request.method == 'POST':
-        name = request.form['name']
+        newAvatar = request.files['newAvatar']
+        newUsername=request.form['newUsername']
+        newPassword=request.form['newPassword']
+        newDescription=request.form['newDescription']
 
-        if not name or len(name) > 20:
-            flash('Invalid input.')
-            return render_template('user/settings.html')
+        if newUsername is not None:
+            db_control.update_item_value(current_user.id,'user_info','user_name',newUsername)
 
-        message=db_control.change_username(current_user.id, name)
-        if(message=='success'):
-            flash('userid has changed')
-        else:
-            flash('failed')
-        return redirect(url_for('mainpage'))#调用主页函数，需要修改
-    return render_template('user/settings.html')
+        if newPassword is not None:
+            db_control.update_item_value(current_user.id,'user_info','user_password',generate_password_hash(newPassword))
 
+        if newDescription is not None:
+            db_control.update_item_value(current_user.id,'user_info','user_self_intro',newDescription)
 
-#传入老密码，正确后进入下一步
-@login_required
-def reset_password():
-    if request.method == 'POST':
-        old_password = request.form['old_password']
-        if (check_password_hash(current_user.password,old_password)==0):
-            flash('password incorrect!')
-            render_template('user/settings.html')
+        if newAvatar is not None:
+            basepath = os.path.dirname(__file__)
+            nowpath='static\gameMaterialStock'+'\\'+current_user.id
+            path=os.path.join(basepath, nowpath, 'avatar.jpg')
+            if os.path.exists(path):
+                os.remove(path)
+            newAvatar.save(path)
 
-
-        new_password = request.form['new_password']
-        new_password=generate_password_hash(new_password)
-
-        message=db_control.change_user_password(current_user.id,new_password)
-        if(message=='success'):
-            flash('password has changed')
-            return render_template('/auth/login.html')
-        else:
-            flash('failed')
-            return render_template('user/settings.html')
-
-    return render_template('user/settings.html')
+    return redirect(url_for('user.user_home', user_name=current_user.user_name))
 
 #注销账户
 @login_required
@@ -66,9 +50,9 @@ def cancel_user():
     return redirect(url_for('mainpage'))
 
 
-@UserBP.route('/<user_name>/userhome', methods=['GET', 'POST'])
+@UserBP.route('/submitNewGame', methods=['GET', 'POST'])
 @login_required
-def submit_new_game(user_name):
+def submit_new_game():
     if request.method == 'POST':
         game_title = request.form['game_title']
         game_description = request.form['game_description']
@@ -90,15 +74,21 @@ def submit_new_game(user_name):
         if type is None:
             type=db_control.add_type(game_type)
 
-        db_control.add_game(type,game_title,game_description)
+        id=db_control.add_game(type,game_title,game_description)
 
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
-        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_cover'))
-        game_screenshot1.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot1'))
-        game_screenshot2.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot2'))
-        game_screenshot3.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot3'))
-        game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot4'))
-        game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\id','game_screenshot5'))
+        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_cover'))
+        game_screenshot1.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot1.jpg'))
+        game_screenshot2.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot2.jpg'))
+        game_screenshot3.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot3.jpg'))
+        game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot4.jpg'))
+        game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot5.jpg'))
         flash('update success!')
-        return render_template('/user/userhome.html')
-    return render_template('/user/userhome.html')
+
+    return redirect(url_for('user.user_home', user_name=current_user.user_name))
+
+@UserBP.route('/<user_name>', methods=['GET', 'POST'])
+def user_home(user_name):
+    #table=db_control.get_comments(current_user.id)
+    return render_template('user/userhome.html',current_user=current_user,collectGames=[],comments=[],commentGames=[])#测试代码
+    #return render_template('user/userhome.html',current_user=current_user,collectGames=db_control.get_collect_games(current_user.id),comments=table[0],commentGames=table[1])

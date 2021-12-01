@@ -14,7 +14,7 @@ from ..apps import AuthBP
 from .. import db_control
 
 from .mainpage import mainpage
-
+from .user import user_home
 
 ###############################################################################
 #   登录页面
@@ -47,8 +47,7 @@ def login():
         else:
             login_user(db_control.find_user(user))
             flash('login success')
-            games=db_control.getalltest()
-            return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
+            return redirect(url_for('user.user_home',user_name=user_name))
 
     return render_template('/auth/login.html')
 
@@ -93,6 +92,7 @@ def logout():
     return redirect(url_for('auth.login'))
 #其余功能.................................................................
 
-@AuthBP.route('/<user_name>/mainpage', methods=['GET', 'POST'])
+@AuthBP.route('/', methods=['GET', 'POST'])
 def user_mainpage(user_name):
-    return render_template('/mainpage/mainpage.html',current_user=current_user)
+    games = db_control.getalltest()
+    return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
