@@ -8,6 +8,7 @@ from flask import (
 )
 import hashlib
 from ..apps import MainPageBP
+from flask_login import (login_required,current_user)
 from ..db_control import (
     query_game,getalltest
 )
@@ -16,7 +17,7 @@ from ..db_control import (
 #   route: /
 ###############################################################################
 @MainPageBP.route('/')
-def mainpage(current_user=None):
+def mainpage():
     #创建字典变量，存储游戏信息
     #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
     games=getalltest()

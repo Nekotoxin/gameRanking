@@ -269,12 +269,13 @@ def initdb():
 @cmd.cli.command('forge')
 def forge():
     """Generate fake data."""
-    games=[{'game_title':'ride horse','game_scores':'5.0'},
+    games=[
+    {'game_title':'塞尔达传说：荒野之息','game_scores':'5.0'},
+    {'game_title':'ride horse','game_scores':'5.0'},
     {'game_title':'hello shit','game_scores':'5.0'},
     {'game_title':'fry cry','game_scores':'4.3'},
     {'game_title':'card set','game_scores':'2.0'},
-    {'game_title':'big brother','game_scores':'3.3'},
-    {'game_title':'guess what','game_scores':'5.0'}]
+    {'game_title':'big brother','game_scores':'3.3'}]
     
     t1=game_type(type_name='psp')
     t2=game_type(type_name='ns')
