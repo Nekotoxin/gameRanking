@@ -9,7 +9,7 @@
         <!-- 一条横线 -->
         
         {% for game in games %}
-        <img id="gamecover" src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.png')}}" alt="">
+        <img id="gamecover" src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
         <p id="gametitle">{{game['game_title']}}</p>
         <p id="gamerank">rank{{loop.index}}</p>
         <HR  id="listline" width=100% color=#000000 SIZE=1>
