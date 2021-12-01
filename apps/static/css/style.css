@@ -198,7 +198,7 @@ body{
 input{
     width:50%;
     height:30px;
-    border: 1px solid rgb(0, 0, 0);
+    /* border: 1px solid rgb(0, 0, 0); */
     border-radius: 10px;
     margin: 10px 0px;
     padding: 0px 10px;
@@ -230,6 +230,17 @@ input.btn[type="submit"]:hover{
 input.btn[type="submit"]:active{
     background-color: rgba(0, 0, 0, 0.623);
     text-decoration: none;    
+}
+
+.upload_game,.userhometemp{
+    margin: 50px auto 0px;
+    width:73%;
+    height: 100%;
+    padding: 30px;
+    position: relative;
+    border-radius: 20px;
+    border: rgba(255, 0, 0, 0) solid 2px;
+    backdrop-filter:blur(20px);
 }
 
 

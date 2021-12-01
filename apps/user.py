@@ -84,8 +84,9 @@ def submit_new_game():
         game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot4.jpg'))
         game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot5.jpg'))
         flash('update success!')
+    return render_template('user/newGame.html',current_user=current_user)
 
-    return redirect(url_for('user.user_home', user_name=current_user.user_name))
+    # return redirect(url_for('user.user_home', user_name=current_user.user_name))
 
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 def user_home(user_name):

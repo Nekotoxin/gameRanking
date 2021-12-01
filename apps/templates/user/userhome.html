@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}user home{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 
 <!-- 提交新游戏入口,定位至newgame.html -->
-<a href="{{ url_for('user.submit_new_game') }}">
-    <button type="button" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus"></span>
-        新建游戏
-    </button>
+<div class="userhometemp">
+    <a href="{{ url_for('user.submit_new_game') }}">
+        <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>
+            新建游戏
+        </button>
+</div>
+
 
 {% endblock %}
