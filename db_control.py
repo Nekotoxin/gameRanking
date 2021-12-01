@@ -4,7 +4,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template,Blueprint
 from datetime import datetime
-from datetime import datetime
 import click
 from __init__ import db
 from werkzeug.security import check_password_hash
@@ -34,7 +33,7 @@ def getalltest():
 #parm:title
 #ret:game_info-list
 def query_game(title):
-    _g=game_info.query.filter_by(game_title=title).all()
+    _g=game_info.query.filter_by(game_title=title).first()
     return _g.game_id
 
 #删除一个game_info
