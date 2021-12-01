@@ -34,6 +34,8 @@ def getalltest():
 #ret:game_info-list
 def query_game(title):
     _g=game_info.query.filter_by(game_title=title).first()
+    if(_g is None):
+        return None
     return _g.game_id
 
 #删除一个game_info
@@ -54,8 +56,10 @@ def add_type(name=''):
 #parm:name
 #ret:game_type-list
 def query_type(name):
-    gt=game_type.query.filter_by(type_name=name).all()
-    return gt.game_type_id
+    gt=game_type.query.filter_by(type_name=name).first()
+    if(gt is None):
+        return None
+    return gt.type_id
 
 #删除一个game_type
 #parm:type_id
@@ -75,7 +79,9 @@ def add_user(name='',intro=''):
 #parm:name
 #ret:user_info-list
 def query_user(name=''):
-    u=user_info.query.filter_by(user_name=name).all()
+    u=user_info.query.filter_by(user_name=name).first()
+    if(u is None):
+        return None
     return u.id
 
 
@@ -96,7 +102,7 @@ def add_comment(game_id,id,contents=''):
 def query_comment(game_id,id):
     c=comment.query.filter_by(comment_game_id=game_id,comment_user_id=id).first()
     if(c is None):
-        return -1
+        return None
     return c.comment_id
 
 #删除一个comment

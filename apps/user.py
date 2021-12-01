@@ -77,12 +77,14 @@ def submit_new_game():
         id=db_control.add_game(type,game_title,game_description)
 
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
-        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_cover'))
-        game_screenshot1.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot1.jpg'))
-        game_screenshot2.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot2.jpg'))
-        game_screenshot3.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot3.jpg'))
-        game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot4.jpg'))
-        game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\\'+id,'game_screenshot5.jpg'))
+        if not os.path.exists(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id))):
+            os.mkdir(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id)))
+        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_cover.png'))
+        game_screenshot1.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot1.jpg'))
+        game_screenshot2.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot2.jpg'))
+        game_screenshot3.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot3.jpg'))
+        game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot4.jpg'))
+        game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot5.jpg'))
         flash('update success!')
     return render_template('user/newGame.html',current_user=current_user)
 
