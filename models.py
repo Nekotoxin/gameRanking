@@ -3,14 +3,14 @@ from datetime import datetime
 from flask_login import UserMixin
 class game_info(db.Model):
     game_id=db.Column(db.Integer, primary_key=True)
-    game_title=db.Column(db.String(80), unique=True, nullable=False)
+    game_title=db.Column(db.String(80),nullable=False)
     game_score=db.Column(db.Float)
 
     #根据type查游戏
     game_type_id=db.Column(db.Integer, db.ForeignKey('game_type.type_id'))
     comments = db.relationship('comment',backref=db.backref('related_game', lazy=True))
 
-    game_intro=db.Column(db.String(400))
+    game_intro=db.Column(db.String(1000))
 
     game_update_time=db.Column(db.DateTime,default=datetime.utcnow)
     game_collect_num=db.Column(db.Integer)
@@ -41,7 +41,7 @@ class comment(db.Model):
 
 class user_info(UserMixin,db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    user_name=db.Column(db.String(80),unique=True,nullable=False)
+    user_name=db.Column(db.String(80),nullable=False)
     user_email=db.Column(db.String(80),unique=True)
     user_password=db.Column(db.String(256),nullable=False)
     user_regis_time=db.Column(db.DateTime,default=datetime.utcnow)
