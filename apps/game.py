@@ -13,3 +13,7 @@ from ..apps import GameBP
 def game(game_id):
     return 'hello game_id:'+game_id
 
+@GameBP.route('/test')
+def test0():
+    # print(url_for(game.test0))
+    return render_template('/game/gamepage.html')

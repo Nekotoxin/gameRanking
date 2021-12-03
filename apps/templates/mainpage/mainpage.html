@@ -2,11 +2,26 @@
 {% block header %}
 {% endblock %}
 {% block content %}
-<div class="gameRankList">
-    <h1>list</h1>
-    <p>test</p>
-    {% for game in games %}
-        <p>{{game['game_title']}}</p>
-    {% endfor %}
+
+<div id="mainpageBox">
+    <div class="gameRankList">
+        <h1 id="list1">全部游戏</h1>
+        <!-- 一条横线 -->
+        
+        {% for game in games %}
+        <a href="{{url_for('game.test0')}}">
+            <img id="gamecover" src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
+        </a>
+        
+        <p id="gametitle">{{game['game_title']}}</p>
+        <p id="gamerank">rank{{loop.index}}</p>
+        <HR  id="listline" width=100% color=#000000 SIZE=1>
+        {% endfor %}
+    </div>
+
+    <div id="sideBox">
+        sss
+    </div>
 </div>
+
 {% endblock %}
