@@ -45,6 +45,15 @@ def delete_game(game_id):
     db.session.delete(g)
     db.session.commit()
 
+#根据gameid查找game_info
+#parm:game_id
+#ret:game_info
+def find_game_by_id(game_id):
+    g=game_info.query.get(game_id)
+    if(g is None):
+        return 'fail'
+    return g
+
 #插入一个game_type,传入name(string)
 def add_type(name=''):
     gt=game_type(type_name=name)

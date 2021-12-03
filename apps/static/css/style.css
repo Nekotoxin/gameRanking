@@ -163,6 +163,7 @@ body{
     border: 2px solid rgb(0, 255, 76);
     margin-left:20px;
     margin-bottom: 20px;
+    width: 300px;
 }
 
 #gametitle{
@@ -304,6 +305,26 @@ input.btn[type="submit"]:active{
     border: rgba(255, 0, 0, 0) solid 2px;
     backdrop-filter:blur(20px);
 }
+
+.starRating li{
+    text-decoration: none;
+    font-size: x-large;
+    float:left;
+}
+
+.starRating{
+    overflow: auto;
+    list-style: none;
+    cursor:default;
+    border:2px solid rgb(0, 255, 76);
+
+}
+
+.starActive{
+    color: rgb(255, 208, 0);
+}
+
+
 
 
 

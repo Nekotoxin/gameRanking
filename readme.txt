@@ -18,14 +18,14 @@
 上述任务后一个依赖前一个（大概）
 ------------------------------------------------------------------------------------------
 分工：
-@Nekotoxin：网站框架，前端
+@Nekotoxin：网站框架，前端,单个游戏页面（new）
 @royzhz：登录模块，用户主页后端
-@hughdazz：网站主页后端，单个游戏页面（new），数据库部分
+@hughdazz：网站主页后端，数据库部分
 
 文件负责人：
 @hughdazz mainpage.py,db_control.py,models.py
-@Nekotoxin *.html,*.css,*.js,__init__.py
-@royzhz:auth.py,user.py,game.py
+@Nekotoxin *.html,*.css,*.js,__init__.py,gamepage.py
+@royzhz:auth.py,user.py
 ------------------------------------------------------------------------------------------
 
 

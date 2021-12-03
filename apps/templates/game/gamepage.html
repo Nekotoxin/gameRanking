@@ -6,16 +6,76 @@
 {% block content %}
 <!-- 评论区 -->
 <!-- 用星星实现评分效果 -->
-<script>
-</script>
 
+<!-- 展示游戏封面 -->
+<div>
+    <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
+</div>
+<div>
+    <p>游戏名：{{game['game_title']}}</p>
+    <p>游戏会社：{{game['game_company']}}</p>
+    <p>游戏简介{{game['game_intro']}}</p>
+    <p>游戏评分：{{game['game_score']}}</p>
+    <!-- 展示游戏截图 -->
+    {% for i in range(1,screenShotCount+1) %}
+        <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_screenshot'~i~'.jpg')}}" alt="">
+    {%endfor%}
+</div>
+
+
+
+
+<p>请给游戏评分：</p>
 <ul class="starRating">
-    <li>★</li>
-    <li>★</li>
-    <li>★</li>
-    <li>★</li>
-    <li>★</li>
+    <li id="1">★</li>
+    <li id="1">★</li>
+    <li id="1">★</li>
+    <li id="1">★</li>
+    <li id="1">★</li>
 </ul>
+
+<script>
+    var starbox = document.getElementsByClassName("starRating")[0];
+    var starlist = document.getElementsByTagName("li");
+    //when mouse over the star, change the color
+    var clickflag = false;
+    starbox.onmouseover = function(e){
+        if(clickflag){
+            return;
+        }
+        if(e.target.tagName == "LI"){
+            e.target.style.color = "red";
+            var prev = e.target.previousElementSibling;
+            while(prev){
+                prev.style.color = "red";
+                prev = prev.previousElementSibling;
+            }
+            var next = e.target.nextElementSibling;
+            while(next){
+                next.style.color = "black";
+                next = next.nextElementSibling;
+            }
+        }
+    };
+
+    starbox.onclick = function(e){
+        if(e.target.tagName == "LI"){
+            clickflag = true;
+            var prev = e.target.previousElementSibling;
+            e.target.style.color = "red";
+            while(prev){
+                prev.style.color = "red";
+                prev = prev.previousElementSibling;
+            }
+            var next = e.target.nextElementSibling;
+            while(next){
+                next.style.color = "black";
+                next = next.nextElementSibling;
+            }
+        }
+    };
+
+</script>
 
 
 {% endblock %}

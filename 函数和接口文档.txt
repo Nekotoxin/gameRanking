@@ -119,6 +119,11 @@ get_comments(id)            传入id用户发表的评论和游戏（传回一�
 add_new_user                函数需要在userMaterialStock下建立用户id文件夹）
 add_game                    函数需要在gameMaterialStock下建立游戏id文件夹
 
+12/3 to@hughdazz
+数据库添加字段：
+game_company:游戏会社
+
+
 
 
 

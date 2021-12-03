@@ -61,7 +61,7 @@ def create_app():
     from .apps import auth
     app.register_blueprint(apps.AuthBP)
     #GameBP:单个游戏的页面蓝图
-    from .apps import game
+    from .apps import gamepage
     app.register_blueprint(apps.GameBP)
     #UserBP:用户自己主页(功能有修改密码，用户名，放置用户发的感想等)的蓝图
     from .apps import user
