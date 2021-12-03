@@ -122,6 +122,14 @@ add_game                    函数需要在gameMaterialStock下建立游戏id文
 12/3 to@hughdazz
 数据库添加字段：
 game_company:游戏会社
+函数需求：
+更新游戏的分数:update_item_value() in db_control.py
+ 记录每个分数段的人数（1分~5分） 之后算平均分 算完之后更新游戏排名
+标记用户对该游戏的评分
+插入一个评论
+
+
+
 
 
 
