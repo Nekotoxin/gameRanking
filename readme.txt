@@ -6,9 +6,9 @@
 @hughdazz 完成增加新用户和用户的身份验证函数(models.py,db_control.py)---------已完成
 ->@royzhz 处理用户提交的新游戏(user.py)------------------------------------完成
 ->@hughdazz 完成用于向数据库添加游戏的函数(models.py,db_control.py)----------不需要
-->@Nekotoxin 基本完成主页(mainpage.html,style.css)
-->@Nekotoxin 开发单个游戏主页(gamepage.html,style.css)
-->@royzhz 写游戏主页响应(user.py)
+->@Nekotoxin 基本完成主页(mainpage.html,style.css)-----------------------已完成（原始效果）
+->@Nekotoxin 开发单个游戏主页(gamepage.html,style.css)--------------------完成70%（原始效果）
+->@Nekotoxin 写游戏主页响应(user.py)
 ->@hughdazz 完成用于添加用户喜欢某个游戏，游戏分数，游戏评论等函数(models.py,db_control.py)
 ->@Nekotoxin 用户主页(userhome.html,style.css)
 ->@royzhz 用户主页响应（userhome.py）

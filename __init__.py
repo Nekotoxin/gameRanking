@@ -31,9 +31,7 @@ def create_app():
 
     login_manager.init_app(app)
     @login_manager.user_loader
-    def load_user(user_id):
-        user = User.query.get(int(user_id))
-        return user
+    
 
     @login_manager.user_loader  # 初始化管理器
     def load_user(user_id):  # 根据user_id返回user对象
