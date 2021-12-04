@@ -15,7 +15,7 @@ cmd = Blueprint('db', __name__) #created a Blueprint for this module
 
 
     
-from models import game_info,game_type,user_info,comment
+from models import game_info, game_score,game_type,user_info,comment
 
 #插入一个game_info
 #parm:type_id,,game_title,game_description
@@ -191,7 +191,12 @@ def get_item_value(id,table_name,table_word):
         if(table_word=='game_title'):
             return g.game_title
         if(table_word=='game_score'):
-            return g.game_score
+            num=0
+            total=0
+            for score in g.game_scores:
+                num+=1
+                total+=score.value
+            return float(total)/num
         if(table_word=='game_intro'):
             return g.game_intro
         if(table_word=='game_collect_num'):
@@ -350,7 +355,10 @@ def score_list(game_id):
     return slist
 
 
-
+def add_score(game_id,value):
+    score=game_score(score_value=value)
+    game=game_info.query.get(game_id)
+    game.game_scores.append(score)
 
 
 
