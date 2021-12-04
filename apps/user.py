@@ -59,11 +59,8 @@ def submit_new_game():
         game_type = request.form['game_type']
         game_company = request.form['game_company']
         game_cover = request.files['game_cover']
-        game_screenshot1= request.files['game_screenshot1']
-        game_screenshot2 = request.files['game_screenshot2']
-        game_screenshot3 = request.files['game_screenshot3']
-        game_screenshot4 = request.files['game_screenshot4']
-        game_screenshot5 = request.files['game_screenshot5']
+        #获取上传的多个截图文件 name="game_screenshots"
+        game_screenshots = request.files.getlist('game_screenshots')
 
         id=db_control.query_game(game_title)
         if id is not None:
@@ -80,11 +77,9 @@ def submit_new_game():
         if not os.path.exists(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id))):
             os.mkdir(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id)))
         game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_cover.jpg'))
-        game_screenshot1.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot1.jpg'))
-        game_screenshot2.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot2.jpg'))
-        game_screenshot3.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot3.jpg'))
-        game_screenshot4.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot4.jpg'))
-        game_screenshot5.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot5.jpg'))
+        #按照game_screenshot<i>.jpg的方式保存
+        for i in range(len(game_screenshots)):
+            game_screenshots[i].save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot'+str(i)+'.jpg'))
         flash('update success!')
     return render_template('user/newGame.html',current_user=current_user)
 
