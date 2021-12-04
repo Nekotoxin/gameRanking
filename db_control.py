@@ -205,6 +205,11 @@ def get_item_value(id,table_name,table_word):
         u=user_info.query.get(id)
         if(u is None):
             return 'fail'
+        if(table_word=='comments'):
+            clist=[]
+            for user_comment in u.comments :
+                clist.append(user_comment.comment_id)
+            return clist
         if(table_word=='user_name'):
             return u.user_name
         if(table_word=='user_email'):
@@ -227,6 +232,10 @@ def get_item_value(id,table_name,table_word):
         c=comment.query.get(id)
         if(c is None):
             return 'fail'
+        if(table_word=='comment_user_name'):
+            return c.related_user.user_name
+        if(table_word=='comment_title'):
+            return c.comment_title
         if(table_word=='comment_contents'):
             return c.comment_contents  
     
@@ -278,69 +287,138 @@ def add_new_user(name,passw):
     return 'name has existed'
 
 #***************************************************************************************************
+###########################################################################################
+###########################################################################################
+###########################################################################################
+def collect_game(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    user.collects.append(game)
 
+def incollect_game(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    user.collects.remove(game)
+
+def is_collect(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    num=user.collects.count(game)
+    if(num>=1):
+        return True
+    else:
+        return False
+
+def collect_list(user_id):
+    clist=[]
+    user=user_info.query.get(user_id)
+    for game in user.collects:
+        clist.append(game.game_id)
+    return clist
+
+def exper_game(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    user.expers.append(game)
+
+def inexper_game(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    user.expers.remove(game)
+
+def is_exper(user_id,game_id):
+    game=game_info.query.get(game_id)
+    user=user_info.query.get(user_id)
+    num=user.expers.count(game)
+    if(num>=1):
+        return True
+    else:
+        return False
+
+def exper_list(user_id):
+    elist=[]
+    user=user_info.query.get(user_id)
+    for game in user.expers:
+        elist.append(game.game_id)
+    return elist
+
+def score_list(game_id):
+    slist=[0,0,0,0,0]
+    game=game_info.query.get(game_id)
+    for score in game.game_scores :
+        slist[score.score_value-1]+=1
+    return slist
+
+
+
+
+
+
+###########################################################################################
+###########################################################################################
+###########################################################################################
 @cmd.cli.command('init-db')
 def initdb():
     db.drop_all()
     db.create_all()
     print('***** Datebase created ****')
-
-@cmd.cli.command('forge')
-def forge():
-    """Generate fake data."""
-    games=[
-    {'game_title':'塞尔达传说：荒野之息','game_scores':'5.0'},
-    {'game_title':'ride horse','game_scores':'5.0'},
-    {'game_title':'hello shit','game_scores':'5.0'},
-    {'game_title':'fry cry','game_scores':'4.3'},
-    {'game_title':'card set','game_scores':'2.0'},
-    {'game_title':'big brother','game_scores':'3.3'}]
+#暂时弃用
+# @cmd.cli.command('forge')
+# def forge():
+#     """Generate fake data."""
+#     games=[
+#     {'game_title':'塞尔达传说：荒野之息','game_scores':'5.0'},
+#     {'game_title':'ride horse','game_scores':'5.0'},
+#     {'game_title':'hello shit','game_scores':'5.0'},
+#     {'game_title':'fry cry','game_scores':'4.3'},
+#     {'game_title':'card set','game_scores':'2.0'},
+#     {'game_title':'big brother','game_scores':'3.3'}]
     
-    t1=game_type(type_name='psp')
-    t2=game_type(type_name='ns')
-    t3=game_type(type_name='psv')
+#     t1=game_type(type_name='psp')
+#     t2=game_type(type_name='ns')
+#     t3=game_type(type_name='psv')
 
-    g1=game_info(game_title=games[0]['game_title'],game_score=games[0]['game_scores'])
-    g2=game_info(game_title=games[1]['game_title'],game_score=games[1]['game_scores'])
-    g3=game_info(game_title=games[2]['game_title'],game_score=games[2]['game_scores'])
-    g4=game_info(game_title=games[3]['game_title'],game_score=games[3]['game_scores'])
-    g5=game_info(game_title=games[4]['game_title'],game_score=games[4]['game_scores'])
+#     g1=game_info(game_title=games[0]['game_title'],game_score=games[0]['game_scores'])
+#     g2=game_info(game_title=games[1]['game_title'],game_score=games[1]['game_scores'])
+#     g3=game_info(game_title=games[2]['game_title'],game_score=games[2]['game_scores'])
+#     g4=game_info(game_title=games[3]['game_title'],game_score=games[3]['game_scores'])
+#     g5=game_info(game_title=games[4]['game_title'],game_score=games[4]['game_scores'])
 
-    u1=user_info(user_name='Jack',user_password='%&&^@*(@*)')
-    u2=user_info(user_name='Hugh',user_password='@*&@)@)(@*')
-    u3=user_info(user_name='Jane',user_password='__)!+@)_@++')
+#     u1=user_info(user_name='Jack',user_password='%&&^@*(@*)')
+#     u2=user_info(user_name='Hugh',user_password='@*&@)@)(@*')
+#     u3=user_info(user_name='Jane',user_password='__)!+@)_@++')
 
-    c1=comment(comment_contents='very good')
-    c2=comment(comment_contents='very bad')
-    c3=comment(comment_contents='like shit')
-    c4=comment(comment_contents='looks nice')
+#     c1=comment(comment_contents='very good')
+#     c2=comment(comment_contents='very bad')
+#     c3=comment(comment_contents='like shit')
+#     c4=comment(comment_contents='looks nice')
 
-    u1.comments.append(c1)
-    u1.comments.append(c2)
-    u2.comments.append(c3)
-    u3.comments.append(c4)
+#     u1.comments.append(c1)
+#     u1.comments.append(c2)
+#     u2.comments.append(c3)
+#     u3.comments.append(c4)
 
-    g1.comments.append(c1)
-    g2.comments.append(c2)
-    g3.comments.append(c4)
-    g4.comments.append(c3)
+#     g1.comments.append(c1)
+#     g2.comments.append(c2)
+#     g3.comments.append(c4)
+#     g4.comments.append(c3)
 
-    t1.games.append(g1)
-    t2.games.append(g2)
-    t2.games.append(g4)
-    t3.games.append(g3)
-    t3.games.append(g5)
+#     t1.games.append(g1)
+#     t2.games.append(g2)
+#     t2.games.append(g4)
+#     t3.games.append(g3)
+#     t3.games.append(g5)
 
 
-    db.session.add(t1)
-    db.session.add(t2)
-    db.session.add(t3)
-    db.session.add(u1)
-    db.session.add(u2)
-    db.session.add(u3)
-    db.session.commit()
+#     db.session.add(t1)
+#     db.session.add(t2)
+#     db.session.add(t3)
+#     db.session.add(u1)
+#     db.session.add(u2)
+#     db.session.add(u3)
+#     db.session.commit()
 
-    print('Done')
+#     print('Done')
     
     
 

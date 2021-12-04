@@ -11,10 +11,11 @@
         {% for game in games %}
         <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
             <img id="gamecover"
-                src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
-        </a>
-
+                src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/screenshot1.jpg')}}" alt="">
         <p id="gametitle">{{game['game_title']}}</p>
+            </a>
+
+        
         <p id="gamerank">rank{{loop.index}}</p>
         <HR id="listline" width=100% color=#000000 SIZE=1>
         {% endfor %}
