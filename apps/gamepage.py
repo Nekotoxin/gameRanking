@@ -8,6 +8,7 @@ import os
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for,jsonify
 )
+from flask_login import (login_required,current_user)
 import hashlib
 from . import GameBP
 from db_control import *
@@ -32,7 +33,11 @@ def gamepage(game_id):
         #判断文件是否存在
         if os.path.exists(file_path):
             screenShotCount += 1
-    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount)
+    
+    #获取评论
+    comments=query_comment_by_game_id(game_id)
+    print(comments)
+    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,cuurent_user=current_user)
 
 #submitScore
 @GameBP.route('/submitScore',methods=['GET','POST'])
@@ -52,17 +57,19 @@ def submitScore():
 @GameBP.route('/submitComment',methods=['GET','POST'])
 def submitComment():
     if request.method == 'POST':
+        #获取用户id
+        user_id = current_user.get_id()
         #获取游戏id
         game_id = request.form['game_id']
         #获取评论内容
         comment = request.form['comment_content']
         if game_id and comment:
             #插入评论
-            #update_item_value(game_id,'game_info','game_comment', comment)
-        #向jquery返回data.status=="success"
+            add_comment(game_id,user_id,comment)
             #成功了则提示成功
             print("success")
             return "success"
+    return "fail"
 
             
         

@@ -119,14 +119,30 @@ get_comments(id)            传入id用户发表的评论和游戏（传回一�
 add_new_user                函数需要在userMaterialStock下建立用户id文件夹）
 add_game                    函数需要在gameMaterialStock下建立游戏id文件夹
 
-12/3 to@hughdazz
-数据库添加字段：
-game_company:游戏会社
+12/4 to@hughdazz
 函数需求：
-更新游戏的分数:update_item_value() in db_control.py
- 记录每个分数段的人数（1分~5分） 之后算平均分 算完之后更新游戏排名
-标记用户对该游戏的评分
-插入一个评论
+1.用户收藏某个游戏
+参数:user_id game_id
+2.用户取消收藏某个游戏
+参数:user_id game_id
+3.获取用户对某个游戏的收藏状态
+参数:user_id game_id
+4.获取用户收藏的所有游戏列表(返回类型为game列表)
+参数:user_id
+5.用户玩过某个游戏
+参数:user_id game_id
+6.用户取消玩过某个游戏
+参数:user_id game_id
+7.获取用户对某个游戏的玩过状态
+参数:user_id game_id
+8.获取用户玩过的所有游戏列表(返回类型为game列表)
+参数:user_id
+9.comment添加属性：感想的标题comment_title，用户名
+10.获取某个游戏各分数段的评分用户数量
+参数:game_id
+返回：一个列表 5个数，分别为1-5分的用户数量
+11.获取某个用户的所有评论
+参数:user_id
 
 
 

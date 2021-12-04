@@ -103,16 +103,26 @@ def add_comment(game_id,id,contents=''):
     u=user_info.query.get(id)
     g.comments.append(c)
     u.comments.append(c)
+    print(c.comment_contents)
     db.session.commit()
 
-#查找一个comment
-#parm:game_id,id
+#根据用户id查找所有comment
+#parm:user_id
 #ret:comment(none:-1)
-def query_comment(game_id,id):
-    c=comment.query.filter_by(comment_game_id=game_id,comment_user_id=id).first()
+def query_comment_by_user_id(user_id):
+    c=comment.query.filter_by(comment_user_id=user_id)
     if(c is None):
         return None
-    return c.comment_id
+    return c
+
+#根据游戏id查找所有comment
+#parm:game_id,id
+#ret:comment(none:-1)
+def query_comment_by_game_id(game_id):
+    c=comment.query.filter_by(comment_game_id=game_id)
+    if(c is None):
+        return None
+    return c
 
 #删除一个comment
 #parm:comment_id

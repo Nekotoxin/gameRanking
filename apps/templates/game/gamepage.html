@@ -36,6 +36,7 @@
 <!-- 提交评分按钮 -->
 <button id="submitScore" value="{{game['game_id']}}">提交评分</button>
 
+
 <script>
     var starbox = document.getElementsByClassName("starRating")[0];
     var starlist = document.getElementsByTagName("li");
@@ -98,6 +99,9 @@
             success: function (data) {
                 if (data == "success") {
                     alert("评分成功");
+                    
+
+                    
                 } else {
                     alert("评分失败");
                 }
@@ -121,6 +125,9 @@
         console.log("click");
         var comment_content = $("#comment textarea").val();
         var game_id = $("#comment input[name='game_id']").val();
+        var user_id = $(this).val();
+        console.log(user_id);
+        // console.log(game_id);
         $.ajax({
             url: "{{url_for('gamepage.submitComment')}}",
             type: "post",
@@ -139,6 +146,17 @@
     });
 </script>
 
+<!-- 显示所有评论 -->
+<div id="commentList">
+    {% for comment in comments %}
+    <div>
+        <p>用户id：{{comment['comment_user_id']}}</p>
+        <p>评论时间：{{comment['comment_time']}}</p>
+        <p>评论内容：{{comment['comment_contents']}}</p>
+        
+    </div>
+    {% endfor %}
+</div>
 
 
 
