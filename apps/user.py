@@ -79,7 +79,7 @@ def submit_new_game():
         game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_cover.jpg'))
         #按照game_screenshot<i>.jpg的方式保存
         for i in range(len(game_screenshots)):
-            game_screenshots[i].save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot'+str(i)+'.jpg'))
+            game_screenshots[i].save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot'+str(i+1)+'.jpg'))
         flash('update success!')
     return render_template('user/newGame.html',current_user=current_user)
 
