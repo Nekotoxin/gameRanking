@@ -7,3 +7,4 @@ env
 *.png
 *.jpg
 *.db
+*.db-journal
