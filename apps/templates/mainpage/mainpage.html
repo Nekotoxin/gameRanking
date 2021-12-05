@@ -9,21 +9,138 @@
         <!-- 一条横线 -->
 
         {% for game in games %}
-        <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
-            <img id="gamecover"
-                src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/screenshot1.jpg')}}" alt="">
-        <p id="gametitle">{{game['game_title']}}</p>
+        <div id="aGame" class="animate__animated animate__bounceInUp">
+            <!-- <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}"> -->
+            <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
+                <img id="gameCover"
+                    src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
             </a>
 
-        
-        <p id="gamerank">rank{{loop.index}}</p>
-        <HR id="listline" width=100% color=#000000 SIZE=1>
+            <div id="gameTextBox">
+                <p id="gamerank">Rank {{loop.index}}</p>
+                <!-- collect button -->
+               
+                <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
+                    <p class="animate__animated animate__bounce" id="gameTitle" class="animate__headShake"> {{game['game_title']}}</p>
+                    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
+                </a>
+
+               
+            </div>
+            <!-- show game_update_time 日期只显示年月日部分 -->
+            <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p>
+            <div id="collectButton">
+                <button id="collectButton" class="btn btn-primary" type="button">
+                    😘
+                </button>
+            </div>            
+        </div>
+        <div id="gameSeparate"></div>
         {% endfor %}
     </div>
-
+    <!-- a div 占位 -->
+    <div id="takePlace"></div>
     <div id="sideBox">
-        sss
+        <div id="SB1">
+            <p id="SBSelector1">根据平台筛选</p>
+            <!-- 选择列表 psp,ps4,xbox,pc... -->
+            <ul id="SBSelectorList1">
+                <li>
+                    <a href="{{url_for('mainpage.mainpage')}}">&ensp;全部 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='psp')}}">&ensp;PSP &ensp; </a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='ps4')}}">&ensp;PS4 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='xbox')}}">&ensp;XBOX &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='pc')}}">&ensp;PC &ensp;</a>
+                </li>
+            </ul>
+        </div>
+
+        
+
+        <div id="SB2">
+            
+            <p id="SBSelector2">根据游戏类型筛选</p>
+            <ul id="SBSelectorList2">
+                <li>
+                    <a href="{{url_for('mainpage.mainpage')}}">&ensp;全部 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='action')}}">&ensp;动作 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='adventure')}}">&ensp;冒险 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='fighting')}}">&ensp;格斗 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='rpg')}}">&ensp;rpg &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='shooter')}}">&ensp;射击 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='sports')}}">&ensp;运动 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_type='strategy')}}">&ensp;策略 &ensp;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="SB3">
+            <!-- 根据发布年份筛选 -->
+            <p id="SBSelector3">根据发布年份筛选</p>
+            <ul id="SBSelectorList3">
+                <li>
+                    <a href="{{url_for('mainpage.mainpage')}}">&ensp;全部 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2019')}}">&ensp;2019 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2018')}}">&ensp;2018 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2017')}}">&ensp;2017 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2016')}}">&ensp;2016 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2015')}}">&ensp;2015 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2014')}}">&ensp;2014 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2013')}}">&ensp;2013 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2012')}}">&ensp;2012 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2011')}}">&ensp;2011 &ensp;</a>
+                </li>
+                <li>
+                    <a href="{{url_for('mainpage.mainpage',game_year='2010')}}">&ensp;2010 &ensp;</a>
+                </li>
+            </ul>
+
+
+            
+        </div>
     </div>
 </div>
+
+
 
 {% endblock %}

@@ -8,155 +8,172 @@
 <!-- 用星星实现评分效果 -->
 
 <!-- 展示游戏封面 -->
-<div>
-    <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
-</div>
-<div>
-    <p>游戏名：{{game['game_title']}}</p>
-    <p>游戏会社：{{game['game_company']}}</p>
-    <p>游戏简介{{game['game_intro']}}</p>
-    <p>游戏评分：{{game['game_score']}}</p>
-    <!-- 展示游戏截图 -->
-    {% for i in range(1,screenShotCount+1) %}
-    <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_screenshot'~i~'.jpg')}}" alt="">
-    {%endfor%}
-</div>
+<div id="gamepageBody" class="animate__animated animate__bounceInUp">
+    <div id="GPLeftBox">
+        <div id="titleInPage">
+            <h1>{{game['game_title']}}</h1>
+        </div>
 
-
-
-
-<p>请给游戏评分：</p>
-<ul class="starRating">
-    <li id="1">★</li>
-    <li id="1">★</li>
-    <li id="1">★</li>
-    <li id="1">★</li>
-    <li id="1">★</li>
-</ul>
-<!-- 提交评分按钮 -->
-<button id="submitScore" value="{{game['game_id']}}">提交评分</button>
-
-
-<script>
-    var starbox = document.getElementsByClassName("starRating")[0];
-    var starlist = document.getElementsByTagName("li");
-    //when mouse over the star, change the color
-    var clickflag = false;
-    starbox.onmouseover = function (e) {
-        if (clickflag) {
-            return;
-        }
-        if (e.target.tagName == "LI") {
-            e.target.style.color = "red";
-            var prev = e.target.previousElementSibling;
-            while (prev) {
-                prev.style.color = "red";
-                prev = prev.previousElementSibling;
-            }
-            var next = e.target.nextElementSibling;
-            while (next) {
-                next.style.color = "black";
-                next = next.nextElementSibling;
-            }
-        }
-    };
-
-    starbox.onclick = function (e) {
-        if (e.target.tagName == "LI") {
-            clickflag = true;
-            var prev = e.target.previousElementSibling;
-            e.target.style.color = "red";
-            while (prev) {
-                prev.style.color = "red";
-                prev = prev.previousElementSibling;
-            }
-            var next = e.target.nextElementSibling;
-            while (next) {
-                next.style.color = "black";
-                next = next.nextElementSibling;
-            }
-        }
-    };
-
-    //jquery 发送评分
-    $("#submitScore").click(function () {
-        var score = 0;
-        for (var i = 0; i < starlist.length; i++) {
-            if (starlist[i].style.color == "red") {
-                score = i + 1;
-            }
-        }
-
-        var game_id = $(this).val();
-        console.log(game_id);
-        $.ajax({
-            url: "{{url_for('gamepage.submitScore')}}",
-            type: "post",
-            data: {
-                "game_id": game_id,
-                "score": score
-            },
-            success: function (data) {
-                if (data == "success") {
-                    alert("评分成功");
-                    
-
-                    
-                } else {
-                    alert("评分失败");
-                }
-            }
-        });
-    });
-
-
-</script>
-
-<!-- 添加用户评论框（在当前页面） -->
-<div id="comment">
-    <input type="hidden" name="game_id" value="{{game['game_id']}}">
-    <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
-    <button id="submitComment">提交评论</button>
-</div>
-
-<!-- 按下按钮 jquery发送评论  -->
-<script>
-    $("#submitComment").click(function () {
-        console.log("click");
-        var comment_content = $("#comment textarea").val();
-        var game_id = $("#comment input[name='game_id']").val();
-        var user_id = $(this).val();
-        console.log(user_id);
-        // console.log(game_id);
-        $.ajax({
-            url: "{{url_for('gamepage.submitComment')}}",
-            type: "post",
-            data: {
-                "game_id": game_id,
-                "comment_content": comment_content
-            },
-            success: function (data) {
-                if (data == "success") {
-                    alert("评论成功");
-                } else {
-                    alert("评论失败");
-                }
-            }
-        });
-    });
-</script>
-
-<!-- 显示所有评论 -->
-<div id="commentList">
-    {% for comment in comments %}
-    <div>
-        <p>用户id：{{comment['comment_user_id']}}</p>
-        <p>评论时间：{{comment['comment_time']}}</p>
-        <p>评论内容：{{comment['comment_contents']}}</p>
+        <img id="gameCoverInPage"
+            src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
+        <div id="gameDescriptionInPage">
+            <p>游戏会社：<span>{{game['game_company']}}</span></p>
+            <p>游戏评分：<span>{{game['game_score']}}</span></p>
+            <p>游戏类型：<span>{{game['game_type']}}</span></p>            
+        </div>
         
     </div>
-    {% endfor %}
+
+    <div id="GPMiddleBox">
+        <p id="gameIntro">游戏简介：<span>{{game['game_intro']}}</span></p>
+        <!-- 展示游戏截图 -->
+        {% for i in range(1,screenShotCount+1) %}
+        <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_screenshot'~i~'.jpg')}}"
+            alt="">
+        {%endfor%}
+        <!-- 添加用户评论框（在当前页面） -->
+        <div id="comment">
+            <input type="hidden" name="game_id" value="{{game['game_id']}}">
+            <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
+            <button id="submitComment">提交评论</button>
+        </div>
+
+        <!-- 按下按钮 jquery发送评论  -->
+        <script>
+            $("#submitComment").click(function () {
+                console.log("click");
+                var comment_content = $("#comment textarea").val();
+                var game_id = $("#comment input[name='game_id']").val();
+                var user_id = $(this).val();
+                console.log(user_id);
+                // console.log(game_id);
+                $.ajax({
+                    url: "{{url_for('gamepage.submitComment')}}",
+                    type: "post",
+                    data: {
+                        "game_id": game_id,
+                        "comment_content": comment_content
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("评论成功");
+                        } else {
+                            alert("评论失败");
+                        }
+                    }
+                });
+            });
+        </script>
+
+        <!-- 显示所有评论 -->
+        <div id="commentList">
+            {% for comment in comments %}
+            <div>
+                <p>用户id：{{comment['comment_user_id']}}</p>
+                <p>评论时间：{{comment['comment_time']}}</p>
+                <p>评论内容：{{comment['comment_contents']}}</p>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="GPRightBox">
+        <p>请给游戏评分：</p>
+        <ul class="starRating">
+            <li id="1">★</li>
+            <li id="1">★</li>
+            <li id="1">★</li>
+            <li id="1">★</li>
+            <li id="1">★</li>
+        </ul>
+        <!-- 提交评分按钮 -->
+        <button id="submitScore" value="{{game['game_id']}}">提交评分</button>
+
+
+        <script>
+            var starbox = document.getElementsByClassName("starRating")[0];
+            var starlist = document.getElementsByTagName("li");
+            //when mouse over the star, change the color
+            var clickflag = false;
+            starbox.onmouseover = function (e) {
+                if (clickflag) {
+                    return;
+                }
+                if (e.target.tagName == "LI") {
+                    e.target.style.color = "red";
+                    var prev = e.target.previousElementSibling;
+                    while (prev) {
+                        prev.style.color = "red";
+                        prev = prev.previousElementSibling;
+                    }
+                    var next = e.target.nextElementSibling;
+                    while (next) {
+                        next.style.color = "black";
+                        next = next.nextElementSibling;
+                    }
+                }
+            };
+
+            starbox.onclick = function (e) {
+                if (e.target.tagName == "LI") {
+                    clickflag = true;
+                    var prev = e.target.previousElementSibling;
+                    e.target.style.color = "red";
+                    while (prev) {
+                        prev.style.color = "red";
+                        prev = prev.previousElementSibling;
+                    }
+                    var next = e.target.nextElementSibling;
+                    while (next) {
+                        next.style.color = "black";
+                        next = next.nextElementSibling;
+                    }
+                }
+            };
+
+            //jquery 发送评分
+            $("#submitScore").click(function () {
+                var score = 0;
+                for (var i = 0; i < starlist.length; i++) {
+                    if (starlist[i].style.color == "red") {
+                        score = i + 1;
+                    }
+                }
+
+                var game_id = $(this).val();
+                console.log(game_id);
+                $.ajax({
+                    url: "{{url_for('gamepage.submitScore')}}",
+                    type: "post",
+                    data: {
+                        "game_id": game_id,
+                        "score": score
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("评分成功");
+
+
+
+                        } else {
+                            alert("评分失败");
+                        }
+                    }
+                });
+            });
+
+
+        </script>
+
+    </div>
+
+
+
+
 </div>
+
+
 
 
 

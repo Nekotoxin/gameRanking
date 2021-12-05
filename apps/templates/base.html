@@ -16,7 +16,8 @@
             <a href="{{url_for('mainpage.mainpage')}}">
                 <img class="logo" src="{{url_for('static',filename='/websiteMaterialStock/biglogo.png')}}" alt="logo">
             </a>
-            <h1 class="header">gameRank</h1>
+            <h1 class="animate__animated animate__flipInX" id="header">gameRank</h1>
+            <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
         </div>
         <!-- 中间栏 -->
         <div class="medium">
@@ -27,9 +28,10 @@
         <div id="rightBox">
             {% if current_user.is_authenticated %}
             <!-- 显示用户姓名，点击后重定向到用户主页 -->
+            <a class="logOutBtn" href="{{ url_for('auth.logout') }}" ><span id="logOutText">退出</span></a>
             <a id="userNameDis"
-                href="{{url_for('user.user_home',user_name=current_user.user_name)}}">お帰り，{{current_user.user_name}}！</a>
-            <a class="logOutBtn" href="{{ url_for('auth.logout') }}" >退出</a>
+                href="{{url_for('user.user_home',user_name=current_user.user_name)}}">hi,{{current_user.user_name}}！</a>
+            
             {% else %}
             <a class="loginBtn" href="{{ url_for('auth.login') }}">登录</a>
             
