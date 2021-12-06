@@ -144,8 +144,6 @@ def update_item_value(id,table_name,table_word,new_value):
             return 'fail'
         if(table_word=='game_title'):
             g.game_title=new_value
-        if(table_word=='game_score'):
-            g.game_score=new_value
         if(table_word=='game_intro'):
             g.game_intro=new_value
         if(table_word=='game_collect_num'):
@@ -190,13 +188,8 @@ def get_item_value(id,table_name,table_word):
             return 'fail'
         if(table_word=='game_title'):
             return g.game_title
-        if(table_word=='game_score'):
-            num=0
-            total=0
-            for score in g.game_scores:
-                num+=1
-                total+=score.value
-            return float(total)/num
+        if(table_word=='game_average_score'):
+            return g.game_average_score
         if(table_word=='game_intro'):
             return g.game_intro
         if(table_word=='game_collect_num'):
@@ -359,7 +352,12 @@ def add_score(game_id,value):
     score=game_score(score_value=value)
     game=game_info.query.get(game_id)
     game.game_scores.append(score)
-
+    num=0
+    total=0
+    for s in game.game_scores:
+        num+=1
+        total+=s.value
+    game.game_average_score=float(total)/num
 
 
 ###########################################################################################

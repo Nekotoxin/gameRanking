@@ -15,10 +15,13 @@ class game_info(db.Model):
 
     #根据type查游戏
     game_type_id=db.Column(db.Integer, db.ForeignKey('game_type.type_id'))
+    game_type_name=db.Column(db.String(30))
     comments = db.relationship('comment',backref=db.backref('related_game', lazy=True))
     game_scores = db.relationship('game_score',backref=db.backref('related_game', lazy=True))
+    game_average_score=db.Column(db.Float)
     game_intro=db.Column(db.String(1000))
-
+    game_develop_company=db.Column(db.String(50))
+    game_release_time=db.Column(db.DateTime,default=datetime.utcnow)
     game_update_time=db.Column(db.DateTime,default=datetime.utcnow)
     game_collect_num=db.Column(db.Integer)
     game_comments_num=db.Column(db.Integer)
