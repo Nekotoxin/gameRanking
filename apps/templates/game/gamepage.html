@@ -17,9 +17,9 @@
         <img id="gameCoverInPage"
             src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
         <div id="gameDescriptionInPage">
-            <p>游戏会社：<span>{{game['game_company']}}</span></p>
-            <p>游戏评分：<span>{{game['game_score']}}</span></p>
-            <p>游戏类型：<span>{{game['game_type']}}</span></p>            
+            <p>游戏会社：<span>{{game['game_develop_company']}}</span></p>
+            <p>游戏评分：<span>{{game['game_average_score']}}</span></p>
+            <p>游戏类型：<span>{{game['game_type_name']}}</span></p>            
         </div>
         
     </div>
@@ -35,7 +35,7 @@
         <div id="comment">
             <input type="hidden" name="game_id" value="{{game['game_id']}}">
             <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
-            <button id="submitComment">提交评论</button>
+            <button id="submitComment" value={{current_user.id}}>提交评论</button>
         </div>
 
         <!-- 按下按钮 jquery发送评论  -->
@@ -57,6 +57,7 @@
                     success: function (data) {
                         if (data == "success") {
                             alert("评论成功");
+                            window.location.reload(true);
                         } else {
                             alert("评论失败");
                         }
@@ -88,7 +89,7 @@
             <li id="1">★</li>
         </ul>
         <!-- 提交评分按钮 -->
-        <button id="submitScore" value="{{game['game_id']}}">提交评分</button>
+        <button id="submitScore" value={{game.game_id}}>提交评分</button>
 
 
         <script>
@@ -153,8 +154,8 @@
                     success: function (data) {
                         if (data == "success") {
                             alert("评分成功");
-
-
+                            // 刷新
+                            window.location.reload(true);
 
                         } else {
                             alert("评分失败");
