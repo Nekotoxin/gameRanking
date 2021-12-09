@@ -356,7 +356,7 @@ def add_score(game_id,value):
     total=0
     for s in game.game_scores:
         num+=1
-        total+=int(s.score_value)
+        total+=s.value
     game.game_average_score=float(total)/num
 
 
