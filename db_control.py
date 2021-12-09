@@ -22,6 +22,7 @@ from models import game_info, game_score,game_type,user_info,comment
 def add_game(type_id,game_title,game_description):
     gt=game_type.query.get(type_id)
     g=game_info(game_title=game_title,game_intro=game_description)
+    g.game_type_name=gt.type_name
     gt.games.append(g)
     db.session.commit()
     return g.game_id
@@ -356,8 +357,9 @@ def add_score(game_id,value):
     total=0
     for s in game.game_scores:
         num+=1
-        total+=s.value
+        total+=s.score_value
     game.game_average_score=float(total)/num
+    db.session.commit()
 
 
 ###########################################################################################
