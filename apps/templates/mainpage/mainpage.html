@@ -29,7 +29,7 @@
             </div>
             <!-- show game_update_time 日期只显示年月日部分 -->
             <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p>
-            <div id="collectButton">
+            <div>
                 <button id="collectButton" class="btn btn-primary" type="button">
                     😘
                 </button>
@@ -134,9 +134,6 @@
                     <a href="{{url_for('mainpage.mainpage',game_year='2010')}}">&ensp;2010 &ensp;</a>
                 </li>
             </ul>
-
-
-            
         </div>
     </div>
 </div>

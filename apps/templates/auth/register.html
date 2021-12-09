@@ -10,13 +10,13 @@
   // dont use ajax
   //name length less than 90,output in the span
   function check_name() {
-    var name = document.getElementById("name").value;
-    var span = document.getElementById("name_span");
+    const name = document.getElementById("name").value;
+    const span = document.getElementById("name_span");
     if (name.length > 90) {
       span.innerHTML = "name length less than 90";
     }
     else if (name.length == 0) {
-      span.innerHTML = "name shouldnt be empty";
+      span.innerHTML = "name shouldn't be empty";
     }
     else {
       span.innerHTML = "";
@@ -25,13 +25,13 @@
   //password length more than 6
   function check_password() {
     //check the length and the format
-    var password = document.getElementById("password").value;
-    var span = document.getElementById("password_span");
+    const password = document.getElementById("password").value;
+    const span = document.getElementById("password_span");
     if (password.length < 6) {
       span.innerHTML = "password length more than 6";
     }
     else if (password.length == 0) {
-      // password shouldnt be empty
+      // password shouldn't be empty
       span.innerHTML = "password shouldn't be empty";
     }
     else {
@@ -39,9 +39,9 @@
     }
     //password and confirm password must be the same
     function check_confirm_password() {
-      var password = document.getElementById("password").value;
-      var confirm_password = document.getElementById("confirm_password").value;
-      var span = document.getElementById("confirm_password_span");
+      const password = document.getElementById("password").value;
+      const confirm_password = document.getElementById("confirm_password").value;
+      const span = document.getElementById("confirm_password_span");
       if (password != confirm_password) {
         span.innerHTML = "password and confirm password must be the same";
       }
@@ -51,9 +51,9 @@
     }
     //email format,if not,output in the span
     function check_email() {
-      var email = document.getElementById("email").value;
-      var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-      var span = document.getElementById("email_span");
+      const email = document.getElementById("email").value;
+      const reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      const span = document.getElementById("email_span");
       if (!reg.test(email)) {
         span.innerHTML = "email format error";
       }
@@ -63,21 +63,21 @@
     }
     //check all,if all is ok,submit,else show error
     function check_all() {
-      var name = document.getElementById("name").value;
-      var password = document.getElementById("password").value;
-      var confirm_password = document.getElementById("confirm_password").value;
-      var email = document.getElementById("email").value;
-      var span = document.getElementById("name_span");
-      var span1 = document.getElementById("password_span");
-      var span2 = document.getElementById("confirm_password_span");
-      var span3 = document.getElementById("email_span");
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const confirm_password = document.getElementById("confirm_password").value;
+      const email = document.getElementById("email").value;
+      const span = document.getElementById("name_span");
+      const span1 = document.getElementById("password_span");
+      const span2 = document.getElementById("confirm_password_span");
+      const span3 = document.getElementById("email_span");
       if (name.length > 90) {
         span.innerHTML = "name length less than 90";
         return false;
       }
       else if (name.length == 0) {
-        // name shouldnt be empty
-        span.innerHTML = "name shouldnt be empty";
+        // name shouldn't be empty
+        span.innerHTML = "name shouldn't be empty";
         return false;
       }
       else {
@@ -88,8 +88,8 @@
         return false;
       }
       else if (password.length == 0) {
-        // password shouldnt be empty
-        span1.innerHTML = "password shouldnt be empty";
+        // password shouldn't be empty
+        span1.innerHTML = "password shouldn't be empty";
         return false;
       }
       else {
