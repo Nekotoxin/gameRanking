@@ -13,7 +13,7 @@ from .. import db_control
 import pymysql
 
 @UserBP.route('/<user_name>/settings', methods=['GET', 'POST'])
-def settings():
+def settings(user_name):
     if request.method == 'POST':
         newAvatar = request.files['newAvatar']
         newUsername=request.form['newUsername']
@@ -37,7 +37,7 @@ def settings():
                 os.remove(path)
             newAvatar.save(path)
 
-    return redirect(url_for('user.user_home', user_name=current_user.user_name))
+    return render_template('user/settings.html',user_name=user_name)
 
 #注销账户
 @login_required

@@ -8,3 +8,5 @@ env
 *.jpg
 *.db
 *.db-journal
+*.ps1
+.idea

@@ -7,10 +7,10 @@
 
 {% block content %}
 <!-- 一个表单 表单的项间有分隔线 -->
-<form action="{{ url_for('user.settings') }}" method="post" enctype="multipart/form-data">
+<form action="{{ url_for('user.settings',user_name=current_user.user_name) }}" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">用户名</label>
-        <input type="text" class="form-control" id="name" name="newUsername" value="{{ user.name }}">
+        <input type="text" class="form-control" id="name" name="newUsername" value="{{ current_user.user_name }}">
     </div>
     <div class="form-group">
         <label for="avatar">头像</label>
@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="intro">自我介绍</label>
-        <textarea class="form-control" id="intro" name="newDescription" rows="3">{{ user.intro }}</textarea>
+        <textarea class="form-control" id="intro" name="newDescription" rows="3">{{ current_user.user_self_intro }}</textarea>
     </div>
     <!-- 修改密码 -->
     <div class="form-group">

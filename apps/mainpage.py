@@ -22,3 +22,7 @@ def mainpage():
     #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
     games=getalltest()
     return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
+#collect
+@MainPageBP.route('/collect')
+def collect():
+    return 0
