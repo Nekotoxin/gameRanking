@@ -254,9 +254,9 @@
     <p>全部评分</p>
     {% for comment in comments %}
     <div id="userComment" class="animate__animated animate__bounceInUp">
-        <p>用户id：{{users[comment['comment_user_id']-1].user_name}}</p>
-        <p>评论时间：{{comment['comment_time']}}</p>
+        <p>{{users[comment['comment_user_id']-1].user_name}}</p>
         <p>评论内容：{{comment['comment_contents']}}</p>
+        <p>评论时间：{{comment['comment_time'].year}}年{{comment['comment_time'].month}}月{{comment['comment_time'].day}}日</p>
     </div>
     {% endfor %}
 </div>
