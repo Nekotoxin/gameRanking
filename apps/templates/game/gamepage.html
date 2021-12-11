@@ -41,7 +41,7 @@
     </div>
 
     <div id="GPMiddleBox">
-        <p id="gameIntro">游戏简介：<span>{{game['game_intro']}}</span></p>
+
         <!-- 展示游戏截图 -->
         <!-- {% for i in range(1,screenShotCount+1) %}
         <img src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_screenshot'~i~'.jpg')}}"
@@ -73,6 +73,7 @@
                 onclick="currentSlide('{{i}}')" alt="">
             {%endfor%}
         </div>
+        <p id="gameIntro">游戏简介：<span>{{game['game_intro']}}</span></p>
 
         <script>
             var slideIndex = 1;
@@ -108,19 +109,11 @@
         </script>
 
 
-        <!-- 显示所有评论 -->
-        <div id="commentList">
-            {% for comment in comments %}
-            <div>
-                <p>用户id：{{comment['comment_user_id']}}</p>
-                <p>评论时间：{{comment['comment_time']}}</p>
-                <p>评论内容：{{comment['comment_contents']}}</p>
 
-            </div>
-            {% endfor %}
-        </div>
 
         <!-- 添加用户评论框（在当前页面） -->
+
+
         <div id="comment">
             <input type="hidden" name="game_id" value="{{game['game_id']}}">
             <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
@@ -156,7 +149,13 @@
         </script>
 
 
+
+
     </div>
+
+
+
+
 
     <div id="GPRightBox">
         
@@ -240,6 +239,17 @@
 
 
 
+</div>
+
+<!-- 显示所有评论 -->
+<div id="commentBox">
+    {% for comment in comments %}
+    <div id="userComment" class="animate__animated animate__bounceInUp">
+        <p>用户id：{{users[comment['comment_user_id']-1].user_name}}</p>
+        <p>评论时间：{{comment['comment_time']}}</p>
+        <p>评论内容：{{comment['comment_contents']}}</p>
+    </div>
+    {% endfor %}
 </div>
 
 

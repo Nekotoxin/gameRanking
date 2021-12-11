@@ -34,12 +34,12 @@ def gamepage(game_id):
     
     #获取评论
     comments=query_comment_by_game_id(game_id)
-    
+    users=getalluser()
     print(game.game_average_score)
     print('*')
    
     # print(comments)
-    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,cuurent_user=current_user)
+    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,cuurent_user=current_user,users=users)
 
 #submitScore
 @GameBP.route('/submitScore',methods=['GET','POST'])
@@ -74,7 +74,3 @@ def submitComment():
             add_comment(game_id,user_id,comment)
             return "success"
     return "fail"
-
-            
-        
-       

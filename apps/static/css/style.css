@@ -474,8 +474,10 @@ input.btn[type="submit"]:active{
 
 }
 
+
 #starBox{
     padding-left: 20px;
+    padding-top: 50px;
 }
 
 .starActive{
@@ -695,6 +697,16 @@ input.btn[type="submit"]:active{
 
 #myComment{
     border: aqua solid 2px;
+}
+
+#commentBox{
+    border: #05ff11 solid 2px;
+    width:70%;
+    margin:50px auto 0;
+}
+
+#userComment{
+    background-color: rgb(255, 255, 255);
 }
 
 
