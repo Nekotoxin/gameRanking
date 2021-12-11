@@ -39,7 +39,7 @@ def gamepage(game_id):
     print('*')
    
     # print(comments)
-    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,cuurent_user=current_user,users=users)
+    return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,current_user=current_user,users=users)
 
 #submitScore
 @GameBP.route('/submitScore',methods=['GET','POST'])

@@ -37,8 +37,9 @@ def mainpage_year(game):
 #collect
 @MainPageBP.route('/collect', methods=['GET', 'POST'])
 def collect():
-    if current_user.is_authenticated is False:
-        return redirect(url_for("auth.login"),code=302)
+#     如果用户未登录，返回登录页面
+    if not current_user.is_authenticated:
+        return "fail"
 
     if request.method == 'POST':
         # 获取游戏id
@@ -53,4 +54,4 @@ def collect():
                 db_control.collect_game(user_id, game_id)
                 return "collectSuccess"
 
-    return "fail"
+

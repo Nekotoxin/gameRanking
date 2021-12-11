@@ -19,6 +19,11 @@
 
 
         <div id="gameDescriptionInPage">
+            {% if game['game_type_name'] %}
+            <p>游戏平台：<span>{{game['game_type_name']}}</span></p>
+            {% else %}
+            <p>游戏平台：<span>暂无</span></p>
+            {% endif %}
             {% if game['game_develop_company'] %}
             <p>游戏会社：<span>{{game['game_develop_company']}}</span></p>
             {% else %}
@@ -83,78 +88,7 @@
         </div>
         <p id="gameIntro">游戏简介：<span>{{game['game_intro']}}</span></p>
 
-        <script>
-            var slideIndex = 1;
-            showSlides(slideIndex);
 
-            // Next/previous controls
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
-
-            // Thumbnail image controls
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
-            }
-
-            function showSlides(n) {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("demo");
-                var captionText = document.getElementById("caption");
-                if (n > slides.length) { slideIndex = 1 }
-                if (n < 1) { slideIndex = slides.length }
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-                captionText.innerHTML = dots[slideIndex - 1].alt;
-            }
-        </script>
-
-
-
-
-        <!-- 添加用户评论框（在当前页面） -->
-
-
-        <div id="comment">
-            <input type="hidden" name="game_id" value="{{game['game_id']}}">
-            <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
-            <button id="submitComment" value={{current_user.id}}>提交评论</button>
-        </div>
-
-        <!-- 按下按钮 jquery发送评论  -->
-        <script>
-            $("#submitComment").click(function () {
-                console.log("click");
-                var comment_content = $("#comment textarea").val();
-                var game_id = $("#comment input[name='game_id']").val();
-                var user_id = $(this).val();
-                console.log(user_id);
-                // console.log(game_id);
-                $.ajax({
-                    url: "{{url_for('gamepage.submitComment')}}",
-                    type: "post",
-                    data: {
-                        "game_id": game_id,
-                        "comment_content": comment_content
-                    },
-                    success: function (data) {
-                        if (data == "success") {
-                            alert("评论成功");
-                            window.location.reload(true);
-                        } else {
-                            alert("评论失败");
-                        }
-                    }
-                });
-            });
-        </script>
 
 
 
@@ -169,89 +103,20 @@
         
     </div>
 
-    <script>
-        let starBox = document.getElementsByClassName("starRating")[0];
-        let starList = document.getElementsByTagName("li");
-        //when mouse over the star, change the color
-        let clickFlag = false;
-        starBox.onmouseover = function (e) {
-            if (clickFlag) {
-                return;
-            }
-            if (e.target.tagName == "LI") {
-                e.target.style.color = "red";
-                let prev = e.target.previousElementSibling;
-                while (prev) {
-                    prev.style.color = "red";
-                    prev = prev.previousElementSibling;
-                }
-                let next = e.target.nextElementSibling;
-                while (next) {
-                    next.style.color = "black";
-                    next = next.nextElementSibling;
-                }
-            }
-        };
-
-        starBox.onclick = function (e) {
-            if (e.target.tagName == "LI") {
-                clickFlag = true;
-                let prev = e.target.previousElementSibling;
-                e.target.style.color = "red";
-                while (prev) {
-                    prev.style.color = "red";
-                    prev = prev.previousElementSibling;
-                }
-                let next = e.target.nextElementSibling;
-                while (next) {
-                    next.style.color = "black";
-                    next = next.nextElementSibling;
-                }
-            }
-        };
-
-        //jquery 发送评分
-        $("#submitScore").click(function () {
-            let score = 0;
-            for (let i = 0; i < starList.length; i++) {
-                if (starList[i].style.color == "red") {
-                    score = i + 1;
-                }
-            }
-
-            const game_id = $(this).val();
-            console.log(game_id);
-            $.ajax({
-                url: "{{url_for('gamepage.submitScore')}}",
-                type: "post",
-                data: {
-                    "game_id": game_id,
-                    "score": score
-                },
-                success: function (data) {
-                    if (data == "success") {
-                        alert("评分成功");
-                        // 刷新
-                        window.location.reload();
-
-                    } else {
-                        alert("评分失败");
-                    }
-                }
-            });
-        });
-
-
-    </script>
 
 
 
 
+    <!-- 添加用户评论框（在当前页面） -->
 </div>
-
+<div id="comment">
+    <input type="hidden" name="game_id" value="{{game['game_id']}}">
+    <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
+    <button id="submitComment" value={{current_user.id}}>提交评论</button>
+</div>
 <!-- 显示所有评论 -->
 <div id="commentBox">
-    <p>全部评分</p>
+    <p>全部评论</p>
     {% for comment in comments %}
     <div id="userComment" class="animate__animated animate__bounceInUp">
         <p>{{users[comment['comment_user_id']-1].user_name}}</p>
@@ -260,6 +125,149 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<!-- 按下按钮 jquery发送评论  -->
+<script>
+    $("#submitComment").click(function () {
+        console.log("click");
+        var comment_content = $("#comment textarea").val();
+        var game_id = $("#comment input[name='game_id']").val();
+        var user_id = $(this).val();
+        console.log(user_id);
+        // console.log(game_id);
+        $.ajax({
+            url: "{{url_for('gamepage.submitComment')}}",
+            type: "post",
+            data: {
+                "game_id": game_id,
+                "comment_content": comment_content
+            },
+            success: function (data) {
+                if (data == "success") {
+                    alert("评论成功");
+                    window.location.reload(true);
+                } else {
+                    alert("评论失败");
+                }
+            }
+        });
+    });
+</script>
+<script>
+    let starBox = document.getElementsByClassName("starRating")[0];
+    let starList = document.getElementsByTagName("li");
+    //when mouse over the star, change the color
+    let clickFlag = false;
+    starBox.onmouseover = function (e) {
+        if (clickFlag) {
+            return;
+        }
+        if (e.target.tagName == "LI") {
+            e.target.style.color = "red";
+            let prev = e.target.previousElementSibling;
+            while (prev) {
+                prev.style.color = "red";
+                prev = prev.previousElementSibling;
+            }
+            let next = e.target.nextElementSibling;
+            while (next) {
+                next.style.color = "black";
+                next = next.nextElementSibling;
+            }
+        }
+    };
+
+    starBox.onclick = function (e) {
+        if (e.target.tagName == "LI") {
+            clickFlag = true;
+            let prev = e.target.previousElementSibling;
+            e.target.style.color = "red";
+            while (prev) {
+                prev.style.color = "red";
+                prev = prev.previousElementSibling;
+            }
+            let next = e.target.nextElementSibling;
+            while (next) {
+                next.style.color = "black";
+                next = next.nextElementSibling;
+            }
+        }
+    };
+
+    //jquery 发送评分
+    $("#submitScore").click(function () {
+        let score = 0;
+        for (let i = 0; i < starList.length; i++) {
+            if (starList[i].style.color == "red") {
+                score = i + 1;
+            }
+        }
+
+        const game_id = $(this).val();
+        console.log(game_id);
+        $.ajax({
+            url: "{{url_for('gamepage.submitScore')}}",
+            type: "post",
+            data: {
+                "game_id": game_id,
+                "score": score
+            },
+            success: function (data) {
+                if (data == "success") {
+                    alert("评分成功");
+                    // 刷新
+                    window.location.reload();
+
+                } else {
+                    alert("评分失败");
+                }
+            }
+        });
+    });
+
+
+</script>
 
 
 

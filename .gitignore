@@ -11,3 +11,5 @@ env
 *.ps1
 .idea
 venv
+*.rar
+*.zip
