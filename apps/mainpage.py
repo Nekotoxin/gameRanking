@@ -24,12 +24,15 @@ def mainpage():
     return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
 
 
-@MainPageBP.route('/<game_year>')
-def mainpage_year(game_year):
-    # if game_year=='favicon.ico':
-    #     return "error"
-    games=db_control.year_list(int(game_year))
-    return render_template('/mainpage/mainpage.html', games=games, current_user=current_user)
+@MainPageBP.route('/<game>')
+def mainpage_year(game):
+     if game=='favicon.ico':
+         return "error"
+     if  game.isdigit():
+         games=db_control.year_list(int(game))
+     else:
+         games=db_control.game_type_list(game)
+     return render_template('/mainpage/mainpage.html', games=games, current_user=current_user)
 
 #collect
 @MainPageBP.route('/collect', methods=['GET', 'POST'])
