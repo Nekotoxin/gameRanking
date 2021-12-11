@@ -6,11 +6,68 @@
 {% block content %}
 
 <!-- 提交新游戏入口,定位至newgame.html -->
-<div id="#userHomeBody">
-    
-   
-   
+<div id="userHome">
+    <div id="userHomeBody">
+        <div id="collectGames">
+            <p>我收藏的游戏</p>
+                {% for game in userCollectGames %}
+                <div id="aGame" class="animate__animated animate__bounceInUp">
+                    <!-- <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}"> -->
+                    <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
+                        <img id="gameCover"
+                            src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}"
+                            alt="">
+                    </a>
+
+                    <div id="gameTextBox">
+                        <p id="gamerank">Rank {{loop.index}}</p>
+                        <!-- collect button -->
+
+                        <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
+                            <p class="animate__animated animate__bounce" id="gameTitle" class="animate__headShake">
+                                {{game['game_title']}}</p>
+                            <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
+                        </a>
+                    </div>
+                    <!-- show game_update_time 日期只显示年月日部分 -->
+                    <!-- <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p> -->
+                    <div>
+                        <button id="collectButton" class="btn btn-primary" type="button">
+                            😘
+                        </button>
+                    </div>
+                </div>
+                <div id="gameSeparate"></div>
+                {% endfor %}
+        </div>
+
+        <div id="myComment">
+            <p>我发表的感想</p>
+            {% for game,comment in userComments|zip(GamesOfUserComments) %}
+            <div>
+                <div id="commentBox">
+                    <div id="commentTitle">
+                        <p>{{game['game_title']}}</p>
+                    </div>
+                    <div id="commentContent">
+                        <p>{{comment['comment_content']}}</p>
+                    </div>
+                    <div id="commentTime">
+                        <p>{{comment['comment_time']}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <div id="userHomeRightBox">
+
+    </div>
 </div>
+
 
 
 
