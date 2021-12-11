@@ -20,20 +20,21 @@ def settings(user_name):
         newPassword=request.form['newPassword']
         newDescription=request.form['newDescription']
 
-        if newUsername is not None:
+        if newUsername != "":
             db_control.update_item_value(current_user.id,'user_info','user_name',newUsername)
 
-        if newPassword is not None:
+        if newPassword != "":
             db_control.update_item_value(current_user.id,'user_info','user_password',generate_password_hash(newPassword))
 
-        if newDescription is not None:
+        if newDescription != "":
             db_control.update_item_value(current_user.id,'user_info','user_self_intro',newDescription)
 
 
         if newAvatar.filename != '':
+
             basepath = os.path.dirname(__file__)
-            nowpath='static\gameMaterialStock'+'\\'+str(current_user.id)
-            if not os.path.exists(nowpath):
+            nowpath='static\\userMaterialStock'+'\\'+str(current_user.id)
+            if not os.path.exists(os.path.join(basepath, nowpath)):
                 os.mkdir(os.path.join(basepath, nowpath))
             path=os.path.join(basepath, nowpath, 'avatar.jpg')
             if os.path.exists(path):
@@ -90,14 +91,21 @@ def submit_new_game():
 
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 def user_home(user_name):
-    #table=db_control.get_comments(current_user.id)
+    #获取评论
+
     basepath = os.path.dirname(__file__)
-    nowpath = 'static\gameMaterialStock' + '\\' + str(current_user.id)
+    nowpath = 'static\\userMaterialStock' + '\\' + str(current_user.id)
     path=os.path.join(basepath,nowpath)
-    return render_template('user/userhome.html',current_user=current_user,collectGames=[],comments=[],commentGames=[])#测试代码
-    # return render_template('user/userhome.html',
-    #                        current_user=current_user,
-    #                        userCollectGames=db_control.get_collect_games(current_user.id),
-    #                        userComments=table[0],
-    #                        GamesOfUserComments=table[1],
-    #                        userMaterialPath=path)
+
+    #return render_template('user/userhome.html',current_user=current_user,userCollectGames=[],userComments=commits,GamesOfUserComments=[])#测试代码
+    commits = db_control.get_item_value(current_user.id, 'user_info', 'comments')
+    game=[]
+    for games in commits:
+        game.append(games.related_game)
+
+    return render_template('user/userhome.html',
+                           current_user=current_user,
+                           userCollectGames=db_control.collect_list(current_user.id),
+                           userComments=commits,
+                           GamesOfUserComments=game,
+                           userMaterialPath=path)

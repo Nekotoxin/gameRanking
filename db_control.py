@@ -317,7 +317,7 @@ def collect_list(user_id):
     clist=[]
     user=user_info.query.get(user_id)
     for game in user.collects:
-        clist.append(game.game_id)
+        clist.append(game)
     return clist
 
 def exper_game(user_id,game_id):
