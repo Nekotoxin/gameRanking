@@ -17,21 +17,18 @@ from ..db_control import (
 #   route: /
 ###############################################################################
 @MainPageBP.route('/')
-def mainpage(game_year='',game_type=''):
+def mainpage():
     #创建字典变量，存储游戏信息
     #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
-
-    if game_type != '':
-        return db_control.game_type_list(game_type)
-    if game_year != '':
-        return db_control.year_list(game_year)
     games=getalltest()
     return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
 
 
 @MainPageBP.route('/<game_year>')
 def mainpage_year(game_year):
-    games=db_control.year_list(game_year)
+    # if game_year=='favicon.ico':
+    #     return "error"
+    games=db_control.year_list(int(game_year))
     return render_template('/mainpage/mainpage.html', games=games, current_user=current_user)
 
 #collect
