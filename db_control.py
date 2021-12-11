@@ -22,7 +22,7 @@ def add_game(type_id,game_title,game_description,game_company,release_date):
     g=game_info(game_title=game_title,game_intro=game_description)
     g.game_type_name=gt.type_name
     gt.games.append(g)
-    db.session.commit()
+
     g.game_release_time=datetime.strptime(release_date, '%Y-%m-%d')
     print(release_date)
     g.game_develop_company=game_company
@@ -31,11 +31,13 @@ def add_game(type_id,game_title,game_description,game_company,release_date):
         os.mkdir(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id))
     else:
         print("no")
+    db.session.commit()
     return g.game_id
 
 def getalltest():
     return game_info.query.all()
-
+def getalluser():
+    return user_info.query.all()
 #查找一个game_info
 #parm:title
 #ret:game_info-list

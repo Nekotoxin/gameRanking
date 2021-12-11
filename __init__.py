@@ -29,6 +29,7 @@ def create_app():
     )
 
     app.jinja_env.filters['zip'] = zip
+    # add jinja round function
     login_manager.init_app(app)
     @login_manager.user_loader
     

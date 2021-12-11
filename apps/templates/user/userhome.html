@@ -15,7 +15,7 @@
                     <!-- <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}"> -->
                     <a href="{{url_for('gamepage.gamepage',game_id=game['game_id'])}}">
                         <img id="gameCover"
-                            src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}"
+                            src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.png')}}"
                             alt="">
                     </a>
 
@@ -43,14 +43,14 @@
 
         <div id="myComment">
             <p>我发表的感想</p>
-            {% for game,comment in userComments|zip(GamesOfUserComments) %}
+            {% for game,comment in GamesOfUserComments|zip(userComments) %}
             <div>
                 <div id="commentBox">
                     <div id="commentTitle">
                         <p>{{game['game_title']}}</p>
                     </div>
                     <div id="commentContent">
-                        <p>{{comment['comment_content']}}</p>
+                        <p>{{comment['comment_contents']}}</p>
                     </div>
                     <div id="commentTime">
                         <p>{{comment['comment_time']}}</p>
