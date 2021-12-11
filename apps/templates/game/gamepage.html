@@ -24,6 +24,17 @@
             <p>游戏类型：<span>{{game['game_type_name']}}</span></p>
         </div>
 
+        <p>请给游戏评分：</p>
+        <ul class="starRating">
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
+        </ul>
+        <!-- 提交评分按钮 -->
+        <button id="submitScore" value={{game.game_id}}>提交评分</button>
+
     </div>
 
     <div id="GPMiddleBox">
@@ -54,9 +65,9 @@
 
             <!-- Thumbnail images -->
             {% for i in range(1,screenShotCount+1) %}
-            <img class="demo cursor" style="width:18%"
+            <img value={{i}} class="demo cursor" style="width:18%"
                 src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_screenshot'~i~'.jpg')}}"
-                onclick="currentSlide({{i}})" alt="">
+                onclick="currentSlide('{{i}}')" alt="">
             {%endfor%}
         </div>
 
@@ -145,94 +156,83 @@
     </div>
 
     <div id="GPRightBox">
-        <p>请给游戏评分：</p>
-        <ul class="starRating">
-            <li>★</li>
-            <li>★</li>
-            <li>★</li>
-            <li>★</li>
-            <li>★</li>
-        </ul>
-        <!-- 提交评分按钮 -->
-        <button id="submitScore" value={{game.game_id}}>提交评分</button>
-
-
-        <script>
-            let starBox = document.getElementsByClassName("starRating")[0];
-            let starList = document.getElementsByTagName("li");
-            //when mouse over the star, change the color
-            let clickFlag = false;
-            starBox.onmouseover = function (e) {
-                if (clickFlag) {
-                    return;
-                }
-                if (e.target.tagName == "LI") {
-                    e.target.style.color = "red";
-                    let prev = e.target.previousElementSibling;
-                    while (prev) {
-                        prev.style.color = "red";
-                        prev = prev.previousElementSibling;
-                    }
-                    let next = e.target.nextElementSibling;
-                    while (next) {
-                        next.style.color = "black";
-                        next = next.nextElementSibling;
-                    }
-                }
-            };
-
-            starBox.onclick = function (e) {
-                if (e.target.tagName == "LI") {
-                    clickFlag = true;
-                    let prev = e.target.previousElementSibling;
-                    e.target.style.color = "red";
-                    while (prev) {
-                        prev.style.color = "red";
-                        prev = prev.previousElementSibling;
-                    }
-                    let next = e.target.nextElementSibling;
-                    while (next) {
-                        next.style.color = "black";
-                        next = next.nextElementSibling;
-                    }
-                }
-            };
-
-            //jquery 发送评分
-            $("#submitScore").click(function () {
-                let score = 0;
-                for (let i = 0; i < starList.length; i++) {
-                    if (starList[i].style.color == "red") {
-                        score = i + 1;
-                    }
-                }
-
-                const game_id = $(this).val();
-                console.log(game_id);
-                $.ajax({
-                    url: "{{url_for('gamepage.submitScore')}}",
-                    type: "post",
-                    data: {
-                        "game_id": game_id,
-                        "score": score
-                    },
-                    success: function (data) {
-                        if (data == "success") {
-                            alert("评分成功");
-                            // 刷新
-                            window.location.reload();
-
-                        } else {
-                            alert("评分失败");
-                        }
-                    }
-                });
-            });
-
-
-        </script>
-
+        
     </div>
+
+    <script>
+        let starBox = document.getElementsByClassName("starRating")[0];
+        let starList = document.getElementsByTagName("li");
+        //when mouse over the star, change the color
+        let clickFlag = false;
+        starBox.onmouseover = function (e) {
+            if (clickFlag) {
+                return;
+            }
+            if (e.target.tagName == "LI") {
+                e.target.style.color = "red";
+                let prev = e.target.previousElementSibling;
+                while (prev) {
+                    prev.style.color = "red";
+                    prev = prev.previousElementSibling;
+                }
+                let next = e.target.nextElementSibling;
+                while (next) {
+                    next.style.color = "black";
+                    next = next.nextElementSibling;
+                }
+            }
+        };
+
+        starBox.onclick = function (e) {
+            if (e.target.tagName == "LI") {
+                clickFlag = true;
+                let prev = e.target.previousElementSibling;
+                e.target.style.color = "red";
+                while (prev) {
+                    prev.style.color = "red";
+                    prev = prev.previousElementSibling;
+                }
+                let next = e.target.nextElementSibling;
+                while (next) {
+                    next.style.color = "black";
+                    next = next.nextElementSibling;
+                }
+            }
+        };
+
+        //jquery 发送评分
+        $("#submitScore").click(function () {
+            let score = 0;
+            for (let i = 0; i < starList.length; i++) {
+                if (starList[i].style.color == "red") {
+                    score = i + 1;
+                }
+            }
+
+            const game_id = $(this).val();
+            console.log(game_id);
+            $.ajax({
+                url: "{{url_for('gamepage.submitScore')}}",
+                type: "post",
+                data: {
+                    "game_id": game_id,
+                    "score": score
+                },
+                success: function (data) {
+                    if (data == "success") {
+                        alert("评分成功");
+                        // 刷新
+                        window.location.reload();
+
+                    } else {
+                        alert("评分失败");
+                    }
+                }
+            });
+        });
+
+
+    </script>
 
 
 
