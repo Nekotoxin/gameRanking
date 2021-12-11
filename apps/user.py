@@ -63,6 +63,7 @@ def submit_new_game():
         game_type = request.form['game_type']
         game_company = request.form['game_company']
         game_cover = request.files['game_cover']
+        release_date= request.form['release_date']
         #获取上传的多个截图文件 name="game_screenshots"
         game_screenshots = request.files.getlist('game_screenshots')
 
@@ -75,7 +76,7 @@ def submit_new_game():
         if type is None:
             type=db_control.add_type(game_type)
 
-        id=db_control.add_game(type,game_title,game_description)
+        id=db_control.add_game(type,game_title,game_description,game_company,release_date)
 
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         if not os.path.exists(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id))):
