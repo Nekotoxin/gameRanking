@@ -1,5 +1,9 @@
 
 /* mainpage.html */
+* {
+    box-sizing: border-box;
+}
+
 body{
     /* background-image: url('../websiteMaterialStock/background.png') ; */
     background-color: #e0e0e0;
@@ -14,7 +18,7 @@ body{
     backdrop-filter:blur(50px);
     
     /* border: 1px solid rgb(255, 0, 98); */
-    height:100px;
+    height:150px;
     width:100%;
     /* margin:0px; */
     position: relative; 
@@ -39,7 +43,7 @@ body{
     text-decoration: none;
     padding: 0px 30px 0px 30px;
     color: rgb(0, 0, 0);
-    font-size: x-large;
+   
     float: right;
 }
 #rightBox{
@@ -47,7 +51,7 @@ body{
     padding-right:10px;
     position: relative;
     height:100%;
-    width:30%;
+    width:10%;
     float:right;
     z-index: 9;
     border: 2px solid rgb(0, 255, 76);
@@ -55,14 +59,16 @@ body{
 .dropdown{
     position: relative;
     /* display: inline-block; */
-    float:right;
+    /* float:right; */
     z-index: 9;
 }
 .dropdown-content{
+    text-align: center;
+    font-size:medium;
     display: none;
     position: relative;
     background-color: #f9f9f9;
-    min-width: 160px;
+    width:100%;
     box-shadow:  0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9999;
 }
@@ -193,7 +199,7 @@ body{
     /* border: 2px solid rgb(0, 255, 76); */
     margin:auto;
     position:relative;
-    height: 2000px;
+    /* height: 2000px; */
     width:70%;
     margin:50px auto 0px;
 }
@@ -202,15 +208,15 @@ body{
 .gameRankList{
     width:65%;
     float: left;
-     /* position: relative;  */
-     background: rgba(255, 255, 255, 0.329); 
-     backdrop-filter:blur(20px); 
-     overflow: hidden;
-     height:2000px;
-     color:black;
-     /* border:1px solid rgb(255, 0, 0); */
-     
-     box-sizing: border-box;
+    /* position: relative;  */
+    background: rgba(255, 255, 255, 0.329); 
+    backdrop-filter:blur(20px); 
+    overflow: hidden;
+    /* height:2000px; */
+    color:black;
+    /* border:1px solid rgb(255, 0, 0); */
+    padding-bottom: 500px;
+    box-sizing: border-box;
      
      /* background-color: rgb(249, 255, 217); */
  }
@@ -228,7 +234,7 @@ body{
     /* height:60%; */
     /* 相对当前页面高度的60% */
     
-    height:40%;
+    height:600px;
     /* border: 2px solid rgb(0, 255, 76); */
     backdrop-filter:blur(20px); 
     background: rgba(255, 255, 255, 0.329); 
@@ -252,7 +258,12 @@ body{
     background-color: white;
 }
 
-#collectButton{
+.collectBtn{
+    float:right;
+    border: aqua solid 2px;
+}
+
+.collectButton{
     position:absolute;
     bottom: 50px;
     right:10px;
@@ -385,8 +396,6 @@ body{
     position: relative;
     border-radius: 20px;
     border: rgba(255, 0, 0, 0) solid 2px;
-
-    
 }
 
 
@@ -475,10 +484,13 @@ input.btn[type="submit"]:active{
 }
 
 #gamepageBody{
-    width:80%;
+    width:75%;
     margin:30px auto 0px;
-    height:2000px;
+    /* min-height: 1000px; */
+    padding-bottom: 300px;
     background-color: rgb(236, 236, 236);
+    overflow: auto;
+    border: aqua solid 2px;
 }
 #titleInPage{
     padding-top:50px;
@@ -496,6 +508,135 @@ input.btn[type="submit"]:active{
     border:4px solid rgba(112, 112, 112, 0.671);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* test */
+/* Position the image container (needed to position the left and right arrows) */
+.photoContainer {
+    position: relative;
+  }
+  
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+  
+  /* Add a pointer when hovering over the thumbnail images */
+  .cursor {
+    cursor: pointer;
+  }
+  
+  /* Next & previous buttons */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* Container for image text */
+  .caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Six columns side by side */
+  .column {
+    float: left;
+    width: 16.66%;
+  }
+  
+  /* Add a transparency effect for thumnbail images */
+  .demo {
+    opacity: 0.6;
+  }
+  
+  .active,
+  .demo:hover {
+    opacity: 1;
+  }
+/* test */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #gameDescriptionInPage{
     margin-top:20px;
@@ -542,6 +683,22 @@ input.btn[type="submit"]:active{
     box-sizing: border-box;
     float:left;
 }
+#userHomeBody{
+    border: rgb(255, 0, 0) solid 2px;
+    width:80%;
+    margin:30px auto 0px;
+}
+#collectGames{
+    border: aqua solid 2px;
+}
+
+#myComment{
+    border: aqua solid 2px;
+}
+
+
+
+
 
 
 

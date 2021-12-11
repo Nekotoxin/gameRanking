@@ -27,8 +27,8 @@
             </div>
             <!-- show game_update_time 日期只显示年月日部分 -->
             <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p>
-            <div>
-                <button id="collectButton" class="btn btn-primary" type="button">
+            <div class="collectButton">
+                <button id="{{game.game_id}}" onclick="collect('{{game.game_id}}')"  class="btn btn-primary" type="button" value="{{game.game_id}}">
                     😘
                 </button>
             </div>            
@@ -36,6 +36,46 @@
         <div id="gameSeparate"></div>
         {% endfor %}
     </div>
+
+    <script>
+
+        function collect(game_id) {
+            $.ajax({
+                url: "{{url_for('mainpage.collect')}}",
+                type: "POST",
+                data: {
+                    game_id: game_id
+                },
+                success: function(data){
+                    if(data== "collectSuccess"){
+                        // change the button to "✔"
+                        $("#"+game_id).html("✔");
+                        alert("收藏成功");
+                    }
+                    else if(data=='cancelSuccess'){
+                        // change the button to "😘"
+                        $("#"+game_id).html("😘");
+                        alert("取消收藏成功");
+                    }
+                    else{
+                        alert("收藏失败");
+                    }
+                },
+                error: function(data){
+                    alert("收藏失败");
+                }
+            });
+        }
+        //button id="collectButton"
+        //ajax send request to server
+        //if success, change button text to "已收藏"
+        //if fail, alert "收藏失败"
+        //if already collected, alert "已收藏"
+
+
+    </script>
+
+
     <!-- a div 占位 -->
     <div id="takePlace"></div>
     <div id="sideBox">
@@ -63,35 +103,7 @@
 
         
 
-        <div id="SB2">
-            <p id="SBSelector2">根据游戏类型筛选</p>
-            <ul id="SBSelectorList2">
-                <li>
-                    <a href="{{url_for('mainpage.mainpage')}}">&ensp;全部 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='action')}}">&ensp;动作 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='adventure')}}">&ensp;冒险 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='fighting')}}">&ensp;格斗 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='rpg')}}">&ensp;rpg &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='shooter')}}">&ensp;射击 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='sports')}}">&ensp;运动 &ensp;</a>
-                </li>
-                <li>
-                    <a href="{{url_for('mainpage.mainpage',game_type='strategy')}}">&ensp;策略 &ensp;</a>
-                </li>
-            </ul>
-        </div>
+
 
         <div id="SB3">
             <!-- 根据发布年份筛选 -->
@@ -101,72 +113,40 @@
                     <a href="{{url_for('mainpage.mainpage')}}">&ensp;全部 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2019')}}">&ensp;2019 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2019')}}">&ensp;2019 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2018')}}">&ensp;2018 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2018')}}">&ensp;2018 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2017')}}">&ensp;2017 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2017')}}">&ensp;2017 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2016')}}">&ensp;2016 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2016')}}">&ensp;2016 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2015')}}">&ensp;2015 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2015')}}">&ensp;2015 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2014')}}">&ensp;2014 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2014')}}">&ensp;2014 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2013')}}">&ensp;2013 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2013')}}">&ensp;2013 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2012')}}">&ensp;2012 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2012')}}">&ensp;2012 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2011')}}">&ensp;2011 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2011')}}">&ensp;2011 &ensp;</a>
                 </li>
                 <li>
-                    <a href="{{url_for('mainpage.mainpage',game_year='2010')}}">&ensp;2010 &ensp;</a>
+                    <a href="{{url_for('mainpage.mainpage_year',game_year='2010')}}">&ensp;2010 &ensp;</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<script>
-    //button id="collectButton"
-    //ajax send request to server
-    //if success, change button text to "已收藏"
-    //if fail, alert "收藏失败"
-    //if already collected, alert "已收藏"
-    $("#collectButton").click(function(){
-        var game_id = $("#collectButton").attr("game_id");
-        $.ajax({
-            type: "POST",
-            url: "{{url_for('mainpage.collect')}}",
-            data: {
-                game_id: game_id,
-                user_id: "{{current_user.id}}"
-            },
-            success: function(data){
-                if(data== "collectSuccess"){
-                    $("#collectButton").text("✔");
-                }
-                else if(data=='cancelSuccess'){
-                    $("#collectButton").text("😘");
-                }
-                else{
-                    alert("收藏失败");
-                }
-            },
-            error: function(data){
-                alert("收藏失败");
-            }
-        });
-    });
 
-</script>
 
 {% endblock %}

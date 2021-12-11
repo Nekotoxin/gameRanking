@@ -17,12 +17,14 @@ from models import game_info, game_score,game_type,user_info,comment
 
 #插入一个game_info
 #parm:type_id,,game_title,game_description
-def add_game(type_id,game_title,game_description):
+def add_game(type_id,game_title,game_description,game_company,release_date):
     gt=game_type.query.get(type_id)
     g=game_info(game_title=game_title,game_intro=game_description)
     g.game_type_name=gt.type_name
     gt.games.append(g)
     db.session.commit()
+    g.game_release_time=release_date
+    g.game_develop_company=game_company
     if(os.path.exists(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id)) == False):
         print("makdir")
         os.mkdir(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id))
@@ -299,11 +301,13 @@ def collect_game(user_id,game_id):
     game=game_info.query.get(game_id)
     user=user_info.query.get(user_id)
     user.collects.append(game)
+    db.session.commit()
 
 def incollect_game(user_id,game_id):
     game=game_info.query.get(game_id)
     user=user_info.query.get(user_id)
     user.collects.remove(game)
+    db.session.commit()
 
 def is_collect(user_id,game_id):
     game=game_info.query.get(game_id)
@@ -325,11 +329,13 @@ def exper_game(user_id,game_id):
     game=game_info.query.get(game_id)
     user=user_info.query.get(user_id)
     user.expers.append(game)
+    db.session.commit()
 
 def inexper_game(user_id,game_id):
     game=game_info.query.get(game_id)
     user=user_info.query.get(user_id)
     user.expers.remove(game)
+    db.session.commit()
 
 def is_exper(user_id,game_id):
     game=game_info.query.get(game_id)

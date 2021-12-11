@@ -6,7 +6,7 @@ import pymysql
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-import hashlib
+from .. import db_control
 from ..apps import MainPageBP
 from flask_login import (login_required,current_user)
 from ..db_control import (
@@ -17,12 +17,37 @@ from ..db_control import (
 #   route: /
 ###############################################################################
 @MainPageBP.route('/')
-def mainpage():
+def mainpage(game_year='',game_type=''):
     #创建字典变量，存储游戏信息
     #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
-    #games=getalltest()
-    return render_template('/mainpage/mainpage.html',games=[],current_user=current_user)
+
+    if game_type != '':
+        return db_control.game_type_list(game_type)
+    if game_year != '':
+        return db_control.year_list(game_year)
+    games=getalltest()
+    return render_template('/mainpage/mainpage.html',games=games,current_user=current_user)
+
+
+@MainPageBP.route('/<game_year>')
+def mainpage_year(game_year):
+    games=db_control.year_list(game_year)
+    return render_template('/mainpage/mainpage.html', games=games, current_user=current_user)
+
 #collect
-@MainPageBP.route('/collect')
+@MainPageBP.route('/collect', methods=['GET', 'POST'])
 def collect():
-    return 0
+    if request.method == 'POST':
+        # 获取游戏id
+        game_id = request.form['game_id']
+        if game_id:
+            user_id=current_user.id
+
+            if db_control.is_collect(user_id,game_id) == True:
+                db_control.incollect_game(user_id, game_id)
+                return "cancelSuccess"
+            else:
+                db_control.collect_game(user_id, game_id)
+                return "collectSuccess"
+
+    return "fail"

@@ -28,7 +28,7 @@ def create_app():
         SECRET_KEY='dev',
     )
 
-
+    app.jinja_env.filters['zip'] = zip
     login_manager.init_app(app)
     @login_manager.user_loader
     
