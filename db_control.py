@@ -384,7 +384,8 @@ def all_list():
 
 def game_type_list(name):
     gt=game_type.query.filter_by(type_name=name).first()
-    games=gt.games.sort(key=game_cmp)
+    games=gt.games
+    games.sort(key=game_cmp)
     return games
 
 def year_list(year):
