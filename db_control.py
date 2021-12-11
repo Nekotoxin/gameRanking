@@ -373,6 +373,8 @@ def add_score(game_id,value):
     game.game_average_score=float(total)/num
     db.session.commit()
 def game_cmp(game):
+    if(game.game_average_score is None):
+        return 0
     return 5-game.game_average_score
 
 def all_list():
@@ -383,7 +385,7 @@ def all_list():
 def game_type_list(name):
     gt=game_type.query.filter_by(type_name=name).first()
     games=gt.games.sort(key=game_cmp)
-    return gt.games
+    return games
 
 def year_list(year):
     tmp=game_info.query.all()
