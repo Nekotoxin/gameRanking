@@ -200,13 +200,13 @@ body{
     margin:auto;
     position:relative;
     /* height: 2000px; */
-    width:70%;
+    width:80%;
     margin:50px auto 0px;
 }
 
 
 .gameRankList{
-    width:65%;
+    width:75%;
     float: left;
     /* position: relative;  */
     background: rgba(255, 255, 255, 0.329); 
@@ -221,24 +221,17 @@ body{
      /* background-color: rgb(249, 255, 217); */
  }
 
-#takePlace{
-    float:left;
-    /* visibility: hidden; */
-    width:10%;    
-    border: 2px solid rgba(219, 219, 219, 0);
-    box-sizing: border-box;
-}
+
 #sideBox{
+    margin-left: 40px;
     float:left;
-    width:25%;
+    width:20%;
     /* height:60%; */
     /* 相对当前页面高度的60% */
-    
     height:600px;
     /* border: 2px solid rgb(0, 255, 76); */
     backdrop-filter:blur(20px); 
-    background: rgba(255, 255, 255, 0.329); 
-    
+    background: rgba(255, 255, 255, 0.329);
     box-sizing: border-box;
     
 }
@@ -469,14 +462,20 @@ input.btn[type="submit"]:active{
     text-decoration: none;
     font-size: x-large;
     float:left;
+
 }
 
 .starRating{
     overflow: auto;
     list-style: none;
     cursor:default;
+    padding-left: 10px;
     /* border:2px solid rgb(0, 255, 76); */
 
+}
+
+#starBox{
+    padding-left: 20px;
 }
 
 .starActive{
@@ -499,9 +498,9 @@ input.btn[type="submit"]:active{
 
 #gameCoverInPage{
     /* 高度设置为100px,宽度等比例缩放 */
-    height:250px;
+    width:200px;
     /* 宽度随高度等比例缩放; */
-    width:auto;
+    height:auto;
     position:relative;
     margin-top:20px;
     margin-left: 20px;
@@ -644,7 +643,7 @@ input.btn[type="submit"]:active{
     margin-right: 20px;
     margin-bottom: 20px;
     width:100%;
-    font-size:x-small;
+    font-size:medium;
     /* border:2px solid rgb(0, 255, 76); */
 }
 
@@ -655,7 +654,7 @@ input.btn[type="submit"]:active{
 
 #GPLeftBox{
     /* border: 2px solid rgb(255, 0, 0); */
-    width:25%;
+    width:35%;
     box-sizing: border-box;
     float:left;
 }
@@ -666,7 +665,9 @@ input.btn[type="submit"]:active{
     /* border: 2px solid rgb(255, 0, 0); */
     width:60%;
     box-sizing: border-box;
-    float:left;
+    float:right;
+    margin-right:20px;
+    border: #05ff11 solid 2px;
 }
 
 #gameIntro{

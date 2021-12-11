@@ -24,10 +24,10 @@ def gamepage(game_id):
     # print(game_path)
     #获取当前路径下的static文件夹下的gameMaterialStock文件夹下的<game_id>文件夹下的所有文件个数
     game_file_num = len(os.listdir(game_path))
-    #获取当前路径下的static文件夹下的gameMaterialStock文件夹下的<game_id>文件夹下的game_screenshot<i>.jpg 文件
+    #获取当前路径下的static文件夹下的gameMaterialStock文件夹下的<game_id>文件夹下的screenshot<i>.jpg 文件
     screenShotCount = 0
     for i in range(1, game_file_num+1):
-        file_path = os.path.join(game_path, 'game_screenshot'+str(i)+'.jpg')
+        file_path = os.path.join(game_path, 'screenshot'+str(i)+'.png')
         #判断文件是否存在
         if os.path.exists(file_path):
             screenShotCount += 1

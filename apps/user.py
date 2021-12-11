@@ -81,10 +81,10 @@ def submit_new_game():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         if not os.path.exists(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id))):
             os.mkdir(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id)))
-        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_cover.jpg'))
+        game_cover.save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_cover.png'))
         #按照game_screenshot<i>.jpg的方式保存
         for i in range(len(game_screenshots)):
-            game_screenshots[i].save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'game_screenshot'+str(i+1)+'.jpg'))
+            game_screenshots[i].save(os.path.join(basepath, 'static\gameMaterialStock\\'+str(id),'screenshot'+str(i+1)+'.png'))
         flash('update success!')
     return render_template('user/newGame.html',current_user=current_user)
 
