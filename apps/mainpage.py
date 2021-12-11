@@ -37,6 +37,9 @@ def mainpage_year(game):
 #collect
 @MainPageBP.route('/collect', methods=['GET', 'POST'])
 def collect():
+    if current_user.is_authenticated is False:
+        return redirect(url_for("auth.login"),code=302)
+
     if request.method == 'POST':
         # 获取游戏id
         game_id = request.form['game_id']

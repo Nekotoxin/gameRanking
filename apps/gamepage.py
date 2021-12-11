@@ -62,6 +62,8 @@ def submitScore():
 #addComment
 @GameBP.route('/submitComment',methods=['GET','POST'])
 def submitComment():
+    if current_user.is_authenticated is False:
+        return redirect(url_for("auth.login"),code=302)
     if request.method == 'POST':
         #获取用户id
         user_id = current_user.get_id()

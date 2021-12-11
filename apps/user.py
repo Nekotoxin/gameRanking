@@ -10,8 +10,9 @@ from flask_login import (login_required,current_user)
 from werkzeug.security import generate_password_hash, check_password_hash
 from ..apps import UserBP
 from .. import db_control
-import pymysql
+from .import auth
 
+@login_required
 @UserBP.route('/<user_name>/settings', methods=['GET', 'POST'])
 def settings(user_name):
     if request.method == 'POST':
@@ -57,6 +58,8 @@ def cancel_user():
 @UserBP.route('/submitNewGame', methods=['GET', 'POST'])
 @login_required
 def submit_new_game():
+    if current_user.is_authenticated is False:
+        return redirect(url_for("auth.login"),code=302)
     if request.method == 'POST':
         game_title = request.form['game_title']
         game_description = request.form['game_description']
@@ -92,6 +95,9 @@ def submit_new_game():
 
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 def user_home(user_name):
+    if current_user.is_authenticated is False:
+        return redirect(url_for("auth.login"),code=302)
+
     basepath = os.path.dirname(__file__)
     nowpath = 'static\\userMaterialStock' + '\\' + str(current_user.id)
     path=os.path.join(basepath,nowpath)
