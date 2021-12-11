@@ -12,8 +12,6 @@ from werkzeug.security import check_password_hash
 
 cmd = Blueprint('db', __name__) #created a Blueprint for this module
 
-
-
     
 from models import game_info, game_score,game_type,user_info,comment
 
@@ -360,8 +358,22 @@ def add_score(game_id,value):
         total+=s.score_value
     game.game_average_score=float(total)/num
     db.session.commit()
+def game_cmp(game):
+    return 5-game.game_average_score
 
+def game_type_list(name):
+    gt=game_type.query.filter_by(type_name=name).first()
+    games=gt.games.sort(key=game_cmp)
+    return gt.games
 
+def year_list(year):
+    tmp=game_info.query.all()
+    tmp.sort(key=game_cmp)
+    games=[]
+    for g in tmp:
+        if(g.game_release_time.year==year):
+            games.append(g)
+    return games
 ###########################################################################################
 ###########################################################################################
 ###########################################################################################
