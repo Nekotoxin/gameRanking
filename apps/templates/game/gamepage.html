@@ -19,8 +19,16 @@
 
 
         <div id="gameDescriptionInPage">
+            {% if game['game_develop_company'] %}
             <p>游戏会社：<span>{{game['game_develop_company']}}</span></p>
-            <p>游戏评分：<span>{{game['game_average_score']}}</span></p>
+            {% else %}
+            <p>游戏会社：<span>暂无</span></p>
+            {% endif %}
+            {%if game['game_average_score'] %}
+                <p>游戏评分：<span>{{game['game_average_score']|round(2)}}</span></p>
+            {%else%}
+                <p>游戏评分：<span>暂无评分</span></p>
+            {%endif%}
             <p>游戏类型：<span>{{game['game_type_name']}}</span></p>
         </div>
 
@@ -243,6 +251,7 @@
 
 <!-- 显示所有评论 -->
 <div id="commentBox">
+    <p>全部评分</p>
     {% for comment in comments %}
     <div id="userComment" class="animate__animated animate__bounceInUp">
         <p>用户id：{{users[comment['comment_user_id']-1].user_name}}</p>
