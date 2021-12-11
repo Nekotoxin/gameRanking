@@ -202,7 +202,11 @@ get_comments(id)            传入id用户发表的评论和游戏（传回一�
 add_new_user                函数需要在userMaterialStock下建立用户id文件夹）
 add_game                    函数需要在gameMaterialStock下建立游戏id文件夹
 
-
+12/11 to Line 199
+1 def collect_list **这个我已经写了
+2 这个我也写了 调用示例get_item_value(2,'user_info','comments')，2是id
+3 已完成
+4 已完成
 
 
 

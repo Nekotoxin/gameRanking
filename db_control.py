@@ -4,7 +4,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template,Blueprint
 from datetime import datetime
-import click
+import os
 from __init__ import db
 from werkzeug.security import check_password_hash
 #对game_info,game_type,user_info,comment实现了add,delete,query,update接口
@@ -21,6 +21,11 @@ def add_game(type_id,game_title,game_description):
     gt=game_type.query.get(type_id)
     g=game_info(game_title=game_title,game_intro=game_description)
     g.game_type_name=gt.type_name
+    if(os.path.exists(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id)) == False):
+        print("makdir")
+        os.mkdir(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id))
+    else:
+        print("no")
     gt.games.append(g)
     db.session.commit()
     return g.game_id
@@ -203,10 +208,7 @@ def get_item_value(id,table_name,table_word):
         if(u is None):
             return 'fail'
         if(table_word=='comments'):
-            clist=[]
-            for user_comment in u.comments :
-                clist.append(user_comment.comment_id)
-            return clist
+            return u.comments
         if(table_word=='user_name'):
             return u.user_name
         if(table_word=='user_email'):
@@ -280,6 +282,11 @@ def add_new_user(name,passw):
         u=user_info(user_name=name,user_password=passw)
         db.session.add(u)
         db.session.commit()
+        if(os.path.exists(".\\apps\\static\\userMaterialStock\\"+str(u.id)) == False):
+            print("makdir")
+            os.mkdir(".\\apps\\static\\userMaterialStock\\"+str(u.id))
+        else:
+            print("no")
         return u.id
     return 'name has existed'
 
