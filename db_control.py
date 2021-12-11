@@ -21,13 +21,14 @@ def add_game(type_id,game_title,game_description):
     gt=game_type.query.get(type_id)
     g=game_info(game_title=game_title,game_intro=game_description)
     g.game_type_name=gt.type_name
+    gt.games.append(g)
+    db.session.commit()
     if(os.path.exists(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id)) == False):
         print("makdir")
         os.mkdir(".\\apps\\static\\gameMaterialStock\\"+str(g.game_id))
     else:
         print("no")
-    gt.games.append(g)
-    db.session.commit()
+
     return g.game_id
 
 def getalltest():
@@ -317,7 +318,7 @@ def collect_list(user_id):
     clist=[]
     user=user_info.query.get(user_id)
     for game in user.collects:
-        clist.append(game.game_id)
+        clist.append(game)
     return clist
 
 def exper_game(user_id,game_id):
@@ -343,7 +344,7 @@ def exper_list(user_id):
     elist=[]
     user=user_info.query.get(user_id)
     for game in user.expers:
-        elist.append(game.game_id)
+        elist.append(game)
     return elist
 
 def score_list(game_id):
@@ -367,6 +368,11 @@ def add_score(game_id,value):
     db.session.commit()
 def game_cmp(game):
     return 5-game.game_average_score
+
+def all_list():
+    games=game_info.query.all()
+    games.sort(key=game_cmp)
+    return games
 
 def game_type_list(name):
     gt=game_type.query.filter_by(type_name=name).first()

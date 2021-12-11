@@ -67,3 +67,4 @@ class user_info(UserMixin,db.Model):
     expers = db.relationship('game_info', secondary=experiences,backref=db.backref('related_exper_users', lazy='dynamic'))
     def __repr__(self):
         return '<user: %r>' %self.user_name
+    

@@ -206,7 +206,7 @@ add_game                    函数需要在gameMaterialStock下建立游戏id文
 1 def collect_list **这个我已经写了
 2 这个我也写了 调用示例get_item_value(2,'user_info','comments')，2是id
 3 已完成
-4 已完成
+4 已完成 
 
 
 
