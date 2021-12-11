@@ -39,9 +39,9 @@ def collect():
         # 向jquery返回"success"
             games=db_control.collect_list(user_id)
             if game_id in games:
-                return "collectSuccess"
-            else:
                 return "cancelSuccess"
+            else:
+                return "collectSuccess"
     return "fail"
 
 @MainPageBP.route('/?game_year=<game_year>')

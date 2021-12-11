@@ -28,7 +28,7 @@
             <!-- show game_update_time 日期只显示年月日部分 -->
             <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p>
             <div class="collectButton">
-                <button onclick="collect('{{game.game_id}}')"  class="btn btn-primary" type="button" value="{{game.game_id}}">
+                <button id="{{game.game_id}}" onclick="collect('{{game.game_id}}')"  class="btn btn-primary" type="button" value="{{game.game_id}}">
                     😘
                 </button>
             </div>            
@@ -48,10 +48,14 @@
                 },
                 success: function(data){
                     if(data== "collectSuccess"){
-                        $("#collectButton").text("✔");
+                        // change the button to "✔"
+                        $("#"+game_id).html("✔");
+                        alert("收藏成功");
                     }
                     else if(data=='cancelSuccess'){
-                        $("#collectButton").text("😘");
+                        // change the button to "😘"
+                        $("#"+game_id).html("😘");
+                        alert("取消收藏成功");
                     }
                     else{
                         alert("收藏失败");
