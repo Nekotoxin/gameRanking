@@ -17,10 +17,11 @@ from ..db_control import (
 #   route: /
 ###############################################################################
 @MainPageBP.route('/')
-def mainpage(game_year=None):
+def mainpage(game_year=None,game_type=None):
     #创建字典变量，存储游戏信息
     #@hughdazz创建一个游戏字典game_list_order_by_score 按照游戏评分顺序排序
-
+    if game_type is not None:
+        return db_control.game_type_list(game_type)
     if game_year is not None:
         return db_control.year_list(game_year)
     games=getalltest()
@@ -34,16 +35,17 @@ def collect():
         # 获取游戏id
         game_id = request.form['game_id']
         if game_id:
-        # 插入分数
             user_id=current_user.id
-        # 向jquery返回"success"
-            games=db_control.collect_list(user_id)
-            if game_id in games:
-                return "collectSuccess"
-            else:
+
+            if db_control.is_collect(user_id,game_id) == True:
+                db_control.incollect_game(user_id, game_id)
                 return "cancelSuccess"
+            else:
+                db_control.collect_game(user_id, game_id)
+                return "collectSuccess"
+
     return "fail"
 
-@MainPageBP.route('/?game_year=<game_year>')
-def select_by_year(game_year):
-    return db_control.year_list(game_year)
+# @MainPageBP.route('/?game_year=<game_year>')
+# def select_by_year(game_year):
+#     return db_control.year_list(game_year)

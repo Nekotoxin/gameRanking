@@ -91,8 +91,6 @@ def submit_new_game():
 
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 def user_home(user_name):
-    #获取评论
-
     basepath = os.path.dirname(__file__)
     nowpath = 'static\\userMaterialStock' + '\\' + str(current_user.id)
     path=os.path.join(basepath,nowpath)
