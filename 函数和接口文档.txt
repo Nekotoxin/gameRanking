@@ -172,6 +172,37 @@ ps添加收藏或者玩过游戏时，先判断是否已经收藏或者玩过
 12.6 to Line 165
 已完成
 
+12.10 
+to @hughdazz
+1.开发mainpage.py:
+    1.mainpage.html中collectButton按下:
+        url: "{{url_for('mainpage.collect')}}"
+        data: {
+                        game_id: game_id,
+              }
+        user_id 直接用 current_user.get_id() 获取
+        如果未收藏，则收藏，返回:'collectSuccess'
+        如果已收藏，则取消收藏，返回:'cancelSuccess'
+        否则返回:'fail'
+    2.根据网页选择的筛选项写响应函数:
+        例如：http://127.0.0.1:5000/?game_year=2019,则筛选2019年发行的游戏的展示
+to @royzhz
+1.bug fix：
+    登陆后点击主页 修改用户设置 ，保存后出错
+2.userhome.html需要的新参数（对应user_home()）:
+    1.list类:userCollectGames 用户收藏的游戏
+    2.list类:userComments 用户发表的评论 ------ GamesOfUserComments
+        例如:userComments[0]对应的游戏为GamesOfUserComments[0]
+    3.字符串类：userMaterialPath:存放用户信息的文件夹路径
+
+
+12/11 to@hughdazz
+get_collect_games(id)       传入id返回用户收藏的游戏（列表）
+get_comments(id)            传入id用户发表的评论和游戏（传回一个列表，包含两个列表，第一个用户是发表的评论，第二个是用户发表评论所对应的游戏(例如comments[1]对应commentGames[1]）
+add_new_user                函数需要在userMaterialStock下建立用户id文件夹）
+add_game                    函数需要在gameMaterialStock下建立游戏id文件夹
+
+
 
 
 

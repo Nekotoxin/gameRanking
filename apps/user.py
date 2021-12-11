@@ -13,9 +13,9 @@ from .. import db_control
 import pymysql
 
 @UserBP.route('/<user_name>/settings', methods=['GET', 'POST'])
-def settings():
+def settings(user_name):
     if request.method == 'POST':
-        newAvatar = request.files['newAvatar']
+        newAvatar = request.files['NewAvatar']
         newUsername=request.form['newUsername']
         newPassword=request.form['newPassword']
         newDescription=request.form['newDescription']
@@ -29,15 +29,18 @@ def settings():
         if newDescription is not None:
             db_control.update_item_value(current_user.id,'user_info','user_self_intro',newDescription)
 
-        if newAvatar is not None:
+
+        if newAvatar.filename != '':
             basepath = os.path.dirname(__file__)
-            nowpath='static\gameMaterialStock'+'\\'+current_user.id
+            nowpath='static\gameMaterialStock'+'\\'+str(current_user.id)
+            if not os.path.exists(nowpath):
+                os.mkdir(os.path.join(basepath, nowpath))
             path=os.path.join(basepath, nowpath, 'avatar.jpg')
             if os.path.exists(path):
                 os.remove(path)
             newAvatar.save(path)
 
-    return redirect(url_for('user.user_home', user_name=current_user.user_name))
+    return render_template('user/settings.html',user_name=user_name)
 
 #注销账户
 @login_required
@@ -88,5 +91,13 @@ def submit_new_game():
 @UserBP.route('/<user_name>', methods=['GET', 'POST'])
 def user_home(user_name):
     #table=db_control.get_comments(current_user.id)
+    basepath = os.path.dirname(__file__)
+    nowpath = 'static\gameMaterialStock' + '\\' + str(current_user.id)
+    path=os.path.join(basepath,nowpath)
     return render_template('user/userhome.html',current_user=current_user,collectGames=[],comments=[],commentGames=[])#测试代码
-    #return render_template('user/userhome.html',current_user=current_user,collectGames=db_control.get_collect_games(current_user.id),comments=table[0],commentGames=table[1])
+    # return render_template('user/userhome.html',
+    #                        current_user=current_user,
+    #                        userCollectGames=db_control.get_collect_games(current_user.id),
+    #                        userComments=table[0],
+    #                        GamesOfUserComments=table[1],
+    #                        userMaterialPath=path)

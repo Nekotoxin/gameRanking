@@ -12,9 +12,10 @@
 
 <body>
     <div class="navigator">
-        <div class="headbox">
+        <div class="head-box">
             <a href="{{url_for('mainpage.mainpage')}}">
                 <img class="logo" src="{{url_for('static',filename='/websiteMaterialStock/biglogo.png')}}" alt="logo">
+
             </a>
             <h1 class="animate__animated animate__flipInX" id="header">gameRank</h1>
             <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
@@ -28,10 +29,25 @@
         <div id="rightBox">
             {% if current_user.is_authenticated %}
             <!-- 显示用户姓名，点击后重定向到用户主页 -->
-            <a class="logOutBtn" href="{{ url_for('auth.logout') }}" ><span id="logOutText">退出</span></a>
-            <a id="userNameDis"
-                href="{{url_for('user.user_home',user_name=current_user.user_name)}}">hi,{{current_user.user_name}}！</a>
-            
+            <!-- 鼠标移动到头像和名字上时，显示下拉框 -->
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <a id="userNameDis" href="{{url_for('user.user_home',user_name=current_user.user_name)}}">
+                        hi,{{current_user.user_name}}！
+                    </a>
+                </button>
+                
+                <div class="dropdown-content">
+                    <a href="{{url_for('user.user_home',user_name=current_user.user_name)}}">个人主页</a>
+                    <a href="{{url_for('user.settings',user_name=current_user.user_name)}}">修改用户设置</a>
+                    <a href="{{url_for('user.submit_new_game')}}">上传新游戏</a>
+                    <a href="{{url_for('auth.logout')}}">登出</a>
+                </div>
+            </div>
+           
+         
+
+
             {% else %}
             <a class="loginBtn" href="{{ url_for('auth.login') }}">登录</a>
             

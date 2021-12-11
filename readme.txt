@@ -7,6 +7,7 @@
 ->@royzhz 处理用户提交的新游戏(user.py)------------------------------------完成
 ->@hughdazz 完成用于向数据库添加游戏的函数(models.py,db_control.py)----------不需要
 ->@Nekotoxin 基本完成主页(mainpage.html,style.css)-----------------------已完成（原始效果）
+->@hughdazz 完成网站主页响应(mainpage.py)
 ->@Nekotoxin 开发单个游戏主页(gamepage.html,style.css)--------------------完成70%（原始效果）
 ->@Nekotoxin 写游戏主页响应(user.py)
 ->@hughdazz 完成用于添加用户喜欢某个游戏，游戏分数，游戏评论等函数(models.py,db_control.py)
@@ -15,7 +16,6 @@
 ->@hughdazz 完成提供用户和感想资源的函数(models.py,db_control.py)
 ->后序完善
 
-上述任务后一个依赖前一个（大概）
 ------------------------------------------------------------------------------------------
 分工：
 @Nekotoxin：网站框架，前端,单个游戏页面（new）

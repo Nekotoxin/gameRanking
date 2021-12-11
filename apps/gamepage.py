@@ -16,7 +16,6 @@ from db_control import *
 
 @GameBP.route('/<game_id>',methods=['GET','POST'])
 def gamepage(game_id):
-    
     game = find_game_by_id(game_id)
     #获取当前相对路径
     path = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +24,6 @@ def gamepage(game_id):
     # print(game_path)
     #获取当前路径下的static文件夹下的gameMaterialStock文件夹下的<game_id>文件夹下的所有文件个数
     game_file_num = len(os.listdir(game_path))
-    # print(game_file_num)
     #获取当前路径下的static文件夹下的gameMaterialStock文件夹下的<game_id>文件夹下的game_screenshot<i>.jpg 文件
     screenShotCount = 0
     for i in range(1, game_file_num+1):
@@ -36,7 +34,11 @@ def gamepage(game_id):
     
     #获取评论
     comments=query_comment_by_game_id(game_id)
-    print(comments)
+    
+    print(game.game_average_score)
+    print('*')
+   
+    # print(comments)
     return render_template('game/gamepage.html', game=game, screenShotCount=screenShotCount,comments=comments,cuurent_user=current_user)
 
 #submitScore
@@ -49,9 +51,13 @@ def submitScore():
         score = request.form['score']
         if game_id and score:
             #插入分数
-            update_item_value(game_id,'game_info','game_score', score)
-        #向jquery返回data.status=="success"
-        return "success"
+            add_score(game_id,score)
+            #向jquery返回"success"
+            game=find_game_by_id(game_id)
+            print(game.game_average_score)
+            print('&')
+            print('add score success')
+            return "success"
 
 #addComment
 @GameBP.route('/submitComment',methods=['GET','POST'])
@@ -66,8 +72,6 @@ def submitComment():
         if game_id and comment:
             #插入评论
             add_comment(game_id,user_id,comment)
-            #成功了则提示成功
-            print("success")
             return "success"
     return "fail"
 

@@ -17,9 +17,9 @@
         <img id="gameCoverInPage"
             src="{{url_for('static',filename='/gameMaterialStock/'~game['game_id']~'/game_cover.jpg')}}" alt="">
         <div id="gameDescriptionInPage">
-            <p>游戏会社：<span>{{game['game_company']}}</span></p>
-            <p>游戏评分：<span>{{game['game_score']}}</span></p>
-            <p>游戏类型：<span>{{game['game_type']}}</span></p>            
+            <p>游戏会社：<span>{{game['game_develop_company']}}</span></p>
+            <p>游戏评分：<span>{{game['game_average_score']}}</span></p>
+            <p>游戏类型：<span>{{game['game_type_name']}}</span></p>            
         </div>
         
     </div>
@@ -35,7 +35,7 @@
         <div id="comment">
             <input type="hidden" name="game_id" value="{{game['game_id']}}">
             <textarea name="comment_content" id="" cols="30" rows="10"></textarea>
-            <button id="submitComment">提交评论</button>
+            <button id="submitComment" value={{current_user.id}}>提交评论</button>
         </div>
 
         <!-- 按下按钮 jquery发送评论  -->
@@ -57,6 +57,7 @@
                     success: function (data) {
                         if (data == "success") {
                             alert("评论成功");
+                            window.location.reload(true);
                         } else {
                             alert("评论失败");
                         }
@@ -81,33 +82,33 @@
     <div id="GPRightBox">
         <p>请给游戏评分：</p>
         <ul class="starRating">
-            <li id="1">★</li>
-            <li id="1">★</li>
-            <li id="1">★</li>
-            <li id="1">★</li>
-            <li id="1">★</li>
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
+            <li>★</li>
         </ul>
         <!-- 提交评分按钮 -->
-        <button id="submitScore" value="{{game['game_id']}}">提交评分</button>
+        <button id="submitScore" value={{game.game_id}}>提交评分</button>
 
 
         <script>
-            var starbox = document.getElementsByClassName("starRating")[0];
-            var starlist = document.getElementsByTagName("li");
+            let starBox = document.getElementsByClassName("starRating")[0];
+            let starList = document.getElementsByTagName("li");
             //when mouse over the star, change the color
-            var clickflag = false;
-            starbox.onmouseover = function (e) {
-                if (clickflag) {
+            let clickFlag = false;
+            starBox.onmouseover = function (e) {
+                if (clickFlag) {
                     return;
                 }
                 if (e.target.tagName == "LI") {
                     e.target.style.color = "red";
-                    var prev = e.target.previousElementSibling;
+                    let prev = e.target.previousElementSibling;
                     while (prev) {
                         prev.style.color = "red";
                         prev = prev.previousElementSibling;
                     }
-                    var next = e.target.nextElementSibling;
+                    let next = e.target.nextElementSibling;
                     while (next) {
                         next.style.color = "black";
                         next = next.nextElementSibling;
@@ -115,16 +116,16 @@
                 }
             };
 
-            starbox.onclick = function (e) {
+            starBox.onclick = function (e) {
                 if (e.target.tagName == "LI") {
-                    clickflag = true;
-                    var prev = e.target.previousElementSibling;
+                    clickFlag = true;
+                    let prev = e.target.previousElementSibling;
                     e.target.style.color = "red";
                     while (prev) {
                         prev.style.color = "red";
                         prev = prev.previousElementSibling;
                     }
-                    var next = e.target.nextElementSibling;
+                    let next = e.target.nextElementSibling;
                     while (next) {
                         next.style.color = "black";
                         next = next.nextElementSibling;
@@ -134,14 +135,14 @@
 
             //jquery 发送评分
             $("#submitScore").click(function () {
-                var score = 0;
-                for (var i = 0; i < starlist.length; i++) {
-                    if (starlist[i].style.color == "red") {
+                let score = 0;
+                for (let i = 0; i < starList.length; i++) {
+                    if (starList[i].style.color == "red") {
                         score = i + 1;
                     }
                 }
 
-                var game_id = $(this).val();
+                const game_id = $(this).val();
                 console.log(game_id);
                 $.ajax({
                     url: "{{url_for('gamepage.submitScore')}}",
@@ -153,8 +154,8 @@
                     success: function (data) {
                         if (data == "success") {
                             alert("评分成功");
-
-
+                            // 刷新
+                            window.location.reload();
 
                         } else {
                             alert("评分失败");
