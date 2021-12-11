@@ -39,7 +39,7 @@
                 
                 <div class="dropdown-content">
                     <a href="{{url_for('user.user_home',user_name=current_user.user_name)}}">个人主页</a>
-                    <a href="{{url_for('user.settings',user_name=current_user.user_name)}}">修改用户设置</a>
+                    <a id="aaa" href="{{url_for('user.settings',user_name=current_user.user_name)}}">修改用户设置</a>
                     <a href="{{url_for('user.submit_new_game')}}">上传新游戏</a>
                     <a href="{{url_for('auth.logout')}}">登出</a>
                 </div>

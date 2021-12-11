@@ -41,7 +41,8 @@ body{
 #userNameDis{
     /* border: 2px solid rgb(0, 255, 76); */
     text-decoration: none;
-    padding: 0px 30px 0px 30px;
+    height:40px;
+    padding: 10px 20px 20px 10px;
     color: rgb(0, 0, 0);
    
     float: right;
@@ -54,9 +55,10 @@ body{
     width:10%;
     float:right;
     z-index: 9;
-    border: 2px solid rgb(0, 255, 76);
+    border: 2px solid rgba(100, 65, 65, 0);
 }
 .dropdown{
+    width:100%;
     position: relative;
     /* display: inline-block; */
     /* float:right; */
@@ -68,7 +70,7 @@ body{
     display: none;
     position: relative;
     background-color: #f9f9f9;
-    width:100%;
+    width:75%;
     box-shadow:  0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9999;
 }
@@ -78,6 +80,9 @@ body{
     text-decoration: none;
     display: block;
     z-index: 9;
+}
+#aaa{
+    font-size: small;
 }
 .dropdown-content a:hover{
     position: relative;
@@ -90,13 +95,13 @@ body{
     z-index: 9;
 }
 .dropdown:hover .dropbtn{
-    background-color: #3e8e41;
+    background-color: rgba(129, 129, 129, 0.75);
 }
 
 #userNameDis:hover{
     /* border: 2px solid rgb(0, 255, 76); */
     text-decoration: none;
-    color: rgb(0, 195, 255);
+    color: rgb(0, 90, 255);
 }
 #logOutText{
     float:right;
@@ -145,7 +150,7 @@ body{
     color: rgb(0, 0, 0);
     text-decoration: none;
     right:0px;
-    border: 2px solid rgb(217, 255, 4);
+    border: 2px solid rgba(217, 255, 4, 0);
     padding: 0px 10px 0px;
     box-sizing: border-box;
     font-size:medium;
@@ -155,7 +160,7 @@ body{
     width:50%;
     height:100%;
     color: rgb(0, 0, 0);
-    border: 2px solid rgb(217, 255, 4);
+    border: 2px solid rgba(217, 255, 4, 0);
     text-decoration: none;
     /* float:right; */
     right:0px;
@@ -684,16 +689,16 @@ input.btn[type="submit"]:active{
     float:left;
 }
 #userHomeBody{
-    border: rgb(255, 0, 0) solid 2px;
+    border: rgba(255, 0, 0, 0) solid 2px;
     width:80%;
     margin:30px auto 0px;
 }
 #collectGames{
-    border: aqua solid 2px;
+    border: rgba(0, 255, 255, 0) solid 2px;
 }
 
 #myComment{
-    border: aqua solid 2px;
+    border: rgba(0, 255, 255, 0) solid 2px;
 }
 
 #commentBox{
