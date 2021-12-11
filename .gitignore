@@ -10,3 +10,4 @@ env
 *.db-journal
 *.ps1
 .idea
+venv
