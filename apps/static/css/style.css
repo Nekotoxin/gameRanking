@@ -258,7 +258,12 @@ body{
     background-color: white;
 }
 
-#collectButton{
+.collectBtn{
+    float:right;
+    border: aqua solid 2px;
+}
+
+.collectButton{
     position:absolute;
     bottom: 50px;
     right:10px;
@@ -690,6 +695,10 @@ input.btn[type="submit"]:active{
 #myComment{
     border: aqua solid 2px;
 }
+
+
+
+
 
 
 

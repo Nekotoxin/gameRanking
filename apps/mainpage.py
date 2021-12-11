@@ -28,7 +28,7 @@ def mainpage(game_year=None):
 
 
 #collect
-@MainPageBP.route('/collect')
+@MainPageBP.route('/collect', methods=['GET', 'POST'])
 def collect():
     if request.method == 'POST':
         # 获取游戏id

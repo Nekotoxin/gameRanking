@@ -27,8 +27,8 @@
             </div>
             <!-- show game_update_time 日期只显示年月日部分 -->
             <p id="gameUpdateTime">update time:{{game['game_update_time'].year}}年{{game['game_update_time'].month}}月{{game['game_update_time'].day}}日</p>
-            <div>
-                <button id="collectButton" class="btn btn-primary" type="button">
+            <div class="collectButton">
+                <button onclick="collect('{{game.game_id}}')"  class="btn btn-primary" type="button" value="{{game.game_id}}">
                     😘
                 </button>
             </div>            
@@ -36,6 +36,42 @@
         <div id="gameSeparate"></div>
         {% endfor %}
     </div>
+
+    <script>
+
+        function collect(game_id) {
+            $.ajax({
+                url: "{{url_for('mainpage.collect')}}",
+                type: "POST",
+                data: {
+                    game_id: game_id
+                },
+                success: function(data){
+                    if(data== "collectSuccess"){
+                        $("#collectButton").text("✔");
+                    }
+                    else if(data=='cancelSuccess'){
+                        $("#collectButton").text("😘");
+                    }
+                    else{
+                        alert("收藏失败");
+                    }
+                },
+                error: function(data){
+                    alert("收藏失败");
+                }
+            });
+        }
+        //button id="collectButton"
+        //ajax send request to server
+        //if success, change button text to "已收藏"
+        //if fail, alert "收藏失败"
+        //if already collected, alert "已收藏"
+
+
+    </script>
+
+
     <!-- a div 占位 -->
     <div id="takePlace"></div>
     <div id="sideBox">
@@ -107,38 +143,6 @@
     </div>
 </div>
 
-<script>
-    //button id="collectButton"
-    //ajax send request to server
-    //if success, change button text to "已收藏"
-    //if fail, alert "收藏失败"
-    //if already collected, alert "已收藏"
-    $("#collectButton").click(function(){
-        var game_id = $("#collectButton").attr("game_id");
-        $.ajax({
-            type: "POST",
-            url: "{{url_for('mainpage.collect')}}",
-            data: {
-                game_id: game_id,
-                user_id: "{{current_user.id}}"
-            },
-            success: function(data){
-                if(data== "collectSuccess"){
-                    $("#collectButton").text("✔");
-                }
-                else if(data=='cancelSuccess'){
-                    $("#collectButton").text("😘");
-                }
-                else{
-                    alert("收藏失败");
-                }
-            },
-            error: function(data){
-                alert("收藏失败");
-            }
-        });
-    });
 
-</script>
 
 {% endblock %}
