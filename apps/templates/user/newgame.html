@@ -9,36 +9,40 @@
 
 <!--如果用户是管理员,可以上传一个游戏，包括封面，名字，描述，游戏类型，制作会社，插图， -->
 {% if current_user.is_authenticated %}
-<div class="upload_game">
-    <h1>upload game</h1>
-    <form method="post" action="{{ url_for('user.submit_new_game',user_name=current_user.user_name) }}" enctype="multipart/form-data">
-        <label for="game_title">game title</label>
-        <input name="game_title" type="text" id="game_title" required>
-        <br>
-        <!-- select the release date,show the date lable -->
-        <label for="release_date">release date</label>
-        <input type="date" name="release_date" id="release_date" required>
-        <br>
-        <label for="game_description">game description</label>
-        <input name="game_description" type="text" id="game_description" required>
-        <br>
-        <label for="game_type">game type</label>
-        <input name="game_type" type="text" id="game_type" required>
-        <br>
-        <label for="game_company">game company</label>
-        <input name="game_company" type="text" id="game_company" required>
-        <br>
-        <label for="game_cover">game cover</label>
-        <input type="file" name="game_cover" id="game_cover" required>
-        <br>
-        <!-- upload game screenshots muitiple -->
-        <label for="game_screenshots">game screenshots</label>
-        <input type="file" name="game_screenshots" id="game_screenshots" multiple="multiple">
+<div id="newGameBody" class="animate__animated animate__bounceInUp">
+    <div id="newGameBodyInner">
+        <h1>上传游戏</h1>
+        <form method="post" action="{{ url_for('user.submit_new_game',user_name=current_user.user_name) }}"
+            enctype="multipart/form-data">
+            <label for="game_title">游戏标题</label>
+            <input name="game_title" type="text" id="game_title" required>
+            <br>
+            <!-- select the release date,show the date lable -->
+            <label for="release_date">发行日期</label>
+            <input type="date" name="release_date" id="release_date" required>
+            <br>
+            <label for="game_description">游戏简介</label>
+            <input name="game_description" type="text" id="game_description" required>
+            <br>
+            <label for="game_type">运行平台</label>
+            <input name="game_type" type="text" id="game_type" required>
+            <br>
+            <label for="game_company">游戏会社</label>
+            <input name="game_company" type="text" id="game_company" required>
+            <br>
+            <label for="game_cover">游戏封面</label>
+            <input type="file" name="game_cover" id="game_cover" required>
+            <br>
+            <!-- upload game screenshots muitiple -->
+            <label for="game_screenshots">游戏截图</label>
+            <input type="file" name="game_screenshots" id="game_screenshots" multiple="multiple">
 
 
-        <br>
-        <input type="submit" value="upload">
-    </form>
+            <br>
+            <input id="newGameSubmit" type="submit" value="上传">
+        </form>
+    </div>
+
 </div>
 {% endif %}
 

@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{{url_for('static',filename='/css/animate.min.css')}}">
     <!-- include jquery -->
     <script src="../static/javascript/jquery-3.6.0.js"></script>
-    
+    <script src="../static/javascript/L2Dwidget.min.js"></script>
+    <script src="../static/javascript/L2Dwidget.min.js.map"></script>
+
 </head>
 
 <body>
@@ -31,12 +33,12 @@
             <!-- 显示用户姓名，点击后重定向到用户主页 -->
             <!-- 鼠标移动到头像和名字上时，显示下拉框 -->
             <div class="dropdown">
-                <button class="dropbtn">
-                    <a id="userNameDis" href="{{url_for('user.user_home',user_name=current_user.user_name)}}">
+                <button id="userNameDis" class="dropbtn">
+                    <a>
                         hi,{{current_user.user_name}}！
                     </a>
                 </button>
-                
+
                 <div class="dropdown-content">
                     <a href="{{url_for('user.user_home',user_name=current_user.user_name)}}">个人主页</a>
                     <a id="aaa" href="{{url_for('user.settings',user_name=current_user.user_name)}}">修改用户设置</a>
@@ -44,13 +46,13 @@
                     <a href="{{url_for('auth.logout')}}">登出</a>
                 </div>
             </div>
-           
-         
+
+
 
 
             {% else %}
             <a class="loginBtn" href="{{ url_for('auth.login') }}">登录</a>
-            
+
             <a class="regBtn" href="{{ url_for('auth.register') }}">注册</a>
             {% endif %}
         </div>
@@ -68,7 +70,31 @@
         {% block content %}{% endblock %}
     </section>
 
+    <script>
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-koharu/assets/koharu.model.json",
+                "scale": 1.5
+            },
+            "display": {
+                "position": "right",
+                "width": 150,
+                "height": 300,
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.7,
+                "opacityOnHover": 0.3
+            }
+        });
+    </script>
 
 
 
 </body>
+

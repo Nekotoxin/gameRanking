@@ -41,11 +41,13 @@ body{
 #userNameDis{
     /* border: 2px solid rgb(0, 255, 76); */
     text-decoration: none;
+    text-align: center;
     height:40px;
-    padding: 10px 20px 20px 10px;
+    width:100%;
+    padding: 10px auto 10px;
     color: rgb(0, 0, 0);
-   
-    float: right;
+    background-color: rgb(253, 255, 239);
+    
 }
 #rightBox{
     margin-top:20px;
@@ -70,7 +72,7 @@ body{
     display: none;
     position: relative;
     background-color: #f9f9f9;
-    width:75%;
+    width:100%;
     box-shadow:  0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 9999;
 }
@@ -490,10 +492,10 @@ input.btn[type="submit"]:active{
     width:75%;
     margin:30px auto 0px;
     /* min-height: 1000px; */
-    padding-bottom: 300px;
+    padding-bottom: 50px;
     background-color: rgb(236, 236, 236);
     overflow: auto;
-    border: aqua solid 2px;
+    border: rgba(0, 255, 255, 0) solid 2px;
 }
 #titleInPage{
     padding-top:50px;
@@ -513,25 +515,7 @@ input.btn[type="submit"]:active{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* test */
+/* from w3school image gallery */
 /* Position the image container (needed to position the left and right arrows) */
 .photoContainer {
     position: relative;
@@ -614,27 +598,6 @@ input.btn[type="submit"]:active{
   .demo:hover {
     opacity: 1;
   }
-/* test */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -652,7 +615,7 @@ input.btn[type="submit"]:active{
 }
 
 #gameDescriptionInPage span{
-    color:rgb(55, 55, 255);
+    color: rgb(0, 0, 0);
     
 }
 
@@ -671,7 +634,7 @@ input.btn[type="submit"]:active{
     box-sizing: border-box;
     float:right;
     margin-right:20px;
-    border: #05ff11 solid 2px;
+    border: rgba(5, 255, 17, 0) solid 2px;
 }
 
 #gameIntro{
@@ -726,7 +689,38 @@ input.btn[type="submit"]:active{
     margin:50px auto 20px;
 }
 
+#newGameBody,#settingsBody{
+    width:75%;
+    margin:30px auto 0px;
+    /* min-height: 1000px; */
+    padding-left:100px;
+    padding-top: 50px;
+    padding-bottom: 300px;
+    background-color: rgb(236, 236, 236);
+    overflow: auto;
+    border: rgba(0, 255, 255, 0) solid 2px;
+}
 
+
+
+#newGameSubmit{
+    width:100px;
+    margin-left:300px;
+}
+
+#newGameSubmit:hover{
+    background-color: rgb(114, 114, 114);
+}
+
+#newGameSubmit:active{
+    background-color: rgba(117, 117, 117, 0.432);
+}
+
+#settingsHead{
+    font-size: x-large;
+    font-weight: bold;
+    margin-left:100px;
+}
 
 
 
