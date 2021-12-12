@@ -37,7 +37,7 @@ def settings(user_name):
             nowpath='static\\userMaterialStock'+'\\'+str(current_user.id)
             if not os.path.exists(os.path.join(basepath, nowpath)):
                 os.mkdir(os.path.join(basepath, nowpath))
-            path=os.path.join(basepath, nowpath, 'avatar.jpg')
+            path=os.path.join(basepath, nowpath, 'avatar.png')
             if os.path.exists(path):
                 os.remove(path)
             newAvatar.save(path)

@@ -16,8 +16,7 @@
     <div class="navigator">
         <div class="head-box">
             <a href="{{url_for('mainpage.mainpage')}}">
-                <img class="logo" src="{{url_for('static',filename='/websiteMaterialStock/biglogo.png')}}" alt="logo">
-
+                <img  class="logo" src="{{url_for('static',filename='/websiteMaterialStock/biglogo.png')}}" alt="logo">
             </a>
             <h1 class="animate__animated animate__flipInX" id="header">gameRank</h1>
             <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
@@ -31,7 +30,12 @@
         <div id="rightBox">
             {% if current_user.is_authenticated %}
             <!-- 显示用户姓名，点击后重定向到用户主页 -->
-            <!-- 鼠标移动到头像和名字上时，显示下拉框 -->
+            <!-- 鼠标移动到名字上时，显示下拉框 -->
+            <!-- 显示头像 -->
+            <!-- 头像在static/userMaterialStock/user_id/avatar -->            
+            <div>
+                <img style="width:50px" id="avatarDis" src="{{url_for('static',filename='/userMaterialStock/'~current_user['id']~'/avatar.png')}}" alt="">
+            </div>
             <div class="dropdown">
                 <button id="userNameDis" class="dropbtn">
                     <a>
